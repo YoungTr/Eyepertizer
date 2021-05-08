@@ -28,3 +28,18 @@
 
 ![](./pics/09792-1etz8borfvbwoolchgczq1a.png)
 
+* **View：**它是应用的一部分，渲染用户界面并接受来自用户的交互。Activity，Fragment 和 CustomView 构成这一部分。
+* **MvpView：**它是一个接口，由 View 实现。它通过被暴露的方法和 Presenter 进行通信。
+* **Presenter：**它是 View 的决策对应物，是一个纯 Java 类，不能访问 Android 的 API。它接收 View 传递过来的用户交互，然后根据业务逻辑进行决策，最后指示 View 执行特定的动作。它还与 DataManager 进行通信，以获得执行业务逻辑所需的任何数据。
+* **MvpPresenter：**它是一个接口，由 Presenter 实现。它暴露方法与 View 进行通信。
+* **AppDbHelper：**数据库管理和应用中所有与数据库有关的数据处理都是在这一部分完成。
+* **DbHelper：**它是一个由 AppDbHelper 实现的接口，包含了给应用程序调用的方法。该层对 DbHelper 的任何具体实现进行解耦，使 AppDbHelper 成为即插即用的单元。
+* **AppPreferenceHelper：**与 AppDbHelper 类型，可以从 SharedPreferences 中读写数据。
+* **PreferenceHelper：**与 DbHelper 接口类似，由 AppPreferenceHelper 实现。
+* **AppApiHelper：**它负责管理网络 API 调用和 API 数据处理。
+* **ApiHelper：**它是一个与DbHelper一样的接口，但由AppApiHelper实现。
+* **DataManager：**它是一个由 AppDataManager 实现的接口。它包含所有数据处理操作的方法。理想情况下，它委托所有帮助者类提供的服务。为此，DataManager 接口扩展了DbHelper、PreferenceHelper 和 ApiHelper 接口。
+* **AppDataManager：**它是应用程序中任何数据相关操作的一个联系点。DbHelper, PreferenceHelper, 和 ApiHelper 只对 DataManager 起作用。它将所有特定的操作委托给任何 Helper。
+
+![](./pics/20210508-143706.png)
+
