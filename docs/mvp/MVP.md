@@ -109,5 +109,11 @@ public class BaseInteractor implements MvpInteractor {
 
 2、这些组件使架构更具扩展性和灵活性，但代价是需要做更多的工作。我必须再次重申，原始的MVP架构适用于大多数具有一定复杂度的项目，而这个扩展版本适用于具有数百个功能和许多开发人员同时工作的非常大的项目。
 
-3、ApiHelper 和 PreferenceHelper 没有被分成几个部分，因为 Android应用对它们的依赖性非常有限。
+3、ApiHelper 和 PreferenceHelper 没有被分成几个部分，因为 Android 应用对它们的依赖性非常有限。
+
+### 参考
+
+https://github.com/MindorksOpenSource/android-mvp-architecture
+
+[Android MVP Architecture Extension with Interactors and Repositories](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
 
