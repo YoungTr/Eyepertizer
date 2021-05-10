@@ -113,7 +113,7 @@ public class BaseInteractor implements MvpInteractor {
 
 ### 参考
 
-https://github.com/MindorksOpenSource/android-mvp-architecture
+[android-mvp-architecture](https://github.com/MindorksOpenSource/android-mvp-architecture)
 
 [Android MVP Architecture Extension with Interactors and Repositories](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
 
