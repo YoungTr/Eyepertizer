@@ -1,10 +1,8 @@
 package com.eyepertizer.androidx
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
+import androidx.appcompat.app.AppCompatActivity
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
