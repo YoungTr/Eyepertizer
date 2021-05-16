@@ -62,7 +62,7 @@ ext {
             "multidex"                     : "com.android.support:multidex:1.0.3",
 
             // other
-            "lottie"                       : "com.airbnb.android:lottie:2.3.0",
+            "lottie"                       : "com.airbnb.android:lottie:3.7.0",
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50",
             "crashreport_upgrade"          : "com.tencent.bugly:crashreport_upgrade:latest.release",
             "logger"                       : "com.orhanobut:logger:2.1.1",
