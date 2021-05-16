@@ -15,18 +15,4 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="NoStatusFooter">
-        <attr name="srlPrimaryColor" />
-        <attr name="srlAccentColor" />
-        <attr name="srlTextSizeTitle" />
-        <attr name="srlTextTitleTypeface">
-            <enum name="fzlLTypeface" value="1" />
-            <enum name="fzdb1Typeface" value="2" />
-            <enum name="futuraTypeface" value="3" />
-            <enum name="dinTypeface" value="4" />
-            <enum name="lobsterTypeface" value="5" />
-        </attr>
-        <attr name="srlTextNothing" />
-    </declare-styleable>
-
 </resources>
