@@ -12,13 +12,12 @@ import com.permissionx.guolindev.PermissionX
  */
 class SplashActivity : BaseActivity(), SplashMvpView {
 
-    lateinit var presenter: SplashPresenter<SplashMvpView>
+    var presenter: SplashPresenter<SplashMvpView> = SplashPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.onAttach(this)
-        presenter.requestWriteExternalStorePermission(PermissionX.init(this)
-            .permissions(android.Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        presenter.requestPermission(PermissionX.init(this))
     }
 
     override fun setView() {
