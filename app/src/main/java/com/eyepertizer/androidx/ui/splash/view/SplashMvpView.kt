@@ -8,5 +8,7 @@ import com.eyepertizer.androidx.base.MvpView
  */
 interface SplashMvpView : MvpView {
 
-    fun setView()
+    fun setupView()
+
+    fun openMainActivity()
 }

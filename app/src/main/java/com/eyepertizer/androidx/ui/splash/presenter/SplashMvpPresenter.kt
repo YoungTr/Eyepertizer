@@ -12,4 +12,6 @@ interface SplashMvpPresenter<V : SplashMvpView> : MvpPresenter<V> {
 
     fun requestPermission(permissionCollection: PermissionCollection)
 
+    fun openMainActivity()
+
 }

@@ -6,12 +6,19 @@ import com.eyepertizer.androidx.base.BaseMvpPresenter
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.ui.splash.view.SplashMvpView
 import com.permissionx.guolindev.PermissionCollection
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @author youngtr
  * @data 2021/5/16
  */
 class SplashPresenter<V : SplashMvpView> : BaseMvpPresenter<V>(), SplashMvpPresenter<V> {
+
+    private val splashDuration = 3 * 1000L
+    private val job by lazy { Job() }
 
 
     override fun requestPermission(permissionCollection: PermissionCollection) {
@@ -28,9 +35,15 @@ class SplashPresenter<V : SplashMvpView> : BaseMvpPresenter<V>(), SplashMvpPrese
                 R.string.cancel.getString()
             )
         }.request { allGranted, grantedList, deniedList ->
-            getMvpView()?.let {
-                it.setView()
-            }
+            getMvpView()?.setupView()
+            openMainActivity()
+        }
+    }
+
+    override fun openMainActivity() {
+        CoroutineScope(job).launch {
+            delay(splashDuration)
+            getMvpView()?.openMainActivity()
         }
     }
 }

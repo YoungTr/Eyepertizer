@@ -43,7 +43,7 @@
     <string name="your_phone_does_not_install_qq_zone">您的手机还没有安装QQ空间</string>
     <string name="request_permission_picture_processing">需要存储权限来处理您的图片信息</string>
     <string name="request_permission_access_phone_info">开眼视频推荐和观看记录等功能，需要访问手机识别码等信息</string>
-    <string name="request_permissions">开眼视频需要获取如下权限</string>
+    <string name="request_permissions">开眼视频需要获取如下权限，才能正常使用</string>
     <string name="slogan">- Your contribution is highly appreciated! -</string>
     <string name="slogan_two">Daily appetizersfor your eyes. Bon eyepétit.</string>
     <string name="slogan_description">让每一个人都开眼，开了又开。</string>
