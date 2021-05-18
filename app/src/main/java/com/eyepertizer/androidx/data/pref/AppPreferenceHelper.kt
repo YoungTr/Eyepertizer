@@ -3,9 +3,8 @@ package com.eyepertizer.androidx.data.pref
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import javax.inject.Inject
 
-class AppPreferenceHelper @Inject constructor(context: Context, name: String) :
+class AppPreferenceHelper constructor(context: Context, name: String) :
     PreferenceHelper {
 
     companion object {
