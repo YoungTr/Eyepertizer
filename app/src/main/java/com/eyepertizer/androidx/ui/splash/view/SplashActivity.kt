@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
-import com.eyepertizer.androidx.MainActivity
 import com.eyepertizer.androidx.base.BaseActivity
 import com.eyepertizer.androidx.databinding.ActivitySplashBinding
+import com.eyepertizer.androidx.ui.main.view.MainActivity
 import com.eyepertizer.androidx.ui.splash.presenter.SplashPresenter
 import com.permissionx.guolindev.PermissionX
 import javax.inject.Inject

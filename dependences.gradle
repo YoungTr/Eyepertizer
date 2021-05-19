@@ -62,7 +62,7 @@ ext {
             "javax_annotation"  : "org.glassfish:javax.annotation:10.0-b28",
 
 //            // multidex
-//            "multidex"                     : "com.android.support:multidex:1.0.3",
+            "multidex"          : "androidx.multidex:multidex:2.0.1",
 //
 //            // other
 //            "lottie"                       : "com.airbnb.android:lottie:3.7.0",
