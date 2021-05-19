@@ -84,10 +84,9 @@ ext {
     ]
 
     kapts = [
-//            "glide_compiler"          : "com.github.bumptech.glide:compiler:${versions["glideVersion"]}",
-"dagger-compiler"         : "com.google.dagger:dagger-compiler:${versions["daggerVersion"]}",
-"dagger-android-processor": "com.google.dagger:dagger-android-processor:${versions["daggerVersion"]}",
-"x2c-apt"                 : "com.zhangyue.we:x2c-apt:1.1.2"
+            //"glide_compiler"          : "com.github.bumptech.glide:compiler:${versions["glideVersion"]}",
+            "dagger-compiler"         : "com.google.dagger:dagger-compiler:${versions["daggerVersion"]}",
+            "dagger-android-processor": "com.google.dagger:dagger-android-processor:${versions["daggerVersion"]}",
     ]
 //
 //    apiFileDependencies = [
