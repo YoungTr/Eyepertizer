@@ -137,7 +137,73 @@ val activityComponent = appComponent.activityComponent()
 activityComponent.inject(this)
 ```
 
+### dagger.android 扩展
 
+1. 在 AppComponent 中安装 AndroidInjectionModule，确保包含四大组件和 Fragment 的注入器类型
+
+```kotlin
+@Singleton
+@Component(modules = [AndroidInjectionModule::class, ActivityBindModule::class, AppModule::class])
+interface AppComponent {
+    fun inject(application: EyepertizerApplication)
+}
+```
+
+2. 在一个抽象 Module 中添加一个使用 `@ContributesAndroidInjector` 注解标记的返回具体的 Activity 类型的抽象方法
+
+```kotlin
+@Module
+abstract class ActivityBindModule {
+
+    @ContributesAndroidInjector
+    abstract fun splashActivityInjector(): SplashActivity
+
+    @ContributesAndroidInjector
+    abstract fun mainActivityInjector(): MainActivity
+}
+```
+
+3. Application 类实现 HasAndroidInjector 接口，并且注入一个 DispatchingAndroidInjector 类型的依赖作为 activityInjector() 方法的返回值。
+
+```kotlin
+class EyepertizerApplication : Application(), HasAndroidInjector {
+
+    @Inject
+    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Any>
+
+
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var context: Application
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        context = this
+        val component = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        component.inject(this)
+
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingActivityInjector
+}
+```
+
+4. 在 onCreate)() 方法中，在 `super.onCreate()` 之前调用 `AndroidInjection.inject(this)`
+
+```kotlin
+abstract class BaseActivity : AppCompatActivity(), MvpView {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        performDI()
+        super.onCreate(savedInstanceState)
+    }
+
+    private fun performDI() {
+        AndroidInjection.inject(this)
+    }
+}
+```
 
 https://johnnyshieh.me/posts/dagger-subcomponent/
 
