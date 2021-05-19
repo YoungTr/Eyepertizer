@@ -2,14 +2,22 @@ package com.eyepertizer.androidx
 
 import android.annotation.SuppressLint
 import android.app.Application
-import com.eyepertizer.androidx.di.ext.AppModule
-import com.eyepertizer.androidx.di.ext.DaggerAppComponent
+import com.eyepertizer.androidx.di.module.AppModule
+import com.eyepertizer.androidx.di.component.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
 /**
  * @author youngtr
  * @data 2021/5/16
  */
-class EyepertizerApplication : Application() {
+class EyepertizerApplication : Application(), HasAndroidInjector {
+
+    @Inject
+    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Any>
+
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -19,14 +27,10 @@ class EyepertizerApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = this
+        val component = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        component.inject(this)
 
-        val appComponent = DaggerAppComponent.builder()
-            .appModule(AppModule(this))
-            .build()
-        appComponent.inject(this)
-
-        val activityComponent = appComponent.activityComponent()
-            .build()
-        activityComponent.inject(this)
     }
+
+    override fun androidInjector(): AndroidInjector<Any>? = dispatchingActivityInjector
 }

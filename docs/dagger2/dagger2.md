@@ -24,5 +24,121 @@
 
 2、`@Scope` 同样用于自定义注解，我能可以通过@Scope自定义的注解来限定注解作用域，实现局部的单例；
 
- 
+ ### Component
 
+#### 依赖关系（组件依赖）
+
+AppComponent 持有一个全局的 Context 对象：
+
+```kotlin
+@Component(modules = [AppModule::class])
+interface AppComponent {
+    fun inject(context: Context)
+    fun context(): Context
+}
+```
+
+```kotlin
+@Module
+class AppModule(private val context: Context) {
+    @Provides
+    fun provideContext(): Context = context
+}
+```
+
+ActivityComponent 需要使用 AppComponent 中的 Context 对象：
+
+```kotlin
+// 声明了依赖关系
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
+interface ActivityComponent {
+    fun inject(activity: Activity)
+}
+```
+
+```kotlin
+@Module
+class ActivityModule {
+    @Provides
+    fun provideSp(context: Context) = context.getSharedPreferences("Cooker", Context.MODE_PRIVATE)
+}
+```
+
+依赖注入：
+
+```kotlin
+val appComponent = DaggerAppComponent.builder()
+    .appModule(AppModule(this))
+    .build()
+appComponent.inject(this)
+
+val activityComponent = DaggerActivityComponent.builder().appComponent(appComponent)
+    .build()
+activityComponent.inject(this)
+```
+
+ActivityComponent 声明依赖了 AppComponent，AppComponent 拥有 AppModule 中有可以提供 context 的 Provides，因此 ActivityModule 可以从 AppModule 拿到 context。
+
+#### 包含关系（组件继承）
+
+声明继承需要如下几步：
+
+1. 子 Component 用 `@SubComponent` 注解；
+2. 子 Component 声明一个 Builder 来告诉父 Component 如何创建自己；
+3. 父 Component 对应的 Module 用 `subcomponent` 属性指明拥有哪些子 Component；
+4. 父 Component 声明一个抽象方法来获取子 Component 的 Builder。
+
+```kotlin
+// 子 Component 用 @SubComponent 注解
+@Subcomponent(modules = [ActivityModule::class])
+interface ActivityComponent {
+
+    fun inject(activity: MainActivity)
+
+    // 声明一个 Builder 来告诉父 Component 如何创建自己
+    @Subcomponent.Builder
+    interface Builder {
+        fun build(): ActivityComponent
+    }
+}
+```
+
+```kotlin
+// 父 Component 对应的 Module 用 subcomponents 属性指定拥有哪些子 Component
+@Module(subcomponents = [ActivityComponent::class])
+class AppModule(private val context: Context) {
+    @Provides
+    fun provideContext(): Context = context
+}
+```
+
+```kotlin
+@Component(modules = [AppModule::class])
+interface AppComponent {
+    fun inject(context: Context)
+
+    //    fun context(): Context 不再需要
+
+    // 父 Component 声明一个抽象方法来获取子 Component 的 Builder
+    fun activityComponent(): ActivityComponent.Builder
+}
+```
+
+依赖注入：
+
+```kotlin
+val appComponent = DaggerAppComponent.builder()
+    .appModule(AppModule(this))
+    .build()
+    appComponent.inject(this)
+
+val activityComponent = appComponent.activityComponent()
+    .build()
+activityComponent.inject(this)
+```
+
+
+
+https://johnnyshieh.me/posts/dagger-subcomponent/
+
+https://juejin.cn/post/6844904201219211272

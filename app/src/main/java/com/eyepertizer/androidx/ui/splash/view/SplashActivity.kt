@@ -11,6 +11,7 @@ import com.eyepertizer.androidx.data.pref.AppPreferenceHelper
 import com.eyepertizer.androidx.databinding.ActivitySplashBinding
 import com.eyepertizer.androidx.ui.splash.presenter.SplashPresenter
 import com.permissionx.guolindev.PermissionX
+import javax.inject.Inject
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -25,7 +26,8 @@ class SplashActivity : BaseActivity(), SplashMvpView {
     private lateinit var preferenceHelper: AppPreferenceHelper
 
 
-    var presenter: SplashPresenter<SplashMvpView> = SplashPresenter()
+    @Inject
+    lateinit var presenter: SplashPresenter<SplashMvpView>
 
     private val splashDuration = 3 * 1000L
 

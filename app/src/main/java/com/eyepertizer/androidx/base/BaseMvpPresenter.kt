@@ -1,10 +1,13 @@
 package com.eyepertizer.androidx.base
 
+import com.eyepertizer.androidx.data.AppDataManager
+
 /**
  * @author youngtr
  * @data 2021/5/14
  */
-abstract class BaseMvpPresenter<V : MvpView>() : MvpPresenter<V> {
+abstract class BaseMvpPresenter<V : MvpView> constructor(val dataManager: AppDataManager) :
+    MvpPresenter<V> {
 
     private var mMvpView: V? = null
 

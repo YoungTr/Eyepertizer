@@ -12,7 +12,7 @@ import dagger.android.AndroidInjection
 abstract class BaseActivity : AppCompatActivity(), MvpView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        performDI()
+        performDI()
         super.onCreate(savedInstanceState)
     }
 

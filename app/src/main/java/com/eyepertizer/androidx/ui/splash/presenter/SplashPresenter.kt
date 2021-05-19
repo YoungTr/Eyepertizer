@@ -3,6 +3,7 @@ package com.eyepertizer.androidx.ui.splash.presenter
 import android.Manifest
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.base.BaseMvpPresenter
+import com.eyepertizer.androidx.data.AppDataManager
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.ui.splash.view.SplashMvpView
 import com.permissionx.guolindev.PermissionCollection
@@ -10,12 +11,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * @author youngtr
  * @data 2021/5/16
  */
-class SplashPresenter<V : SplashMvpView> : BaseMvpPresenter<V>(), SplashMvpPresenter<V> {
+class SplashPresenter<V : SplashMvpView> @Inject constructor(dataManager: AppDataManager) :
+    BaseMvpPresenter<V>(dataManager), SplashMvpPresenter<V> {
 
     private val splashDuration = 3 * 1000L
     private val job by lazy { Job() }
@@ -37,6 +40,7 @@ class SplashPresenter<V : SplashMvpView> : BaseMvpPresenter<V>(), SplashMvpPrese
         }.request { allGranted, grantedList, deniedList ->
             getMvpView()?.setupView()
             openMainActivity()
+            dataManager.setFirstEntryApp(false)
         }
     }
 
@@ -45,5 +49,10 @@ class SplashPresenter<V : SplashMvpView> : BaseMvpPresenter<V>(), SplashMvpPrese
             delay(splashDuration)
             getMvpView()?.openMainActivity()
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        job.cancel()
     }
 }

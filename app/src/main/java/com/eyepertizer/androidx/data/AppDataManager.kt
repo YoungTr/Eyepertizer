@@ -1,11 +1,24 @@
 package com.eyepertizer.androidx.data
 
-class AppDataManager : IDataManager {
+import com.eyepertizer.androidx.data.db.DbHelper
+import com.eyepertizer.androidx.data.network.ApiHelper
+import com.eyepertizer.androidx.data.pref.PreferenceHelper
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class AppDataManager @Inject constructor(
+    private val preferenceHelper: PreferenceHelper,
+    private val apiHelper: ApiHelper,
+    private val dbHelper: DbHelper
+) : IDataManager {
+
+
     override fun getFirstEntryApp(): Boolean {
-        TODO("Not yet implemented")
+        return preferenceHelper.getFirstEntryApp()
     }
 
     override fun setFirstEntryApp(isFirst: Boolean) {
-        TODO("Not yet implemented")
+        preferenceHelper.setFirstEntryApp(isFirst)
     }
 }
