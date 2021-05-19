@@ -7,7 +7,6 @@ import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import com.eyepertizer.androidx.MainActivity
 import com.eyepertizer.androidx.base.BaseActivity
-import com.eyepertizer.androidx.data.pref.AppPreferenceHelper
 import com.eyepertizer.androidx.databinding.ActivitySplashBinding
 import com.eyepertizer.androidx.ui.splash.presenter.SplashPresenter
 import com.permissionx.guolindev.PermissionX
@@ -22,9 +21,6 @@ class SplashActivity : BaseActivity(), SplashMvpView {
     var _binding: ActivitySplashBinding? = null
     val binding: ActivitySplashBinding
         get() = _binding!!
-
-    private lateinit var preferenceHelper: AppPreferenceHelper
-
 
     @Inject
     lateinit var presenter: SplashPresenter<SplashMvpView>
@@ -56,10 +52,8 @@ class SplashActivity : BaseActivity(), SplashMvpView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        preferenceHelper = AppPreferenceHelper(this, "eye")
         presenter.onAttach(this)
         presenter.requestPermission(PermissionX.init(this))
-        preferenceHelper.setFirstEntryApp(false)
     }
 
     override fun onDestroy() {

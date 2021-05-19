@@ -1,12 +1,13 @@
 package com.eyepertizer.androidx.base
 
 import com.eyepertizer.androidx.data.AppDataManager
+import com.eyepertizer.androidx.data.IDataManager
 
 /**
  * @author youngtr
  * @data 2021/5/14
  */
-abstract class BaseMvpPresenter<V : MvpView> constructor(val dataManager: AppDataManager) :
+abstract class BaseMvpPresenter<V : MvpView> constructor(private val dataManager: AppDataManager) :
     MvpPresenter<V> {
 
     private var mMvpView: V? = null
@@ -20,4 +21,6 @@ abstract class BaseMvpPresenter<V : MvpView> constructor(val dataManager: AppDat
     }
 
     override fun getMvpView(): V? = mMvpView
+
+    fun getDataManager(): IDataManager = dataManager
 }

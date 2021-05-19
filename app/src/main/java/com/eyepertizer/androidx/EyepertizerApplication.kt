@@ -2,8 +2,8 @@ package com.eyepertizer.androidx
 
 import android.annotation.SuppressLint
 import android.app.Application
-import com.eyepertizer.androidx.di.module.AppModule
 import com.eyepertizer.androidx.di.component.DaggerAppComponent
+import com.eyepertizer.androidx.di.module.AppModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -32,5 +32,5 @@ class EyepertizerApplication : Application(), HasAndroidInjector {
 
     }
 
-    override fun androidInjector(): AndroidInjector<Any>? = dispatchingActivityInjector
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingActivityInjector
 }
