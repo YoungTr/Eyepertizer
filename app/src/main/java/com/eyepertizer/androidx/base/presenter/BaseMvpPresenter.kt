@@ -1,5 +1,6 @@
-package com.eyepertizer.androidx.base
+package com.eyepertizer.androidx.base.presenter
 
+import com.eyepertizer.androidx.base.view.MvpView
 import com.eyepertizer.androidx.data.AppDataManager
 import com.eyepertizer.androidx.data.IDataManager
 

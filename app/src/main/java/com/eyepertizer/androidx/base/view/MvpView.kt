@@ -1,4 +1,4 @@
-package com.eyepertizer.androidx.base
+package com.eyepertizer.androidx.base.view
 
 /**
  * View 基类
@@ -9,6 +9,8 @@ package com.eyepertizer.androidx.base
 interface MvpView {
 
     fun showLoading()
+
+    fun hideLoading()
 
     fun showToast(message: String?)
 }

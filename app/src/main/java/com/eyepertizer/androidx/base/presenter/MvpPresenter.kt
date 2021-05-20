@@ -1,4 +1,6 @@
-package com.eyepertizer.androidx.base
+package com.eyepertizer.androidx.base.presenter
+
+import com.eyepertizer.androidx.base.view.MvpView
 
 /**
  * @author youngtr
