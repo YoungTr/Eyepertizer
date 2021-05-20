@@ -20,17 +20,16 @@ class MainActivity : BaseActivity(), MainMvpView {
         const val PRESS_BACK_DURATION = 2000L
         const val TAB_INDEX_HOME = 0
         const val TAB_INDEX_COMMUNITY = 1
-        const val TAB_INDEX_NOTIFICATION = 3
-        const val TAB_INDEX_RELEASE = 2
-        const val TAB_INDEX_MINE = 4
+        const val TAB_INDEX_NOTIFICATION = 2
+        const val TAB_INDEX_MINE = 3
     }
 
     @Inject
     lateinit var presenter: MainPresenter<MainMvpView>
 
     private var backPressTime = 0L
-    var _binding: ActivityMainBinding? = null
-    val binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding
         get() = _binding!!
 
     private var homePageFragment: HomePageFragment? = null
@@ -77,6 +76,7 @@ class MainActivity : BaseActivity(), MainMvpView {
     }
 
     private fun notificationUiRefresh(selectionIndex: Int) {
+        logD(TAG, "selectionIndex: $selectionIndex")
 //        when (selectionIndex) {
 //            0 -> {
 //                if (binding.navigationBar.ivHomePage.isSelected) EventBus.getDefault().post(RefreshEvent(HomePageFragment::class.java))
@@ -99,74 +99,32 @@ class MainActivity : BaseActivity(), MainMvpView {
             hideAllFragments(this)
             when (index) {
                 TAB_INDEX_HOME -> {
+                    binding.navigationBar.ivHomePage.isSelected = true
+                    if (homePageFragment == null) {
+                        homePageFragment = HomePageFragment.newInstance()
+                        add(R.id.homeActivityFragContainer, homePageFragment!!)
+                    } else {
+                        show(homePageFragment!!)
+                    }
                 }
-                TAB_INDEX_COMMUNITY
+                TAB_INDEX_COMMUNITY,
                 -> {
+                    binding.navigationBar.ivCommunity.isSelected = true
+
                 }
-                TAB_INDEX_NOTIFICATION
+                TAB_INDEX_NOTIFICATION,
                 -> {
+                    binding.navigationBar.ivNotification.isSelected = true
+
                 }
-                TAB_INDEX_MINE
+                TAB_INDEX_MINE,
                 -> {
+                    binding.navigationBar.ivMine.isSelected = true
+
                 }
 
             }
-        }
-        //        fragmentManager.beginTransaction().apply {
-//            hideFragments(this)
-//            when (index) {
-//                0 -> {
-//                    binding.navigationBar.ivHomePage.isSelected = true
-//                    binding.navigationBar.tvHomePage.isSelected = true
-//                    if (homePageFragment == null) {
-//                        homePageFragment = HomePageFragment.newInstance()
-//                        add(R.id.homeActivityFragContainer, homePageFragment!!)
-//                    } else {
-//                        show(homePageFragment!!)
-//                    }
-//                }
-//                1 -> {
-//                    binding.navigationBar.ivCommunity.isSelected = true
-//                    binding.navigationBar.tvCommunity.isSelected = true
-//                    if (communityFragment == null) {
-//                        communityFragment = CommunityFragment()
-//                        add(R.id.homeActivityFragContainer, communityFragment!!)
-//                    } else {
-//                        show(communityFragment!!)
-//                    }
-//                }
-//                2 -> {
-//                    binding.navigationBar.ivNotification.isSelected = true
-//                    binding.navigationBar.tvNotification.isSelected = true
-//                    if (notificationFragment == null) {
-//                        notificationFragment = NotificationFragment()
-//                        add(R.id.homeActivityFragContainer, notificationFragment!!)
-//                    } else {
-//                        show(notificationFragment!!)
-//                    }
-//                }
-//                3 -> {
-//                    binding.navigationBar.ivMine.isSelected = true
-//                    binding.navigationBar.tvMine.isSelected = true
-//                    if (mineFragment == null) {
-//                        mineFragment = MineFragment.newInstance()
-//                        add(R.id.homeActivityFragContainer, mineFragment!!)
-//                    } else {
-//                        show(mineFragment!!)
-//                    }
-//                }
-//                else -> {
-//                    binding.navigationBar.ivHomePage.isSelected = true
-//                    binding.navigationBar.tvHomePage.isSelected = true
-//                    if (homePageFragment == null) {
-//                        homePageFragment = HomePageFragment.newInstance()
-//                        add(R.id.homeActivityFragContainer, homePageFragment!!)
-//                    } else {
-//                        show(homePageFragment!!)
-//                    }
-//                }
-//            }
-//        }.commitAllowingStateLoss()
+        }.commitAllowingStateLoss()
     }
 
     private fun clearAllSelected() {
@@ -176,7 +134,7 @@ class MainActivity : BaseActivity(), MainMvpView {
         binding.navigationBar.ivMine.isSelected = false
     }
 
-    fun hideAllFragments(transaction: FragmentTransaction) {
+    private fun hideAllFragments(transaction: FragmentTransaction) {
         transaction.run {
             if (homePageFragment != null) hide(homePageFragment!!)
         }

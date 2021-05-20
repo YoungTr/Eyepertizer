@@ -13,6 +13,15 @@ import com.eyepertizer.androidx.ui.model.TabEntity
 import com.flyco.tablayout.listener.CustomTabEntity
 
 class HomePageFragment : BaseViewPagerFragment() {
+    companion object {
+        fun newInstance(): HomePageFragment {
+            val args = Bundle()
+
+            val fragment = HomePageFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     private var _binding: FragmentMainContainerBinding? = null
 
@@ -34,7 +43,7 @@ class HomePageFragment : BaseViewPagerFragment() {
     override fun bindView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMainContainerBinding.inflate(layoutInflater, container, false)
         return binding.root
