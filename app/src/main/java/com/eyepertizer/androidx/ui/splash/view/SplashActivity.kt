@@ -58,6 +58,7 @@ class SplashActivity : BaseActivity(), SplashMvpView {
     }
 
     override fun bindView(): View? {
+        // 获取权限之后再加载页面，这里直接返回 null
         return null
     }
 

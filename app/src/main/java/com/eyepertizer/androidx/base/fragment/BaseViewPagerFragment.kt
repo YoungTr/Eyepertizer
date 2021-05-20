@@ -63,10 +63,10 @@ abstract class BaseViewPagerFragment : BaseFragment() {
 
     override fun setUp() {
         setupViews()
-        vpSetUp()
+        viewPagerSetUp()
     }
 
-    abstract fun vpSetUp()
+    abstract fun viewPagerSetUp()
 
 
     open fun setupViews() {

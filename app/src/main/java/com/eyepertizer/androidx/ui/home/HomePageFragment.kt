@@ -31,16 +31,16 @@ class HomePageFragment : BaseViewPagerFragment() {
 //        DailyFragment.newInstance()
     )
 
-    override fun onCreateView(
+    override fun bindView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainContainerBinding.inflate(layoutInflater, container, false)
-        return super.onCreateView(binding.root)
+        return binding.root
     }
 
-    override fun vpSetUp() {
+    override fun viewPagerSetUp() {
         binding.titleBar.ivCalendar.visibility = View.VISIBLE
         viewPager?.currentItem = 1
     }

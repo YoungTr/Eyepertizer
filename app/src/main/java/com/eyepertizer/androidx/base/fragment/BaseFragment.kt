@@ -2,7 +2,9 @@ package com.eyepertizer.androidx.base.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.eyepertizer.androidx.R
@@ -50,17 +52,28 @@ abstract class BaseFragment : Fragment(), MvpView {
         super.onCreate(savedInstanceState)
     }
 
-    /**
-     * 在Fragment基类中获取通用的控件，会将传入的View实例原封不动返回。
-     * @param view Fragment中inflate出来的View实例。
-     * @return  Fragment中inflate出来的View实例原封不动返回。
-     */
-    fun onCreateView(view: View): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view: View = bindView(inflater, container, savedInstanceState)
+        onCreateView(view)
+        return view
+    }
+
+    abstract fun bindView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View
+
+
+    private fun onCreateView(view: View) {
         logD(TAG, "BaseFragment-->onCreateView()")
         rootView = view
         loading = view.findViewById(R.id.loading)
 //        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
-        return view
     }
 
     private fun performDI() {
