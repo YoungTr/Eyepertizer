@@ -2,10 +2,11 @@ package com.eyepertizer.androidx.ui.splash.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
-import com.eyepertizer.androidx.base.BaseActivity
+import com.eyepertizer.androidx.base.activity.BaseActivity
 import com.eyepertizer.androidx.databinding.ActivitySplashBinding
 import com.eyepertizer.androidx.ui.main.view.MainActivity
 import com.eyepertizer.androidx.ui.splash.presenter.SplashPresenter
@@ -56,13 +57,18 @@ class SplashActivity : BaseActivity(), SplashMvpView {
         presenter.requestPermission(PermissionX.init(this))
     }
 
+    override fun bindView(): View? {
+        return null
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
         presenter.onDetach()
     }
 
-    override fun setupView() {
+    override fun setUpView() {
         _binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.ivSlogan.startAnimation(alphaAnimation)

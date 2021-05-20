@@ -1,6 +1,6 @@
 package com.eyepertizer.androidx.ui.splash.view
 
-import com.eyepertizer.androidx.base.MvpView
+import com.eyepertizer.androidx.base.view.MvpView
 
 /**
  * @author youngtr
@@ -8,7 +8,7 @@ import com.eyepertizer.androidx.base.MvpView
  */
 interface SplashMvpView : MvpView {
 
-    fun setupView()
+    fun setUpView()
 
     fun openMainActivity()
 }

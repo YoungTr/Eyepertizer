@@ -1,6 +1,6 @@
 package com.eyepertizer.androidx.ui.splash.presenter
 
-import com.eyepertizer.androidx.base.MvpPresenter
+import com.eyepertizer.androidx.base.presenter.MvpPresenter
 import com.eyepertizer.androidx.ui.splash.view.SplashMvpView
 import com.permissionx.guolindev.PermissionCollection
 

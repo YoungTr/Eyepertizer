@@ -2,7 +2,7 @@ package com.eyepertizer.androidx.ui.splash.presenter
 
 import android.Manifest
 import com.eyepertizer.androidx.R
-import com.eyepertizer.androidx.base.BaseMvpPresenter
+import com.eyepertizer.androidx.base.presenter.BaseMvpPresenter
 import com.eyepertizer.androidx.data.AppDataManager
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.ui.splash.view.SplashMvpView
@@ -38,7 +38,7 @@ class SplashPresenter<V : SplashMvpView> @Inject constructor(dataManager: AppDat
                 R.string.cancel.getString()
             )
         }.request { allGranted, grantedList, deniedList ->
-            getMvpView()?.setupView()
+            getMvpView()?.setUpView()
             openMainActivity()
             getDataManager().setFirstEntryApp(false)
         }
