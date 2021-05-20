@@ -9,4 +9,4 @@ import com.eyepertizer.androidx.EyepertizerApplication
  */
 
 fun CharSequence.showToast(duration: Int = Toast.LENGTH_SHORT) =
-    Toast.makeText(EyepertizerApplication.context, this, duration)!!
+    Toast.makeText(EyepertizerApplication.context, this, duration).show()
