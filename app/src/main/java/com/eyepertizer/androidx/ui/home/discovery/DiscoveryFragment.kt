@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.eyepertizer.androidx.base.fragment.BaseFragment
 import com.eyepertizer.androidx.databinding.FragmentRefreshLayoutBinding
 import com.eyepertizer.androidx.util.logD
@@ -27,6 +28,15 @@ class DiscoveryFragment : BaseFragment() {
 
     override fun setUp() {
         logD(TAG, "set up")
+    }
+
+    override fun lazyInit() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+//        binding.recyclerView.adapter = adapter
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.itemAnimator = null
+        binding.refreshLayout.setOnRefreshListener { logD(TAG, "refresh") }
+        binding.refreshLayout.setOnLoadMoreListener { logD(TAG, "load more") }
     }
 
     override fun onDestroyView() {
