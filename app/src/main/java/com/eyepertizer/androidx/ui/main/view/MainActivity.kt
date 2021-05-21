@@ -94,12 +94,11 @@ class MainActivity : BaseActivity(), MainMvpView {
     }
 
     private fun setTabSelection(index: Int) {
-        clearAllSelected()
+        setNavigationBarSelected(index)
         supportFragmentManager.beginTransaction().apply {
             hideAllFragments(this)
             when (index) {
                 TAB_INDEX_HOME -> {
-                    binding.navigationBar.ivHomePage.isSelected = true
                     if (homePageFragment == null) {
                         homePageFragment = HomePageFragment.newInstance()
                         add(R.id.homeActivityFragContainer, homePageFragment!!)
@@ -109,17 +108,14 @@ class MainActivity : BaseActivity(), MainMvpView {
                 }
                 TAB_INDEX_COMMUNITY,
                 -> {
-                    binding.navigationBar.ivCommunity.isSelected = true
 
                 }
                 TAB_INDEX_NOTIFICATION,
                 -> {
-                    binding.navigationBar.ivNotification.isSelected = true
 
                 }
                 TAB_INDEX_MINE,
                 -> {
-                    binding.navigationBar.ivMine.isSelected = true
 
                 }
 
@@ -127,11 +123,11 @@ class MainActivity : BaseActivity(), MainMvpView {
         }.commitAllowingStateLoss()
     }
 
-    private fun clearAllSelected() {
-        binding.navigationBar.ivHomePage.isSelected = false
-        binding.navigationBar.ivCommunity.isSelected = false
-        binding.navigationBar.ivNotification.isSelected = false
-        binding.navigationBar.ivMine.isSelected = false
+    private fun setNavigationBarSelected(index: Int) {
+        binding.navigationBar.ivHomePage.isSelected = index == TAB_INDEX_HOME
+        binding.navigationBar.ivCommunity.isSelected = index == TAB_INDEX_COMMUNITY
+        binding.navigationBar.ivNotification.isSelected = index == TAB_INDEX_NOTIFICATION
+        binding.navigationBar.ivMine.isSelected = index == TAB_INDEX_MINE
     }
 
     private fun hideAllFragments(transaction: FragmentTransaction) {

@@ -9,19 +9,13 @@ import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.base.fragment.BaseViewPagerFragment
 import com.eyepertizer.androidx.databinding.FragmentMainContainerBinding
 import com.eyepertizer.androidx.extension.getString
+import com.eyepertizer.androidx.ui.home.commend.CommendFragment
+import com.eyepertizer.androidx.ui.home.daily.DailyFragment
+import com.eyepertizer.androidx.ui.home.discovery.DiscoveryFragment
 import com.eyepertizer.androidx.ui.model.TabEntity
 import com.flyco.tablayout.listener.CustomTabEntity
 
 class HomePageFragment : BaseViewPagerFragment() {
-    companion object {
-        fun newInstance(): HomePageFragment {
-            val args = Bundle()
-
-            val fragment = HomePageFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     private var _binding: FragmentMainContainerBinding? = null
 
@@ -35,9 +29,9 @@ class HomePageFragment : BaseViewPagerFragment() {
     }
 
     override val createFragments: Array<Fragment> = arrayOf(
-//        DiscoveryFragment.newInstance(),
-//        CommendFragment.newInstance(),
-//        DailyFragment.newInstance()
+        DiscoveryFragment.newInstance(),
+        CommendFragment.newInstance(),
+        DailyFragment.newInstance()
     )
 
     override fun bindView(
@@ -60,4 +54,13 @@ class HomePageFragment : BaseViewPagerFragment() {
         _binding = null
     }
 
+    companion object {
+        fun newInstance(): HomePageFragment {
+            val args = Bundle()
+
+            val fragment = HomePageFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 }

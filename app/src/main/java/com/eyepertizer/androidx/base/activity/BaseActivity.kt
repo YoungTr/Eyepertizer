@@ -2,10 +2,13 @@ package com.eyepertizer.androidx.base.activity
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
+import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.base.view.MvpView
 import com.eyepertizer.androidx.extension.showToast
 import com.eyepertizer.androidx.util.logD
+import com.gyf.immersionbar.ImmersionBar
 import dagger.android.AndroidInjection
 
 /**
@@ -22,6 +25,7 @@ abstract class BaseActivity : AppCompatActivity(), MvpView {
         val rootView = bindView()
         if (rootView != null) {
             setContentView(rootView)
+            setStatusBarBackground(R.color.colorPrimaryDark)
             setUp()
         }
     }
@@ -45,5 +49,13 @@ abstract class BaseActivity : AppCompatActivity(), MvpView {
 
     override fun showToast(message: String?) {
         message?.showToast()
+    }
+
+    /**
+     * 设置状态栏背景色
+     */
+    open fun setStatusBarBackground(@ColorRes statusBarColor: Int) {
+        ImmersionBar.with(this).autoStatusBarDarkModeEnable(true, 0.2f)
+            .statusBarColor(statusBarColor).fitsSystemWindows(true).init()
     }
 }

@@ -38,6 +38,11 @@ abstract class BaseFragment : Fragment(), MvpView {
      */
     private var loading: ProgressBar? = null
 
+    /**
+     * 懒加载标志
+     */
+    private var isLoaded = false
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BaseActivity) {
@@ -86,6 +91,18 @@ abstract class BaseFragment : Fragment(), MvpView {
     }
 
     abstract fun setUp()
+
+    override fun onResume() {
+        super.onResume()
+        if (!isLoaded) {
+            lazyInit()
+            isLoaded = true
+        }
+    }
+
+    open fun lazyInit() {
+        logD(TAG, "lazy init")
+    }
 
     fun getBaseActivity() = parentActivity
 

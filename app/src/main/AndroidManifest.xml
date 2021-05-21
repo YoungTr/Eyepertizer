@@ -17,7 +17,6 @@
         <activity
             android:name=".ui.splash.view.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_splash"
             android:theme="@style/Eyepetizer.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

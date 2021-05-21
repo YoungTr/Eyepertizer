@@ -19,8 +19,8 @@ import javax.inject.Inject
  */
 class SplashActivity : BaseActivity(), SplashMvpView {
 
-    var _binding: ActivitySplashBinding? = null
-    val binding: ActivitySplashBinding
+    private var _binding: ActivitySplashBinding? = null
+    private val binding: ActivitySplashBinding
         get() = _binding!!
 
     @Inject
