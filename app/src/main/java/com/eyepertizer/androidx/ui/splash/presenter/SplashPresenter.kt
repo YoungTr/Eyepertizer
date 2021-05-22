@@ -7,6 +7,7 @@ import com.eyepertizer.androidx.data.AppDataManager
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.ui.splash.view.SplashMvpView
 import com.permissionx.guolindev.PermissionCollection
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -17,8 +18,11 @@ import javax.inject.Inject
  * @author youngtr
  * @data 2021/5/16
  */
-class SplashPresenter<V : SplashMvpView> @Inject constructor(dataManager: AppDataManager) :
-    BaseMvpPresenter<V>(dataManager), SplashMvpPresenter<V> {
+class SplashPresenter<V : SplashMvpView> @Inject constructor(
+    dataManager: AppDataManager,
+    compositeDisposable: CompositeDisposable,
+) :
+    BaseMvpPresenter<V>(dataManager, compositeDisposable), SplashMvpPresenter<V> {
 
     private val splashDuration = 3 * 1000L
     private val job by lazy { Job() }

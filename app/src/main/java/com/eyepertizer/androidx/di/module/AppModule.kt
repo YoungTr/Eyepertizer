@@ -14,6 +14,7 @@ import com.eyepertizer.androidx.di.PreferenceInfo
 import com.eyepertizer.androidx.util.AppConstants
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Singleton
 
 @Module
@@ -50,4 +51,9 @@ class AppModule(private val application: Application) {
     @PreferenceInfo
     @Provides
     fun providePreferenceFileName(): String = AppConstants.PREF_NAME
+
+
+    @Provides
+    fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
+
 }

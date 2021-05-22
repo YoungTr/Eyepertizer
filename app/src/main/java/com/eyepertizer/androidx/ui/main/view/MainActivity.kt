@@ -41,6 +41,7 @@ class MainActivity : BaseActivity(), MainMvpView {
     }
 
     override fun setUp() {
+        presenter.onAttach(this)
         logD(TAG, "setUp: ")
         setOnClickListener(
             binding.navigationBar.btnHomePage,
@@ -156,6 +157,7 @@ class MainActivity : BaseActivity(), MainMvpView {
 
     override fun onDestroy() {
         super.onDestroy()
+        presenter.onDetach()
         _binding = null
     }
 }

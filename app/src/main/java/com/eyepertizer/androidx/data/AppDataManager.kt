@@ -2,7 +2,9 @@ package com.eyepertizer.androidx.data
 
 import com.eyepertizer.androidx.data.db.DbHelper
 import com.eyepertizer.androidx.data.network.ApiHelper
+import com.eyepertizer.androidx.data.network.model.HomePageRecommend
 import com.eyepertizer.androidx.data.pref.PreferenceHelper
+import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,7 +12,7 @@ import javax.inject.Singleton
 class AppDataManager @Inject constructor(
     private val preferenceHelper: PreferenceHelper,
     private val apiHelper: ApiHelper,
-    private val dbHelper: DbHelper
+    private val dbHelper: DbHelper,
 ) : IDataManager {
 
 
@@ -20,5 +22,9 @@ class AppDataManager @Inject constructor(
 
     override fun setFirstEntryApp(isFirst: Boolean) {
         preferenceHelper.setFirstEntryApp(isFirst)
+    }
+
+    override fun getHomePageRecommend(): Observable<HomePageRecommend> {
+        return apiHelper.getHomePageRecommend()
     }
 }

@@ -4,6 +4,7 @@ import com.eyepertizer.androidx.EyepertizerApplication
 import com.eyepertizer.androidx.di.module.ActivityBindModule
 import com.eyepertizer.androidx.di.module.AppModule
 import com.eyepertizer.androidx.di.module.FragmentBindModule
+import com.eyepertizer.androidx.di.module.HttpModule
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
@@ -12,7 +13,8 @@ import javax.inject.Singleton
 @Component(modules = [AndroidInjectionModule::class,
     ActivityBindModule::class,
     AppModule::class,
-    FragmentBindModule::class])
+    FragmentBindModule::class,
+    HttpModule::class])
 interface AppComponent {
     fun inject(application: EyepertizerApplication)
 }
