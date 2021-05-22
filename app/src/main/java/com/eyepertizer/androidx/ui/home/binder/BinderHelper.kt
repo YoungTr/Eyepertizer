@@ -19,6 +19,7 @@ import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.TOPIC_BRI
 import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.UGC_SELECTED_CARD_COLLECTION
 import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.UNKNOWN
 import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.VIDEO_SMALL_CARD
+import com.eyepertizer.androidx.data.network.model.FollowCard
 import com.eyepertizer.androidx.data.network.model.HomePageRecommend
 import com.eyepertizer.androidx.util.logD
 
@@ -152,7 +153,54 @@ data class Header5Model(val text: String, val actionUrl: String?, val follow: Bo
     }
 }
 
+data class Header7Model(val text: String, val rightText: String, val actionUrl: String?) {
+    override fun toString(): String {
+        return "Header7Model(text='$text', rightText='$rightText', actionUrl=$actionUrl)"
+    }
+}
+
+data class Header8Model(val text: String, val rightText: String, val actionUrl: String?) {
+    override fun toString(): String {
+        return "Header7Model(text='$text', rightText='$rightText', actionUrl=$actionUrl)"
+    }
+}
+
+data class VideoSmallModel(val data: HomePageRecommend.Data)
+
+data class FollowCardModel(
+    val icon: String,
+    val description: String,
+    val title: String,
+    val followCard: FollowCard,
+
+    ) {
+    override fun toString(): String {
+        return "FollowCardModel(icon='$icon', description='$description', title='$title', followCard=$followCard)"
+    }
+}
+
 fun createHeader5Model(item: HomePageRecommend.Data): Header5Model {
     logD(TAG, "item follow: ${item.follow}")
     return Header5Model(item.text, item.actionUrl, item.follow != null)
+}
+
+fun createHeader7Model(item: HomePageRecommend.Data): Header7Model {
+    logD(TAG, "item follow: ${item.text}")
+    return Header7Model(item.text, item.rightText, item.actionUrl)
+}
+
+fun createHeader8Model(item: HomePageRecommend.Data): Header8Model {
+    logD(TAG, "item follow: ${item.text}")
+    return Header8Model(item.text, item.rightText, item.actionUrl)
+}
+
+fun createFollowCardModel(item: HomePageRecommend.Data): FollowCardModel {
+    return FollowCardModel(item.header.icon,
+        item.header.description,
+        item.header.title,
+        item.content.data)
+}
+
+fun createVideoSmallModel(item: HomePageRecommend.Data): VideoSmallModel {
+    return VideoSmallModel(item)
 }

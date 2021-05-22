@@ -9,6 +9,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.eyepertizer.androidx.base.fragment.BaseFragment
 import com.eyepertizer.androidx.data.network.model.Commend
 import com.eyepertizer.androidx.databinding.FragmentRefreshLayoutBinding
+import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader5Binder
 import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader7Binder
 import com.eyepertizer.androidx.util.logD
 
@@ -39,6 +40,7 @@ class DiscoveryFragment : BaseFragment() {
 
         adapter = MultiTypeAdapter()
         adapter.register(TextCardViewHeader7Binder())
+        adapter.register(TextCardViewHeader5Binder())
 
         items.add(Commend("五分钟新知"))
         items.add(Commend("Tang"))

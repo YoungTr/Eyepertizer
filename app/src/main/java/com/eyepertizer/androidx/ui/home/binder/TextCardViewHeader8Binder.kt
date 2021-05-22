@@ -11,16 +11,19 @@ import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 
-class TextCardViewHeader7Binder :
-    ItemViewBinder<Header7Model, TextCardViewHeader7Binder.ViewHolder>() {
+class TextCardViewHeader8Binder :
+    ItemViewBinder<Header8Model, TextCardViewHeader8Binder.ViewHolder>() {
 
 
-    override fun onBindViewHolder(holder: ViewHolder, item: Header7Model) {
-        holder.tvTitle7.text = item.text
-        holder.tvRightText7.text = item.rightText
-        setOnClickListener(holder.tvRightText7, holder.ivInto7) {
-//            ActionUrlUtil.process(fragment, model.actionUrl, "${model.text},${model.rightText}")
+    override fun onBindViewHolder(holder: ViewHolder, item: Header8Model) {
+        holder.tvTitle8.text = item.text
+        holder.tvRightText8.text = item.rightText
+        setOnClickListener(holder.tvRightText8, holder.ivInto8) {
+//            ActionUrlUtil.process(fragment,
+//                item.actionUrl,
+//                item.text)
         }
+
     }
 
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
@@ -28,9 +31,9 @@ class TextCardViewHeader7Binder :
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle7: TextView = itemView.findViewById(R.id.tvTitle7)
-        val tvRightText7: TextView = itemView.findViewById(R.id.tvRightText7)
-        val ivInto7: ImageView = itemView.findViewById(R.id.ivInto7)
+        val tvTitle8: TextView = itemView.findViewById(R.id.tvTitle8)
+        val tvRightText8: TextView = itemView.findViewById(R.id.tvRightText8)
+        val ivInto8: ImageView = itemView.findViewById(R.id.ivInto8)
     }
 
     companion object {

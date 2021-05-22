@@ -42,7 +42,7 @@ object ServiceCreator {
 
     const val BASE_URL = "http://baobab.kaiyanapp.com/"
 
-    private val httpClient = OkHttpClient.Builder()
+    val httpClient = OkHttpClient.Builder()
         .addInterceptor(LoggingInterceptor())
         .addInterceptor(HeaderInterceptor())
 //        .addInterceptor(BasicParamsInterceptor())

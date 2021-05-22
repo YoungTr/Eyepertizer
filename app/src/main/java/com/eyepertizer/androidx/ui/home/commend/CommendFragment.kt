@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import com.eyepertizer.androidx.base.fragment.BaseFragment
 import com.eyepertizer.androidx.databinding.FragmentRefreshLayoutBinding
+import com.eyepertizer.androidx.ui.home.binder.FollowCardViewBinder
 import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader5Binder
+import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader7Binder
+import com.eyepertizer.androidx.ui.home.binder.VideoSmallCardBinder
 import com.eyepertizer.androidx.ui.home.commend.presenter.CommendPresenter
 import com.eyepertizer.androidx.util.logD
 import javax.inject.Inject
@@ -43,6 +46,9 @@ class CommendFragment : BaseFragment(), CommendMvpView {
 
         adapter = MultiTypeAdapter()
         adapter.register(TextCardViewHeader5Binder())
+        adapter.register(TextCardViewHeader7Binder())
+        adapter.register(FollowCardViewBinder())
+        adapter.register(VideoSmallCardBinder())
         adapter.items = items
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
