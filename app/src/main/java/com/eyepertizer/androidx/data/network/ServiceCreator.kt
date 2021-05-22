@@ -45,7 +45,7 @@ object ServiceCreator {
     private val httpClient = OkHttpClient.Builder()
         .addInterceptor(LoggingInterceptor())
         .addInterceptor(HeaderInterceptor())
-        .addInterceptor(BasicParamsInterceptor())
+//        .addInterceptor(BasicParamsInterceptor())
         .build()
 
     private val builder = Retrofit.Builder()
@@ -98,7 +98,7 @@ object ServiceCreator {
             val originalRequest = chain.request()
             val originalHttpUrl = originalRequest.url
             val url = originalHttpUrl.newBuilder().apply {
-                addQueryParameter("udid", GlobalUtil.getDeviceSerial())
+//                addQueryParameter("udid", GlobalUtil.getDeviceSerial())
                 addQueryParameter("vc", GlobalUtil.eyepetizerVersionCode.toString())
                 addQueryParameter("vn", GlobalUtil.eyepetizerVersionName)
                 addQueryParameter("size", screenPixel())

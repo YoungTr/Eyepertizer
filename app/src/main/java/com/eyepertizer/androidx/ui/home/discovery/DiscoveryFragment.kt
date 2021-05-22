@@ -9,6 +9,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.eyepertizer.androidx.base.fragment.BaseFragment
 import com.eyepertizer.androidx.data.network.model.Commend
 import com.eyepertizer.androidx.databinding.FragmentRefreshLayoutBinding
+import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader7Binder
 import com.eyepertizer.androidx.util.logD
 
 class DiscoveryFragment : BaseFragment() {

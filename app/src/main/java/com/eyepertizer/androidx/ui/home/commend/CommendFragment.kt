@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import com.eyepertizer.androidx.base.fragment.BaseFragment
-import com.eyepertizer.androidx.data.network.model.Commend
 import com.eyepertizer.androidx.databinding.FragmentRefreshLayoutBinding
+import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader5Binder
 import com.eyepertizer.androidx.ui.home.commend.presenter.CommendPresenter
-import com.eyepertizer.androidx.ui.home.discovery.TextCardViewHeader7Binder
 import com.eyepertizer.androidx.util.logD
 import javax.inject.Inject
 
@@ -20,6 +19,7 @@ class CommendFragment : BaseFragment(), CommendMvpView {
     lateinit var presenter: CommendPresenter<CommendMvpView>
 
     private lateinit var adapter: MultiTypeAdapter
+    private val items: MutableList<Any> = ArrayList()
 
 
     private var _binding: FragmentRefreshLayoutBinding? = null
@@ -41,12 +41,9 @@ class CommendFragment : BaseFragment(), CommendMvpView {
         logD(TAG, "set up")
         presenter.onAttach(this)
 
-        val items: MutableList<Any> = ArrayList()
         adapter = MultiTypeAdapter()
-        adapter.register(TextCardViewHeader7Binder())
+        adapter.register(TextCardViewHeader5Binder())
         adapter.items = items
-
-
 
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
@@ -56,23 +53,21 @@ class CommendFragment : BaseFragment(), CommendMvpView {
         binding.refreshLayout.setOnLoadMoreListener { logD(TAG, "load more") }
 
 
-
-
-
-
     }
 
     override fun lazyInit() {
         super.lazyInit()
         presenter.getHomePageRecommend()
+    }
 
-        val items: MutableList<Any> = ArrayList()
+    override fun setData(data: List<Any>) {
+        items.clear()
+        items.addAll(data)
+        adapter.notifyDataSetChanged()
+    }
 
-
-        items.add(Commend("五分钟新知"))
-        items.add(Commend("网易云音乐"))
-
-        adapter.items = items
+    override fun addData(data: List<Any>) {
+        items.addAll(data)
         adapter.notifyDataSetChanged()
     }
 
