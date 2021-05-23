@@ -1,7 +1,7 @@
 package com.eyepertizer.androidx.ui.home.commend.presenter
 
 import com.eyepertizer.androidx.base.presenter.MvpPresenter
-import com.eyepertizer.androidx.ui.home.commend.CommendMvpView
+import com.eyepertizer.androidx.ui.home.commend.view.CommendMvpView
 
 /**
  * @author youngtr

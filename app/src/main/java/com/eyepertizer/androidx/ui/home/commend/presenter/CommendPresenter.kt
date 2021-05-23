@@ -4,7 +4,7 @@ import com.eyepertizer.androidx.base.presenter.BaseMvpPresenter
 import com.eyepertizer.androidx.constants.Const
 import com.eyepertizer.androidx.data.AppDataManager
 import com.eyepertizer.androidx.ui.home.binder.*
-import com.eyepertizer.androidx.ui.home.commend.CommendMvpView
+import com.eyepertizer.androidx.ui.home.commend.view.CommendMvpView
 import com.eyepertizer.androidx.util.logD
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -31,8 +31,6 @@ class CommendPresenter<V : CommendMvpView> @Inject constructor(
                     val items = mutableListOf<Any>()
                     val itemList = response.itemList
 
-                    val start = System.currentTimeMillis()
-
                     for (value in itemList) {
                         val itemViewType = getItemViewType(value)
                         logD(TAG, "item type: $itemViewType")
@@ -47,18 +45,33 @@ class CommendPresenter<V : CommendMvpView> @Inject constructor(
                                 value.data))
                             Const.ItemViewType.VIDEO_SMALL_CARD -> items.add(createVideoSmallModel(
                                 value.data))
+                            Const.ItemViewType.BANNER3 -> items.add(createBanner3(
+                                value.data))
+                            Const.ItemViewType.BANNER -> items.add(createBanner(
+                                value.data))
+                            Const.ItemViewType.TEXT_CARD_FOOTER2 -> items.add(createFooter2Model(
+                                value.data))
+                            Const.ItemViewType.TEXT_CARD_FOOTER3 -> items.add(createFooter3Model(
+                                value.data))
+                            Const.ItemViewType.INFORMATION_CARD -> items.add(
+                                createInformationFollowModel(
+                                    value.data))
+                            Const.ItemViewType.UGC_SELECTED_CARD_COLLECTION -> items.add(
+                                createUgcSelectedCardModel(
+                                    value.data))
+                            Const.ItemViewType.TAG_BRIEFCARD -> items.add(
+                                createTagBriefCardModel(
+                                    value.data))
+                            Const.ItemViewType.TOPIC_BRIEFCARD -> items.add(
+                                createTopicBriefCardModel(
+                                    value.data))
+                            Const.ItemViewType.AUTO_PLAY_VIDEO_AD -> items.add(
+                                createAutoPlayModel(
+                                    value.data))
 
                         }
-//                        if (itemViewType == Const.ItemViewType.TEXT_CARD_HEADER5) {
-//                            items.add(createHeader5Model(value.data))
-//                        }
                     }
-                    val parserDuration = System.currentTimeMillis() - start
                     getMvpView()?.setData(items)
-                    val updateDuration = System.currentTimeMillis() - start
-
-                    logD(TAG, "parser: $parserDuration, update: $updateDuration")
-
                 },
                 { err ->
                     getMvpView()?.showToast(err.message)

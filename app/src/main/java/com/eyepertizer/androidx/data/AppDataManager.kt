@@ -24,6 +24,14 @@ class AppDataManager @Inject constructor(
         preferenceHelper.setFirstEntryApp(isFirst)
     }
 
+    override fun setUUID(uuid: String) {
+        preferenceHelper.setUUID(uuid)
+    }
+
+    override fun getUUID(): String? {
+        return preferenceHelper.getUUID()
+    }
+
     override fun getHomePageRecommend(): Observable<HomePageRecommend> {
         return apiHelper.getHomePageRecommend()
     }

@@ -1,4 +1,4 @@
-package com.eyepertizer.androidx.ui.home.commend
+package com.eyepertizer.androidx.ui.home.commend.view
 
 import com.eyepertizer.androidx.base.view.MvpView
 

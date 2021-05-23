@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.eyepertizer.androidx.di.component.AppComponent
 import com.eyepertizer.androidx.di.component.DaggerAppComponent
 import com.eyepertizer.androidx.di.module.AppModule
 import dagger.android.AndroidInjector
@@ -24,6 +25,7 @@ class EyepertizerApplication : Application(), HasAndroidInjector {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Application
+        lateinit var appComponent: AppComponent
     }
 
     override fun onCreate() {
@@ -31,6 +33,7 @@ class EyepertizerApplication : Application(), HasAndroidInjector {
         context = this
         val component = DaggerAppComponent.builder().appModule(AppModule(this)).build()
         component.inject(this)
+        appComponent = component
 
     }
 

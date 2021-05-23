@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="@dimen/listSpaceSize"
-    tools:context=".ui.home.commend.CommendFragment">
+    tools:context=".ui.home.commend.view.CommendFragment">
 
     <ImageView
         android:id="@+id/ivVideo"

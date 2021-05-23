@@ -1,7 +1,7 @@
 package com.eyepertizer.androidx.di.module
 
 import com.eyepertizer.androidx.ui.home.HomePageFragment
-import com.eyepertizer.androidx.ui.home.commend.CommendFragment
+import com.eyepertizer.androidx.ui.home.commend.view.CommendFragment
 import com.eyepertizer.androidx.ui.home.daily.DailyFragment
 import com.eyepertizer.androidx.ui.home.discovery.DiscoveryFragment
 import dagger.Module

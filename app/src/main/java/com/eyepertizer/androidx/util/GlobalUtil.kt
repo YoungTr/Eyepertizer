@@ -142,13 +142,17 @@ object GlobalUtil {
                     return deviceSerial.toString()
                 }
             }
-//            var uuid = DataStoreUtils.readStringData("uuid", "")
-           val uuid = UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.getDefault())
+            var uuid = EyepertizerApplication.appComponent.getDataManager().getUUID()
+            logD(TAG, "uuid: $uuid")
             if (!TextUtils.isEmpty(uuid)) {
                 deviceSerial = uuid
                 return deviceSerial.toString()
             }
-            CoroutineScope(Dispatchers.IO).launch {  }
+            uuid = UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.getDefault())
+            logD(TAG, "uuid: $uuid")
+            CoroutineScope(Dispatchers.IO).launch {
+                EyepertizerApplication.appComponent.getDataManager().setUUID(uuid)
+            }
             deviceSerial = uuid
             return deviceSerial.toString()
         } else {

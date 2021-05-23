@@ -39,6 +39,7 @@ ext {
             "multitype"              : "com.drakeet.multitype:multitype:4.2.0",
             "circleimageview"        : "de.hdodenhof:circleimageview:3.1.0",
             "BannerViewPager"        : "com.github.zhpanvip:BannerViewPager:3.5.0",
+            "GSYVideoPlayer"         : "com.shuyu:GSYVideoPlayer:8.1.2",
 //            "VerticalTabLayout"            : "q.rorbin:VerticalTabLayout:1.2.5",
 //            "flowlayout-lib"               : "com.hyman:flowlayout-lib:1.1.2",
 //            "agentweb"                     : "com.just.agentweb:agentweb:4.0.2",

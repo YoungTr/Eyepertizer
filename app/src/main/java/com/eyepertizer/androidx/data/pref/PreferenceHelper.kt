@@ -6,4 +6,8 @@ interface PreferenceHelper {
 
     fun setFirstEntryApp(isFirst: Boolean)
 
+    fun setUUID(uuid: String)
+
+    fun getUUID(): String?
+
 }

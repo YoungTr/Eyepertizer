@@ -19,6 +19,7 @@ import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.TOPIC_BRI
 import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.UGC_SELECTED_CARD_COLLECTION
 import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.UNKNOWN
 import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.VIDEO_SMALL_CARD
+import com.eyepertizer.androidx.data.network.model.Discovery
 import com.eyepertizer.androidx.data.network.model.FollowCard
 import com.eyepertizer.androidx.data.network.model.HomePageRecommend
 import com.eyepertizer.androidx.util.logD
@@ -161,11 +162,64 @@ data class Header7Model(val text: String, val rightText: String, val actionUrl: 
 
 data class Header8Model(val text: String, val rightText: String, val actionUrl: String?) {
     override fun toString(): String {
-        return "Header7Model(text='$text', rightText='$rightText', actionUrl=$actionUrl)"
+        return "Header8Model(text='$text', rightText='$rightText', actionUrl=$actionUrl)"
+    }
+}
+
+data class Footer2Model(val text: String, val actionUrl: String?) {
+    override fun toString(): String {
+        return "Footer2Model(text='$text', actionUrl=$actionUrl)"
+    }
+}
+
+data class Footer3Model(val text: String, val actionUrl: String?) {
+    override fun toString(): String {
+        return "Footer3Model(text='$text', actionUrl=$actionUrl)"
+    }
+}
+
+data class Banner3(val data: HomePageRecommend.Data)
+
+data class Banner(val image: String, val title: String, val actionUrl: String?) {
+    override fun toString(): String {
+        return "Banner(image='$image', title='$title', actionUrl=$actionUrl)"
+    }
+}
+
+data class TagBriefCardModel(
+    val icon: String,
+    val title: String,
+    val description: String,
+    val follow: Boolean,
+) {
+    override fun toString(): String {
+        return "TagBriefCardModel(icon='$icon', title='$title', description='$description', follow=$follow)"
+    }
+}
+
+data class TopicBriefCardModel(
+    val icon: String,
+    val title: String,
+    val description: String,
+) {
+    override fun toString(): String {
+        return "TopicBriefCardModel(icon='$icon', title='$title', description='$description')"
+    }
+}
+
+data class InformationFollowModel(
+    val backgroundImage: String,
+    val actionUrl: String?,
+    val titleList: List<String>,
+) {
+    override fun toString(): String {
+        return "InformationFollowModel(backgroundImage='$backgroundImage', actionUrl=$actionUrl, titleList=$titleList)"
     }
 }
 
 data class VideoSmallModel(val data: HomePageRecommend.Data)
+data class UgcSelectedCardModel(val data: HomePageRecommend.Data)
+data class AutoPlayModel(val data: Discovery.AutoPlayVideoAdDetail?)
 
 data class FollowCardModel(
     val icon: String,
@@ -185,12 +239,10 @@ fun createHeader5Model(item: HomePageRecommend.Data): Header5Model {
 }
 
 fun createHeader7Model(item: HomePageRecommend.Data): Header7Model {
-    logD(TAG, "item follow: ${item.text}")
     return Header7Model(item.text, item.rightText, item.actionUrl)
 }
 
 fun createHeader8Model(item: HomePageRecommend.Data): Header8Model {
-    logD(TAG, "item follow: ${item.text}")
     return Header8Model(item.text, item.rightText, item.actionUrl)
 }
 
@@ -203,4 +255,42 @@ fun createFollowCardModel(item: HomePageRecommend.Data): FollowCardModel {
 
 fun createVideoSmallModel(item: HomePageRecommend.Data): VideoSmallModel {
     return VideoSmallModel(item)
+}
+
+fun createUgcSelectedCardModel(item: HomePageRecommend.Data): UgcSelectedCardModel {
+    return UgcSelectedCardModel(item)
+}
+
+fun createBanner3(item: HomePageRecommend.Data): Banner3 {
+    return Banner3(item)
+}
+
+fun createBanner(item: HomePageRecommend.Data): Banner {
+    return Banner(item.image, item.title, item.actionUrl)
+}
+
+fun createFooter2Model(item: HomePageRecommend.Data): Footer2Model {
+    return Footer2Model(item.text, item.actionUrl)
+}
+
+fun createFooter3Model(item: HomePageRecommend.Data): Footer3Model {
+    return Footer3Model(item.text, item.actionUrl)
+}
+
+fun createInformationFollowModel(item: HomePageRecommend.Data): InformationFollowModel {
+    return InformationFollowModel(item.backgroundImage, item.actionUrl, item.titleList)
+}
+
+fun createTagBriefCardModel(item: HomePageRecommend.Data): TagBriefCardModel {
+    logD(TAG, "item follow: ${item.follow}")
+    return TagBriefCardModel(item.icon, item.description, item.title, item.follow != null)
+}
+
+fun createTopicBriefCardModel(item: HomePageRecommend.Data): TopicBriefCardModel {
+    logD(TAG, "item follow: ${item.follow}")
+    return TopicBriefCardModel(item.icon, item.description, item.title)
+}
+
+fun createAutoPlayModel(item: HomePageRecommend.Data): AutoPlayModel {
+    return AutoPlayModel(item.detail)
 }

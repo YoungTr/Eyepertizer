@@ -15,3 +15,10 @@ fun View?.visible() {
 fun View?.gone() {
     this?.visibility = View.GONE
 }
+
+/**
+ * 隐藏 view
+ */
+fun View?.invisible() {
+    this?.visibility = View.INVISIBLE
+}
