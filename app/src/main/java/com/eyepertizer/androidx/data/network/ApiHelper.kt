@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface ApiHelper {
 
-    fun getHomePageRecommend(): Observable<HomePageRecommend>
+    fun getHomePageRecommend(url: String): Observable<HomePageRecommend>
 }

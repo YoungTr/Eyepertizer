@@ -10,4 +10,6 @@ import com.eyepertizer.androidx.ui.home.commend.view.CommendMvpView
 interface CommendMvpPresenter<V : CommendMvpView> : MvpPresenter<V> {
 
     fun getHomePageRecommend()
+
+    fun loadMorePageRecommend()
 }

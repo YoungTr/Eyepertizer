@@ -19,6 +19,7 @@ package com.eyepertizer.androidx.data.network.api
 import com.eyepertizer.androidx.data.network.model.HomePageRecommend
 import io.reactivex.Observable
 import retrofit2.http.GET
+import retrofit2.http.Url
 
 /**
  * 主页界面，主要包含：（首页，社区，通知，我的）对应的 API 接口。
@@ -32,7 +33,7 @@ interface MainPageApis {
      * 首页-推荐列表
      */
     @GET("api/v5/index/tab/allRec?page=0")
-    fun getHomePageRecommend(): Observable<HomePageRecommend>
+    fun getHomePageRecommend(@Url url: String): Observable<HomePageRecommend>
 
 
 }

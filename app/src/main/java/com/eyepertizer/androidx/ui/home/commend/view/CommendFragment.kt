@@ -62,8 +62,14 @@ class CommendFragment : BaseFragment(), CommendMvpView {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.itemAnimator = null
-        binding.refreshLayout.setOnRefreshListener { logD(TAG, "refresh") }
-        binding.refreshLayout.setOnLoadMoreListener { logD(TAG, "load more") }
+        binding.refreshLayout.setOnRefreshListener {
+            logD(TAG, "refresh")
+            presenter.getHomePageRecommend()
+        }
+        binding.refreshLayout.setOnLoadMoreListener {
+            logD(TAG, "load more")
+            presenter.loadMorePageRecommend()
+        }
 
 
     }
@@ -82,6 +88,10 @@ class CommendFragment : BaseFragment(), CommendMvpView {
     override fun addData(data: List<Any>) {
         items.addAll(data)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun closeHeaderOrFooter() {
+        binding.refreshLayout.closeHeaderOrFooter()
     }
 
     override fun onDestroyView() {

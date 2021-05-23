@@ -32,7 +32,7 @@ class AppDataManager @Inject constructor(
         return preferenceHelper.getUUID()
     }
 
-    override fun getHomePageRecommend(): Observable<HomePageRecommend> {
-        return apiHelper.getHomePageRecommend()
+    override fun getHomePageRecommend(url: String): Observable<HomePageRecommend> {
+        return apiHelper.getHomePageRecommend(url)
     }
 }

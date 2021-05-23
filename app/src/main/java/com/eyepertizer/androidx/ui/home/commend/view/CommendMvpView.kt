@@ -13,4 +13,6 @@ interface CommendMvpView : MvpView {
 
     fun addData(data: List<Any>)
 
+    fun closeHeaderOrFooter()
+
 }

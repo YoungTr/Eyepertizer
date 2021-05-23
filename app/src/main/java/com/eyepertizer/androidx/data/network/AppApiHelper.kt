@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class AppApiHelper @Inject constructor(private val mainPageApis: MainPageApis) : ApiHelper {
 
 
-    override fun getHomePageRecommend(): Observable<HomePageRecommend> {
-        return mainPageApis.getHomePageRecommend()
+    override fun getHomePageRecommend(url: String): Observable<HomePageRecommend> {
+        return mainPageApis.getHomePageRecommend(url)
     }
 }

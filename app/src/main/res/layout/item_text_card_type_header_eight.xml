@@ -21,7 +21,7 @@
         android:id="@+id/tvRightText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_alignBottom="@+id/tvTitle8"
         android:layout_toStartOf="@id/ivInto8"
         android:layout_toEndOf="@id/tvTitle8"
         android:gravity="center_vertical|end"
