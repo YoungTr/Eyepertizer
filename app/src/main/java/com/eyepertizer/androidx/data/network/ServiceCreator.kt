@@ -98,7 +98,7 @@ object ServiceCreator {
             val originalRequest = chain.request()
             val originalHttpUrl = originalRequest.url
             val url = originalHttpUrl.newBuilder().apply {
-                addQueryParameter("uuid", GlobalUtil.getDeviceSerial())
+                addQueryParameter("udid", GlobalUtil.getDeviceSerial())
                 addQueryParameter("vc", GlobalUtil.eyepetizerVersionCode.toString())
                 addQueryParameter("vn", GlobalUtil.eyepetizerVersionName)
                 addQueryParameter("size", screenPixel())

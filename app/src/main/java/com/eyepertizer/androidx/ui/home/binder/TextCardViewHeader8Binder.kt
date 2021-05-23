@@ -27,7 +27,7 @@ class TextCardViewHeader8Binder :
     }
 
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
-        return ViewHolder(R.layout.item_text_card_type_header_seven.inflate(inflater, parent))
+        return ViewHolder(R.layout.item_text_card_type_header_eight.inflate(inflater, parent))
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

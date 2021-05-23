@@ -61,7 +61,6 @@ class CommendFragment : BaseFragment(), CommendMvpView {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.itemAnimator = null
         binding.refreshLayout.setOnRefreshListener {
             logD(TAG, "refresh")
             presenter.getHomePageRecommend()

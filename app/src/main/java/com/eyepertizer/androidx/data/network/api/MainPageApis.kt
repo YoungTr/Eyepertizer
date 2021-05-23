@@ -32,7 +32,7 @@ interface MainPageApis {
     /**
      * 首页-推荐列表
      */
-    @GET("api/v5/index/tab/allRec?page=0")
+    @GET
     fun getHomePageRecommend(@Url url: String): Observable<HomePageRecommend>
 
 

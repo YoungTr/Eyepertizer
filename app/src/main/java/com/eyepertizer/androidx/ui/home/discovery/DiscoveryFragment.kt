@@ -7,16 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drakeet.multitype.MultiTypeAdapter
 import com.eyepertizer.androidx.base.fragment.BaseFragment
-import com.eyepertizer.androidx.data.network.model.Commend
 import com.eyepertizer.androidx.databinding.FragmentRefreshLayoutBinding
-import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader5Binder
-import com.eyepertizer.androidx.ui.home.binder.TextCardViewHeader7Binder
 import com.eyepertizer.androidx.util.logD
 
 class DiscoveryFragment : BaseFragment() {
 
 
     private lateinit var adapter: MultiTypeAdapter
+    private val items: MutableList<Any> = ArrayList()
+
 
     private var _binding: FragmentRefreshLayoutBinding? = null
 
@@ -35,29 +34,18 @@ class DiscoveryFragment : BaseFragment() {
 
     override fun setUp() {
         logD(TAG, "set up")
-
-        var items: MutableList<Any> = ArrayList()
-
-        adapter = MultiTypeAdapter()
-        adapter.register(TextCardViewHeader7Binder())
-        adapter.register(TextCardViewHeader5Binder())
-
-        items.add(Commend("五分钟新知"))
-        items.add(Commend("Tang"))
-
-        adapter.items = items
-
-    }
-
-    override fun lazyInit() {
-        super.lazyInit()
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.itemAnimator = null
         binding.refreshLayout.setOnRefreshListener { logD(TAG, "refresh") }
         binding.refreshLayout.setOnLoadMoreListener { logD(TAG, "load more") }
-        hideLoading()
+        adapter.items = items
+
+    }
+
+    override fun lazyInit() {
+        super.lazyInit()
     }
 
     override fun onDestroyView() {
