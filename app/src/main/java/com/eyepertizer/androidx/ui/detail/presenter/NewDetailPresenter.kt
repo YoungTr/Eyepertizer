@@ -4,6 +4,7 @@ import com.eyepertizer.androidx.base.presenter.BaseMvpPresenter
 import com.eyepertizer.androidx.data.AppDataManager
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.view.NewDetailMvpView
+import com.eyepertizer.androidx.util.logD
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -26,9 +27,10 @@ class NewDetailPresenter<V : NewDetailMvpView> @Inject constructor(
     override fun setInfo(videoInfo: VideoInfo?, videoId: Long) {
         this.videoInfo = videoInfo
         this.videoId = videoId
+        logD(TAG, "VideoInfo: $videoInfo, videoId: $videoId")
     }
 
     override fun play() {
-        TODO("Not yet implemented")
+        getMvpView()?.play(videoInfo)
     }
 }

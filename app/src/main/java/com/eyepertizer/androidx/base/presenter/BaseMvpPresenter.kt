@@ -16,6 +16,8 @@ abstract class BaseMvpPresenter<V : MvpView> constructor(
 ) :
     MvpPresenter<V> {
 
+    protected var TAG = this.javaClass.simpleName
+
     private var mMvpView: V? = null
 
     override fun onAttach(view: V?) {
