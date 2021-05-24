@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.*
+import com.eyepertizer.androidx.ui.detail.NewDetailActivity
 import com.eyepertizer.androidx.util.logD
 
 class FollowCardViewBinder :
@@ -32,11 +33,11 @@ class FollowCardViewBinder :
                 logD(TAG, "it.context = ${it.context}")
                 if (ad || author == null) {
                     logD(TAG, "ad start new detail")
-//                    NewDetailActivity.start(it.context)
+                    NewDetailActivity.start(it.context)
 //                    NewDetailActivity.start(fragment.activity, id)
                 } else {
                     logD(TAG, "start new detail")
-//                    NewDetailActivity.start(it.context)
+                    NewDetailActivity.start(it.context)
 //                    NewDetailActivity.start(
 //                        fragment.activity,
 //                        NewDetailActivity.VideoInfo(
