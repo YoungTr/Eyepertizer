@@ -282,12 +282,10 @@ fun createInformationFollowModel(item: HomePageRecommend.Data): InformationFollo
 }
 
 fun createTagBriefCardModel(item: HomePageRecommend.Data): TagBriefCardModel {
-    logD(TAG, "item follow: ${item.follow}")
     return TagBriefCardModel(item.icon, item.description, item.title, item.follow != null)
 }
 
 fun createTopicBriefCardModel(item: HomePageRecommend.Data): TopicBriefCardModel {
-    logD(TAG, "item follow: ${item.follow}")
     return TopicBriefCardModel(item.icon, item.description, item.title)
 }
 

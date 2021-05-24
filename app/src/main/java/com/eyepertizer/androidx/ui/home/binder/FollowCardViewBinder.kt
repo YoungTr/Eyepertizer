@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.*
-import com.eyepertizer.androidx.ui.detail.NewDetailActivity
-import com.eyepertizer.androidx.util.logD
+import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
+import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 
 class FollowCardViewBinder :
     ItemViewBinder<FollowCardModel, FollowCardViewBinder.ViewHolder>() {
@@ -30,28 +30,24 @@ class FollowCardViewBinder :
         }
         holder.itemView.setOnClickListener {
             item.followCard.run {
-                logD(TAG, "it.context = ${it.context}")
                 if (ad || author == null) {
-                    logD(TAG, "ad start new detail")
-                    NewDetailActivity.start(it.context)
-//                    NewDetailActivity.start(fragment.activity, id)
+                    NewDetailActivity.start(it.context, id)
                 } else {
-                    logD(TAG, "start new detail")
-                    NewDetailActivity.start(it.context)
-//                    NewDetailActivity.start(
-//                        fragment.activity,
-//                        NewDetailActivity.VideoInfo(
-//                            id,
-//                            playUrl,
-//                            title,
-//                            description,
-//                            category,
-//                            library,
-//                            consumption,
-//                            cover,
-//                            author,
-//                            webUrl)
-//                    )
+                    NewDetailActivity.start(
+                        it.context,
+                        VideoInfo(
+                            id,
+                            playUrl,
+                            title,
+                            description,
+                            category,
+                            library,
+                            consumption,
+                            cover,
+                            author,
+                            webUrl
+                        )
+                    )
                 }
             }
         }

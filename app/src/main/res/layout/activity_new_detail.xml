@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/blackAlpha50"
     android:fitsSystemWindows="true"
-    tools:context=".ui.detail.NewDetailActivity">
+    tools:context=".ui.detail.view.NewDetailActivity">
 
     <ImageView
         android:id="@+id/ivBlurredBg"

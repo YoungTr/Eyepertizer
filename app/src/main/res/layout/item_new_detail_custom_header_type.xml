@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.detail.NewDetailActivity">
+    tools:context=".ui.detail.view.NewDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeaderInfo"
