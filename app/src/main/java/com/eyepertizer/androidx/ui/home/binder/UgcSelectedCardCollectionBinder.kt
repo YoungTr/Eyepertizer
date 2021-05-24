@@ -12,6 +12,7 @@ import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.load
 import com.eyepertizer.androidx.extension.showToast
 import com.eyepertizer.androidx.extension.visible
+import com.eyepertizer.androidx.util.logD
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 class UgcSelectedCardCollectionBinder :
@@ -27,27 +28,34 @@ class UgcSelectedCardCollectionBinder :
 //            EventBus.getDefault().post(RefreshEvent(CommunityFragment::class.java))
         }
         item.data.itemList.forEachIndexed { index, it ->
+            logD(TAG, "index=$index, url={${it.data.url}}")
             when (index) {
-                0 -> {
-                    holder.ivCoverLeft.load(it.data.url,
+                LEFT_COVER -> {
+                    holder.ivCoverLeft.load(
+                        it.data.url,
                         4f,
-                        RoundedCornersTransformation.CornerType.LEFT)
+                        RoundedCornersTransformation.CornerType.LEFT
+                    )
                     if (!it.data.urls.isNullOrEmpty() && it.data.urls.size > 1) holder.ivLayersLeft.visible()
                     holder.ivAvatarLeft.load(it.data.userCover)
                     holder.tvNicknameLeft.text = it.data.nickname
                 }
-                1 -> {
-                    holder.ivCoverRightTop.load(it.data.url,
+                RIGHT_TOP_COVER -> {
+                    holder.ivCoverRightTop.load(
+                        it.data.url,
                         4f,
-                        RoundedCornersTransformation.CornerType.TOP_RIGHT)
+                        RoundedCornersTransformation.CornerType.TOP_RIGHT
+                    )
                     if (!it.data.urls.isNullOrEmpty() && it.data.urls.size > 1) holder.ivLayersRightTop.visible()
                     holder.ivAvatarRightTop.load(it.data.userCover)
                     holder.tvNicknameRightTop.text = it.data.nickname
                 }
-                2 -> {
-                    holder.ivCoverRightBottom.load(it.data.url,
+                RIGHT_BOTTOM_COVER -> {
+                    holder.ivCoverRightBottom.load(
+                        it.data.url,
                         4f,
-                        RoundedCornersTransformation.CornerType.BOTTOM_RIGHT)
+                        RoundedCornersTransformation.CornerType.BOTTOM_RIGHT
+                    )
                     if (!it.data.urls.isNullOrEmpty() && it.data.urls.size > 1) holder.ivLayersRightBottom.visible()
                     holder.ivAvatarRightBottom.load(it.data.userCover)
                     holder.tvNicknameRightBottom.text = it.data.nickname
@@ -80,7 +88,10 @@ class UgcSelectedCardCollectionBinder :
     }
 
     companion object {
-        private const val TAG = "MultiTypeAdapter"
+        private const val TAG = "UgcSelected"
+        private const val LEFT_COVER = 0
+        private const val RIGHT_TOP_COVER = 1
+        private const val RIGHT_BOTTOM_COVER = 2
     }
 
 }

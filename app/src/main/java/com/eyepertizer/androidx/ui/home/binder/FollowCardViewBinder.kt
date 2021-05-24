@@ -22,18 +22,21 @@ class FollowCardViewBinder :
         holder.tvDescription.text = item.description
         holder.tvTitle.text = item.title
         if (item.followCard.ad) holder.tvLabel.visible() else holder.tvLabel.gone()
-        if (item.followCard.library == "dDAILY") holder.ivChoiceness.visible() else holder.ivChoiceness.gone()
+        if (item.followCard.library == "DAILY") holder.ivChoiceness.visible() else holder.ivChoiceness.gone()
         holder.ivShare.setOnClickListener {
 //            showDialogShare(fragment.activity,
 //                "${item.followCard.title}：${item.followCard.webUrl.raw}")
         }
         holder.itemView.setOnClickListener {
             item.followCard.run {
+                logD(TAG, "it.context = ${it.context}")
                 if (ad || author == null) {
                     logD(TAG, "ad start new detail")
+//                    NewDetailActivity.start(it.context)
 //                    NewDetailActivity.start(fragment.activity, id)
                 } else {
                     logD(TAG, "start new detail")
+//                    NewDetailActivity.start(it.context)
 //                    NewDetailActivity.start(
 //                        fragment.activity,
 //                        NewDetailActivity.VideoInfo(

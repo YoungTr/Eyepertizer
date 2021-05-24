@@ -13,7 +13,7 @@ import com.eyepertizer.androidx.util.logD
 class DiscoveryFragment : BaseFragment() {
 
 
-    private lateinit var adapter: MultiTypeAdapter
+    private var adapter: MultiTypeAdapter = MultiTypeAdapter()
     private val items: MutableList<Any> = ArrayList()
 
 
@@ -37,7 +37,6 @@ class DiscoveryFragment : BaseFragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.itemAnimator = null
         binding.refreshLayout.setOnRefreshListener { logD(TAG, "refresh") }
         binding.refreshLayout.setOnLoadMoreListener { logD(TAG, "load more") }
         adapter.items = items
