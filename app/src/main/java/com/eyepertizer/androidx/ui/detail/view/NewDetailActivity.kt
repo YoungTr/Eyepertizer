@@ -76,6 +76,7 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
             listener = ClickListener()
         )
         presenter.play()
+        presenter.fetchVideoDetail()
     }
 
     private fun initParams() {
@@ -83,6 +84,10 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
             intent.getParcelableExtra(EXTRA_VIDEOINFO),
             intent.getLongExtra(EXTRA_VIDEO_ID, 0L)
         )
+    }
+
+    override fun setStatusBarPrimaryDark() {
+        setStatusBarBackground(R.color.black)
     }
 
     override fun play(videoInfo: VideoInfo?) {
@@ -207,7 +212,16 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            logD(TAG, "orientation: ${newConfig.orientation}")
+        }
+        logD(TAG, "onConfigurationChanged: $newConfig")
         binding.videoPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        logD(TAG, "onNewIntent: $intent")
     }
 
     override fun onBackPressed() {

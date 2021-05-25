@@ -5,7 +5,9 @@ import com.eyepertizer.androidx.data.AppDataManager
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.view.NewDetailMvpView
 import com.eyepertizer.androidx.util.logD
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class NewDetailPresenter<V : NewDetailMvpView> @Inject constructor(
@@ -28,6 +30,18 @@ class NewDetailPresenter<V : NewDetailMvpView> @Inject constructor(
         this.videoInfo = videoInfo
         this.videoId = videoId
         logD(TAG, "VideoInfo: $videoInfo, videoId: $videoId")
+    }
+
+    override fun fetchVideoDetail() {
+        addSubscribe(
+            getDataManager().fetchVideoDetail(videoInfo?.playUrl!!, videoId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    logD(TAG, response.toString())
+                }, { error -> logD(TAG, error.message) }
+                )
+        )
     }
 
     override fun play() {

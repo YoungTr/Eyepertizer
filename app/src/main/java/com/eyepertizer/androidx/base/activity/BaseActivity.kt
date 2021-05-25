@@ -25,9 +25,13 @@ abstract class BaseActivity : AppCompatActivity(), MvpView {
         val rootView = bindView()
         if (rootView != null) {
             setContentView(rootView)
-            setStatusBarBackground(R.color.colorPrimaryDark)
+            setStatusBarPrimaryDark()
             setUp()
         }
+    }
+
+    open fun setStatusBarPrimaryDark() {
+        setStatusBarBackground(R.color.colorPrimaryDark)
     }
 
     abstract fun bindView(): View?

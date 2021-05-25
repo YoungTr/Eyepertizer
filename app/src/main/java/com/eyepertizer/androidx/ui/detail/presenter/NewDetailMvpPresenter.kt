@@ -8,5 +8,7 @@ interface NewDetailMvpPresenter<V : NewDetailMvpView> : MvpPresenter<V> {
 
     fun setInfo(videoInfo: VideoInfo?, videoId: Long)
 
+    fun fetchVideoDetail()
+
     fun play()
 }

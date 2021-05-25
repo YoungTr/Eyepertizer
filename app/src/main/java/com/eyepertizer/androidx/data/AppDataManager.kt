@@ -2,7 +2,7 @@ package com.eyepertizer.androidx.data
 
 import com.eyepertizer.androidx.data.db.DbHelper
 import com.eyepertizer.androidx.data.network.ApiHelper
-import com.eyepertizer.androidx.data.network.model.HomePageRecommend
+import com.eyepertizer.androidx.data.network.model.*
 import com.eyepertizer.androidx.data.pref.PreferenceHelper
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -34,5 +34,28 @@ class AppDataManager @Inject constructor(
 
     override fun getHomePageRecommend(url: String): Observable<HomePageRecommend> {
         return apiHelper.getHomePageRecommend(url)
+    }
+
+    override fun getVideoBeanForClient(videoId: Long): Observable<VideoBeanForClient> {
+        return apiHelper.getVideoBeanForClient(videoId)
+    }
+
+    override fun getVideoRelated(videoId: Long): Observable<VideoRelated> {
+        return apiHelper.getVideoRelated(videoId)
+    }
+
+    override fun getVideoReplies(url: String): Observable<VideoReplies> {
+        return apiHelper.getVideoReplies(url)
+    }
+
+    override fun fetchVideoDetail(url: String, videoId: Long): Observable<VideoDetail> {
+        return Observable.zip(
+            getVideoBeanForClient(videoId),
+            getVideoRelated(videoId),
+            getVideoReplies(url),
+            { client, related, replies ->
+                VideoDetail(client, related, replies);
+            }
+        )
     }
 }

@@ -2,6 +2,7 @@ package com.eyepertizer.androidx.di.module
 
 import com.eyepertizer.androidx.data.network.ServiceCreator
 import com.eyepertizer.androidx.data.network.api.MainPageApis
+import com.eyepertizer.androidx.data.network.api.VideoApi
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,6 +18,12 @@ class HttpModule {
     @Provides
     fun provideMainApi(): MainPageApis {
         return ServiceCreator.create(MainPageApis::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideVideoApi(): VideoApi {
+        return ServiceCreator.create(VideoApi::class.java)
     }
 
 
