@@ -22,6 +22,8 @@ import com.eyepertizer.androidx.base.fragment.BaseFragment
 import com.eyepertizer.androidx.constants.Const
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.extension.showToast
+import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
+import com.eyepertizer.androidx.ui.web.WebViewActivity
 import java.net.URLDecoder
 
 /**
@@ -55,11 +57,11 @@ object ActionUrlUtil {
         val decodeUrl = URLDecoder.decode(actionUrl, "UTF-8")
         when {
             decodeUrl.startsWith(Const.ActionUrl.WEBVIEW) -> {
-//                WebViewActivity.start(
-//                    activity,
-//                    decodeUrl.getWebViewInfo().first(),
-//                    decodeUrl.getWebViewInfo().last()
-//                )
+                WebViewActivity.start(
+                    activity,
+                    decodeUrl.getWebViewInfo().first(),
+                    decodeUrl.getWebViewInfo().last()
+                )
             }
             decodeUrl.startsWith(Const.ActionUrl.RANKLIST) -> {
                 "${toastTitle},${R.string.currently_not_supported.getString()}".showToast()
@@ -91,7 +93,7 @@ object ActionUrlUtil {
             }
             decodeUrl.startsWith(Const.ActionUrl.DETAIL) -> {
                 getConversionVideoId(actionUrl)?.run {
-//                    NewDetailActivity.start(activity, this)
+                    NewDetailActivity.start(activity, this)
                 }
             }
             else -> {

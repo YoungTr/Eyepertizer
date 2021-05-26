@@ -1,8 +1,10 @@
 package com.eyepertizer.androidx.di.module
 
 import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
+import com.eyepertizer.androidx.ui.login.LoginActivity
 import com.eyepertizer.androidx.ui.main.view.MainActivity
 import com.eyepertizer.androidx.ui.splash.view.SplashActivity
+import com.eyepertizer.androidx.ui.web.WebViewActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -17,4 +19,10 @@ abstract class ActivityBindModule {
 
     @ContributesAndroidInjector
     abstract fun newDetailActivityInjector(): NewDetailActivity
+
+    @ContributesAndroidInjector
+    abstract fun loginActivityInjector(): LoginActivity
+
+    @ContributesAndroidInjector
+    abstract fun webActivityInjector(): WebViewActivity
 }

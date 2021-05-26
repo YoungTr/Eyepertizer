@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.load
+import com.eyepertizer.androidx.util.ActionUrlUtil
 
 class BannerBinder :
     ItemViewBinder<Banner, BannerBinder.ViewHolder>() {
@@ -17,8 +19,7 @@ class BannerBinder :
     override fun onBindViewHolder(holder: ViewHolder, item: Banner) {
         holder.ivPicture.load(item.image, 4f)
         holder.itemView.setOnClickListener {
-            // TODO: 2021/5/26
-//            ActionUrlUtil.process(fragment, item.actionUrl, item.title)
+            ActionUrlUtil.process(it.context as Activity, item.actionUrl, item.title)
         }
 
     }

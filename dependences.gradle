@@ -72,11 +72,11 @@ ext {
             "dagger-android"         : "com.google.dagger:dagger-android:${versions["daggerVersion"]}",
             "dagger-android-support" : "com.google.dagger:dagger-android-support:${versions["daggerVersion"]}",
 
-//            // multidex
+            // multidex
             "multidex"               : "androidx.multidex:multidex:2.0.1",
-//
-//            // other
-//            "lottie"                       : "com.airbnb.android:lottie:3.7.0",
+
+            // other
+            "sonic"                  : "com.tencent.sonic:sdk:3.1.0",
 //            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50",
 //            "crashreport_upgrade"          : "com.tencent.bugly:crashreport_upgrade:latest.release",
 //            "logger"                       : "com.orhanobut:logger:2.1.1",

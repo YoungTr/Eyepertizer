@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.setOnClickListener
+import com.eyepertizer.androidx.util.ActionUrlUtil
 
 class TextCardViewHeader8Binder :
     ItemViewBinder<Header8Model, TextCardViewHeader8Binder.ViewHolder>() {
@@ -19,10 +21,11 @@ class TextCardViewHeader8Binder :
         holder.tvTitle8.text = item.text
         holder.tvRightText8.text = item.rightText
         setOnClickListener(holder.tvRightText8, holder.ivInto8) {
-            // TODO: 2021/5/26
-//            ActionUrlUtil.process(fragment,
-//                item.actionUrl,
-//                item.text)
+            ActionUrlUtil.process(
+                context as Activity,
+                item.actionUrl,
+                item.text
+            )
         }
 
     }

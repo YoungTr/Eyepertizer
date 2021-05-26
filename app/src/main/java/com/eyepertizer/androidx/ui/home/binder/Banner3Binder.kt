@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.invisible
 import com.eyepertizer.androidx.extension.load
 import com.eyepertizer.androidx.extension.visible
+import com.eyepertizer.androidx.util.ActionUrlUtil
 
 class Banner3Binder :
     ItemViewBinder<Banner3, Banner3Binder.ViewHolder>() {
@@ -25,10 +27,11 @@ class Banner3Binder :
         if (item.data.label?.text.isNullOrEmpty()) holder.tvLabel.invisible() else holder.tvLabel.visible()
         holder.tvLabel.text = item.data.label?.text ?: ""
         holder.itemView.setOnClickListener {
-            // TODO: 2021/5/26
-//            ActionUrlUtil.process(fragment,
-//                item.data.actionUrl,
-//                item.data.header.title)
+            ActionUrlUtil.process(
+                it.context as Activity,
+                item.data.actionUrl,
+                item.data.header.title
+            )
         }
 
 

@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.dp2px
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.load
+import com.eyepertizer.androidx.util.ActionUrlUtil
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 class InformationFollowCardViewBinder :
@@ -28,10 +30,10 @@ class InformationFollowCardViewBinder :
         holder.recyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
         holder.recyclerView.adapter = InformationCardFollowCardAdapter(/*fragment.activity,*/
             item.actionUrl,
-            item.titleList)
+            item.titleList
+        )
         holder.itemView.setOnClickListener {
-            // TODO: 2021/5/26
-//            ActionUrlUtil.process(fragment, item.data.actionUrl)
+            ActionUrlUtil.process(it.context as Activity, item.actionUrl)
         }
 
     }
@@ -65,8 +67,10 @@ class InformationFollowCardViewBinder :
             parent: ViewGroup,
             viewType: Int,
         ): InformationCardFollowCardAdapter.ViewHolder {
-            return ViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_information_card_type_item, parent, false))
+            return ViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_information_card_type_item, parent, false)
+            )
         }
 
         override fun getItemCount() = dataList.size
@@ -78,8 +82,7 @@ class InformationFollowCardViewBinder :
             val item = dataList[position]
             holder.tvNews.text = item
             holder.itemView.setOnClickListener {
-                // TODO: 2021/5/26
-//                ActionUrlUtil.process(activity, actionUrl)
+                ActionUrlUtil.process(it.context as Activity, actionUrl)
             }
         }
     }

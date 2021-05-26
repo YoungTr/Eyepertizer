@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import com.eyepertizer.androidx.extension.gone
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.visible
+import com.eyepertizer.androidx.ui.login.LoginActivity
+import com.eyepertizer.androidx.util.ActionUrlUtil
 import com.eyepertizer.androidx.util.logD
 
 class TextCardViewHeader5Binder :
@@ -24,16 +27,14 @@ class TextCardViewHeader5Binder :
         if (item.actionUrl != null) holder.ivInto5.visible() else holder.ivInto5.gone()
         if (item.follow) holder.tvFollow.visible() else holder.tvFollow.gone()
         holder.tvFollow.setOnClickListener {
-            // TODO: 2021/5/21  
-//            LoginActivity.start(fragment.activity)
+            LoginActivity.start(it.context)
         }
         setOnClickListener(holder.tvTitle5, holder.ivInto5) {
-            // TODO: 2021/5/21  
-//            ActionUrlUtil.process(
-//                fragment,
-//                item.data.actionUrl,
-//                item.data.text
-//            )
+            ActionUrlUtil.process(
+                context as Activity,
+                item.actionUrl,
+                item.text
+            )
         }
     }
 

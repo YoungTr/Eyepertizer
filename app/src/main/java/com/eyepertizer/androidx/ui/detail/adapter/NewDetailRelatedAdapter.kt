@@ -33,7 +33,7 @@ import com.eyepertizer.androidx.ui.common.TextCardViewHeader4ViewHolder
 import com.eyepertizer.androidx.ui.common.VideoSmallCardViewHolder
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
-import com.eyepertizer.androidx.util.logD
+import com.eyepertizer.androidx.ui.login.LoginActivity
 
 
 /**
@@ -99,16 +99,13 @@ class NewDetailRelatedAdapter(
                         ) {
                             when (this) {
                                 ivCollectionCount, tvCollectionCount, ivFavorites, tvFavorites ->
-                                    // TODO: 2021/5/26
-//                                    LoginActivity.start(activity)
-                                    logD(TAG, "LoginActivity")
+                                    LoginActivity.start(activity)
                                 ivShare, tvShareCount -> showDialogShare(
                                     activity,
                                     "${videoInfoData?.title}：${videoInfoData?.webUrl?.raw}"
                                 )
                                 ivCache, tvCache -> R.string.currently_not_supported.showToast()
-                                // TODO: 2021/5/26
-//                                tvFollow -> LoginActivity.start(activity)
+                                tvFollow -> LoginActivity.start(activity)
                                 else -> {
                                 }
                             }
