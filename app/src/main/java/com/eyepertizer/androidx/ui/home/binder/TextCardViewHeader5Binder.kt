@@ -10,8 +10,8 @@ import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.gone
 import com.eyepertizer.androidx.extension.inflate
+import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.visible
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 import com.eyepertizer.androidx.util.logD
 
 class TextCardViewHeader5Binder :

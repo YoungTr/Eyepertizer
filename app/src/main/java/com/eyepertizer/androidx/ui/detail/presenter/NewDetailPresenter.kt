@@ -31,7 +31,7 @@ class NewDetailPresenter<V : NewDetailMvpView> @Inject constructor(
         this.videoInfo = videoInfo
         this.videoId = videoInfo?.videoId ?: videoId
         url = "${VideoApi.VIDEO_REPLIES_URL}${this.videoId}"
-        logD(TAG, "VideoInfo: $videoInfo, videoId: $videoId, url: $url")
+        logD(TAG, "url: $url")
     }
 
     override fun fetchVideoDetail() {

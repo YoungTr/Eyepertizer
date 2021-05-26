@@ -23,6 +23,7 @@ class UgcSelectedCardCollectionBinder :
         holder.tvTitle.text = item.data.header.title
         holder.tvRightText.text = item.data.header.rightText
         holder.tvRightText.setOnClickListener {
+            // TODO: 2021/5/26
 //            EventBus.getDefault()
 //                .post(SwitchPagesEvent(com.eyepetizer.android.ui.community.commend.CommendFragment::class.java))
 //            EventBus.getDefault().post(RefreshEvent(CommunityFragment::class.java))

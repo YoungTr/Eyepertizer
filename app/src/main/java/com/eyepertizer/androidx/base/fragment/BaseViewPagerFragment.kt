@@ -22,8 +22,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.eyepertizer.androidx.R
+import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.showToast
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 import com.flyco.tablayout.CommonTabLayout
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener

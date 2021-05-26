@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.inflate
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
+import com.eyepertizer.androidx.extension.setOnClickListener
 
 class TextCardViewFooter2Binder :
     ItemViewBinder<Footer2Model, TextCardViewFooter2Binder.ViewHolder>() {

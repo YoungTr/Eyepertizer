@@ -10,8 +10,8 @@ import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.extension.inflate
+import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.showToast
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 
 class TextCardViewFooter3Binder :
     ItemViewBinder<Footer3Model, TextCardViewFooter3Binder.ViewHolder>() {

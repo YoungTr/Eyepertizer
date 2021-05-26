@@ -33,7 +33,6 @@ import com.eyepertizer.androidx.ui.common.TextCardViewHeader4ViewHolder
 import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
 import com.eyepertizer.androidx.util.DateUtil
 import com.eyepertizer.androidx.util.GlobalUtil
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 
 /**
  * 视频详情-评论列表绑定的适配器

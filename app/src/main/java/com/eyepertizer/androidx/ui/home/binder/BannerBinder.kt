@@ -17,6 +17,7 @@ class BannerBinder :
     override fun onBindViewHolder(holder: ViewHolder, item: Banner) {
         holder.ivPicture.load(item.image, 4f)
         holder.itemView.setOnClickListener {
+            // TODO: 2021/5/26
 //            ActionUrlUtil.process(fragment, item.actionUrl, item.title)
         }
 

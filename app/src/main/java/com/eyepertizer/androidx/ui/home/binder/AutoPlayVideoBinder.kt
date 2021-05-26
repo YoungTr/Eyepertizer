@@ -11,7 +11,7 @@ import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.load
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
+import com.eyepertizer.androidx.extension.setOnClickListener
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 

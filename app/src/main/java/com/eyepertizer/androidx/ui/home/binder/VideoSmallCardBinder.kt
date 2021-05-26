@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,9 @@ import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.conversionVideoDuration
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.load
+import com.eyepertizer.androidx.extension.showDialogShare
+import com.eyepertizer.androidx.ui.detail.model.VideoInfo
+import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
 
 class VideoSmallCardBinder :
     ItemViewBinder<VideoSmallModel, VideoSmallCardBinder.ViewHolder>() {
@@ -23,24 +27,28 @@ class VideoSmallCardBinder :
         holder.tvTitle.text = item.data.title
         holder.tvVideoDuration.text = item.data.duration.conversionVideoDuration()
         holder.ivShare.setOnClickListener {
-//            showDialogShare(fragment.activity,
-//                "${item.data.title}：${item.data.webUrl.raw}")
+            showDialogShare(
+                it.context as Activity,
+                "${item.data.title}：${item.data.webUrl.raw}"
+            )
         }
         holder.itemView.setOnClickListener {
             item.data.run {
-//                NewDetailActivity.start(
-//                    fragment.activity,
-//                    NewDetailActivity.VideoInfo(id,
-//                        playUrl,
-//                        title,
-//                        description,
-//                        category,
-//                        library,
-//                        consumption,
-//                        cover,
-//                        author,
-//                        webUrl)
-//                )
+                NewDetailActivity.start(
+                    it.context,
+                    VideoInfo(
+                        id,
+                        playUrl,
+                        title,
+                        description,
+                        category,
+                        library,
+                        consumption,
+                        cover,
+                        author,
+                        webUrl
+                    )
+                )
             }
         }
     }

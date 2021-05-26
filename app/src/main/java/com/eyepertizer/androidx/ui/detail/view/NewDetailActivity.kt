@@ -20,7 +20,6 @@ import com.eyepertizer.androidx.ui.detail.adapter.NewDetailReplyAdapter
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.presenter.NewDetailPresenter
 import com.eyepertizer.androidx.util.GlobalUtil
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 import com.eyepertizer.androidx.util.logD
 import com.eyepertizer.androidx.widget.NoStatusFooter
 import com.shuyu.gsyvideoplayer.GSYVideoManager
@@ -175,7 +174,6 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
         relatedItems.addAll(videoDetail.videoRelated!!.itemList)
         repliesItems.clear()
         val itemList = videoDetail.videoReplies.itemList
-        logD(TAG, "replies size: ${itemList.size}")
         repliesItems.addAll(itemList)
         relatedAdapter.notifyDataSetChanged()
         replyAdapter.notifyDataSetChanged()

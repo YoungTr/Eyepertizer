@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.*
-import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
+import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
 
 class FollowCardViewBinder :
     ItemViewBinder<FollowCardModel, FollowCardViewBinder.ViewHolder>() {
@@ -25,8 +26,10 @@ class FollowCardViewBinder :
         if (item.followCard.ad) holder.tvLabel.visible() else holder.tvLabel.gone()
         if (item.followCard.library == "DAILY") holder.ivChoiceness.visible() else holder.ivChoiceness.gone()
         holder.ivShare.setOnClickListener {
-//            showDialogShare(fragment.activity,
-//                "${item.followCard.title}：${item.followCard.webUrl.raw}")
+            showDialogShare(
+                it.context as Activity,
+                "${item.followCard.title}：${item.followCard.webUrl.raw}"
+            )
         }
         holder.itemView.setOnClickListener {
             item.followCard.run {

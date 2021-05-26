@@ -6,11 +6,11 @@ import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.base.activity.BaseActivity
 import com.eyepertizer.androidx.databinding.ActivityMainBinding
 import com.eyepertizer.androidx.extension.getString
+import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.showToast
 import com.eyepertizer.androidx.ui.home.HomePageFragment
 import com.eyepertizer.androidx.ui.main.presenter.MainPresenter
 import com.eyepertizer.androidx.util.GlobalUtil
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 import com.eyepertizer.androidx.util.logD
 import javax.inject.Inject
 

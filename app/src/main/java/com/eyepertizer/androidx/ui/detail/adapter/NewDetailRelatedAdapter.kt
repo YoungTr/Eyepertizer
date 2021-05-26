@@ -33,7 +33,6 @@ import com.eyepertizer.androidx.ui.common.TextCardViewHeader4ViewHolder
 import com.eyepertizer.androidx.ui.common.VideoSmallCardViewHolder
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.view.NewDetailActivity
-import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 import com.eyepertizer.androidx.util.logD
 
 
@@ -100,16 +99,18 @@ class NewDetailRelatedAdapter(
                         ) {
                             when (this) {
                                 ivCollectionCount, tvCollectionCount, ivFavorites, tvFavorites ->
+                                    // TODO: 2021/5/26
 //                                    LoginActivity.start(activity)
                                     logD(TAG, "LoginActivity")
-//                                ivShare, tvShareCount -> showDialogShare(
-//                                    activity,
-//                                    "${videoInfoData?.title}：${videoInfoData?.webUrl?.raw}"
-//                                )
-//                                ivCache, tvCache -> R.string.currently_not_supported.showToast()
+                                ivShare, tvShareCount -> showDialogShare(
+                                    activity,
+                                    "${videoInfoData?.title}：${videoInfoData?.webUrl?.raw}"
+                                )
+                                ivCache, tvCache -> R.string.currently_not_supported.showToast()
+                                // TODO: 2021/5/26
 //                                tvFollow -> LoginActivity.start(activity)
-//                                else -> {
-//                                }
+                                else -> {
+                                }
                             }
                         }
                     }
@@ -137,10 +138,10 @@ class NewDetailRelatedAdapter(
                 holder.tvTitle.setTextColor(ContextCompat.getColor(activity, R.color.white))
                 holder.tvVideoDuration.text = item.data.duration.conversionVideoDuration()
                 holder.ivShare.setOnClickListener {
-//                    showDialogShare(
-//                        activity,
-//                        "${item.data.title}：${item.data.webUrl.raw}"
-//                    )
+                    showDialogShare(
+                        activity,
+                        "${item.data.title}：${item.data.webUrl.raw}"
+                    )
                 }
                 holder.itemView.setOnClickListener {
                     item.data.run {

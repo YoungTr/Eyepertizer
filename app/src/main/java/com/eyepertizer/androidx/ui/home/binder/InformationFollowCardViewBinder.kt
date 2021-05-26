@@ -30,6 +30,7 @@ class InformationFollowCardViewBinder :
             item.actionUrl,
             item.titleList)
         holder.itemView.setOnClickListener {
+            // TODO: 2021/5/26
 //            ActionUrlUtil.process(fragment, item.data.actionUrl)
         }
 
@@ -77,6 +78,7 @@ class InformationFollowCardViewBinder :
             val item = dataList[position]
             holder.tvNews.text = item
             holder.itemView.setOnClickListener {
+                // TODO: 2021/5/26
 //                ActionUrlUtil.process(activity, actionUrl)
             }
         }
