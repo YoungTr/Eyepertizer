@@ -13,4 +13,8 @@ interface NewDetailMvpPresenter<V : NewDetailMvpView> : MvpPresenter<V> {
     fun play()
 
     fun fetchVideoReplies()
+
+    fun delayHideTitleBar(time: Long)
+
+    fun delayHideBottomContainer(time: Long)
 }

@@ -16,4 +16,8 @@ interface NewDetailMvpView : MvpView {
     fun closeHeaderOrFooter()
 
     fun finishLoadMoreWithNoMoreData()
+
+    fun hideTitleBar()
+
+    fun hideBottomContainer()
 }

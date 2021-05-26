@@ -19,6 +19,7 @@ import com.eyepertizer.androidx.ui.detail.adapter.NewDetailRelatedAdapter
 import com.eyepertizer.androidx.ui.detail.adapter.NewDetailReplyAdapter
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.presenter.NewDetailPresenter
+import com.eyepertizer.androidx.util.GlobalUtil
 import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
 import com.eyepertizer.androidx.util.logD
 import com.eyepertizer.androidx.widget.NoStatusFooter
@@ -207,7 +208,7 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
 
         override fun onClickStop(url: String?, vararg objects: Any?) {
             super.onClickStop(url, *objects)
-            delayHideBottomContainer()
+            presenter.delayHideBottomContainer(binding.videoPlayer.dismissControlTime.toLong())
         }
 
         override fun onAutoComplete(url: String?, vararg objects: Any?) {
@@ -231,25 +232,17 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
             binding.ivCollection.visibleAlphaAnimation(1000)
             binding.ivMore.visibleAlphaAnimation(1000)
             binding.ivShare.visibleAlphaAnimation(1000)
-            delayHideTitleBar()
+            presenter.delayHideTitleBar(binding.videoPlayer.dismissControlTime.toLong())
         }
     }
 
-    private fun delayHideTitleBar() {
-        logD(TAG, "delayHideTitleBar")
+
+    override fun hideBottomContainer() {
+        binding.videoPlayer.getBottomContainer().gone()
+        binding.videoPlayer.startButton.gone()
     }
 
-    private fun delayHideBottomContainer() {
-        logD(TAG, "delayHideBottomContainer")
-//        hideBottomContainerJob?.cancel()
-//        hideBottomContainerJob = CoroutineScope(globalJob).launch(Dispatchers.Main) {
-//            delay(binding.videoPlayer.dismissControlTime.toLong())
-//            binding.videoPlayer.getBottomContainer().gone()
-//            binding.videoPlayer.startButton.gone()
-//        }
-    }
-
-    private fun hideTitleBar() {
+    override fun hideTitleBar() {
         binding.flHeader.invisibleAlphaAnimation(1000)
         binding.ivPullDown.goneAlphaAnimation(1000)
         binding.ivCollection.goneAlphaAnimation(1000)
@@ -278,7 +271,12 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        logD(TAG, "onNewIntent: $intent")
+        setIntent(intent)
+        if (checkArguments()) {
+            initParams()
+            presenter.play()
+            presenter.fetchVideoDetail()
+        }
     }
 
     override fun onBackPressed() {
@@ -291,6 +289,19 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
         super.finish()
         overridePendingTransition(0, R.anim.anl_push_bottom_out)
     }
+
+    private fun checkArguments() =
+        if (intent.getParcelableExtra<VideoInfo>(EXTRA_VIDEOINFO) == null && intent.getLongExtra(
+                EXTRA_VIDEO_ID,
+                0L
+            ) == 0L
+        ) {
+            GlobalUtil.getString(R.string.jump_page_unknown_error).showToast()
+            finish()
+            false
+        } else {
+            true
+        }
 
     override fun onDestroy() {
         super.onDestroy()
