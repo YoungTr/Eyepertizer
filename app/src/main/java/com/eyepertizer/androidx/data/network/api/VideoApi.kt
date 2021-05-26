@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.data.network.api
 
+import com.eyepertizer.androidx.data.network.ServiceCreator
 import com.eyepertizer.androidx.data.network.model.VideoBeanForClient
 import com.eyepertizer.androidx.data.network.model.VideoRelated
 import com.eyepertizer.androidx.data.network.model.VideoReplies
@@ -28,4 +29,12 @@ interface VideoApi {
      */
     @GET
     fun getVideoReplies(@Url url: String): Observable<VideoReplies>
+
+    companion object {
+
+        /**
+         * 视频详情-评论列表URL
+         */
+        const val VIDEO_REPLIES_URL = "${ServiceCreator.BASE_URL}api/v2/replies/video?videoId="
+    }
 }

@@ -6,10 +6,17 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.view.View
 import android.widget.ImageView
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.base.activity.BaseActivity
+import com.eyepertizer.androidx.data.network.model.VideoDetail
+import com.eyepertizer.androidx.data.network.model.VideoRelated
+import com.eyepertizer.androidx.data.network.model.VideoReplies
 import com.eyepertizer.androidx.databinding.ActivityNewDetailBinding
 import com.eyepertizer.androidx.extension.*
+import com.eyepertizer.androidx.ui.detail.adapter.NewDetailRelatedAdapter
+import com.eyepertizer.androidx.ui.detail.adapter.NewDetailReplyAdapter
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.presenter.NewDetailPresenter
 import com.eyepertizer.androidx.util.GlobalUtil.setOnClickListener
@@ -28,6 +35,13 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
 
     private var orientationUtils: OrientationUtils? = null
 
+    private lateinit var relatedAdapter: NewDetailRelatedAdapter
+    private lateinit var replyAdapter: NewDetailReplyAdapter
+    private lateinit var mergeAdapter: ConcatAdapter
+
+    private val relatedItems: MutableList<VideoRelated.Item> = ArrayList()
+    private val repliesItems: MutableList<VideoReplies.Item> = ArrayList()
+
 
     private var _binding: ActivityNewDetailBinding? = null
     private val binding: ActivityNewDetailBinding
@@ -41,7 +55,14 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
     override fun setUp() {
         presenter.onAttach(this)
         initParams()
+        relatedAdapter =
+            NewDetailRelatedAdapter(this, relatedItems, intent.getParcelableExtra(EXTRA_VIDEOINFO))
+        replyAdapter = NewDetailReplyAdapter(this, repliesItems)
+        mergeAdapter = ConcatAdapter(relatedAdapter, replyAdapter)
         orientationUtils = OrientationUtils(this, binding.videoPlayer)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = mergeAdapter
+        binding.recyclerView.setHasFixedSize(true)
         binding.refreshLayout.run {
             setDragRate(0.7f)
             setHeaderTriggerRate(0.6f)
@@ -57,7 +78,10 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
                 setTextTitleSize(16f)
             })
             setOnRefreshListener { finish() }
-            setOnLoadMoreListener { }
+            setOnLoadMoreListener {
+                logD(TAG, "load more")
+                presenter.fetchVideoReplies()
+            }
         }
         setOnClickListener(
             binding.ivPullDown,
@@ -134,6 +158,39 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
     private fun showFull() {
         orientationUtils?.run { if (isLand != 1) resolveByClick() }
         binding.videoPlayer.startWindowFullscreen(this, true, false)
+    }
+
+    fun scrollTop() {
+        if (relatedAdapter.itemCount != 0) {
+            binding.recyclerView.scrollToPosition(0)
+            binding.refreshLayout.invisibleAlphaAnimation(2500)
+            binding.refreshLayout.visibleAlphaAnimation(1500)
+        }
+    }
+
+    override fun setData(videoInfo: VideoInfo?, videoDetail: VideoDetail) {
+        relatedAdapter.bindVideoInfo(videoInfo)
+        relatedItems.clear()
+        relatedItems.addAll(videoDetail.videoRelated!!.itemList)
+        repliesItems.clear()
+        val itemList = videoDetail.videoReplies.itemList
+        logD(TAG, "replies size: ${itemList.size}")
+        repliesItems.addAll(itemList)
+        relatedAdapter.notifyDataSetChanged()
+        replyAdapter.notifyDataSetChanged()
+    }
+
+    override fun addReplies(data: List<VideoReplies.Item>) {
+        repliesItems.addAll(data)
+        replyAdapter.notifyDataSetChanged()
+    }
+
+    override fun closeHeaderOrFooter() {
+        binding.refreshLayout.closeHeaderOrFooter()
+    }
+
+    override fun finishLoadMoreWithNoMoreData() {
+        binding.refreshLayout.finishLoadMoreWithNoMoreData()
     }
 
     inner class VideoCallPlayBack : GSYSampleCallBack() {
