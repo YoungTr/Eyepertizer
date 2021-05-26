@@ -39,8 +39,4 @@ class TextCardViewHeader7Binder :
         val ivInto7: ImageView = itemView.findViewById(R.id.ivInto7)
     }
 
-    companion object {
-        private const val TAG = "MultiTypeAdapter"
-    }
-
 }

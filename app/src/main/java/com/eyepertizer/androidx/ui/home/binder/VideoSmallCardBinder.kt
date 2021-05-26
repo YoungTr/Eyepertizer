@@ -65,8 +65,4 @@ class VideoSmallCardBinder :
         val ivShare: ImageView = itemView.findViewById(R.id.ivShare)
     }
 
-    companion object {
-        private const val TAG = "MultiTypeAdapter"
-    }
-
 }

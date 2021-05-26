@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.showToast
+import com.eyepertizer.androidx.util.ActionUrlUtil
 
 class TextCardViewFooter3Binder :
     ItemViewBinder<Footer3Model, TextCardViewFooter3Binder.ViewHolder>() {
@@ -23,7 +25,7 @@ class TextCardViewFooter3Binder :
             if (this == holder.tvRefresh) {
                 "${holder.tvRefresh.text},${R.string.currently_not_supported.getString()}".showToast()
             } else if (this == holder.tvFooterRightText3 || this == holder.ivTooterInto3) {
-//                ActionUrlUtil.process(fragment, item.data.actionUrl, item.data.text)
+                ActionUrlUtil.process(context as Activity, item.actionUrl, item.text)
             }
         }
 

@@ -71,8 +71,4 @@ class FollowCardViewBinder :
         val ivChoiceness: ImageView = itemView.findViewById(R.id.ivChoiceness)
     }
 
-    companion object {
-        private const val TAG = "MultiTypeAdapter"
-    }
-
 }

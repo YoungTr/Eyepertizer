@@ -40,8 +40,4 @@ class TextCardViewHeader8Binder :
         val ivInto8: ImageView = itemView.findViewById(R.id.ivInto8)
     }
 
-    companion object {
-        private const val TAG = "MultiTypeAdapter"
-    }
-
 }

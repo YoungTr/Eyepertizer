@@ -1,5 +1,6 @@
 package com.eyepertizer.androidx.ui.home.binder
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.setOnClickListener
+import com.eyepertizer.androidx.util.ActionUrlUtil
 
 class TextCardViewFooter2Binder :
     ItemViewBinder<Footer2Model, TextCardViewFooter2Binder.ViewHolder>() {
@@ -18,7 +20,7 @@ class TextCardViewFooter2Binder :
     override fun onBindViewHolder(holder: ViewHolder, item: Footer2Model) {
         holder.tvFooterRightText2.text = item.text
         setOnClickListener(holder.tvFooterRightText2, holder.ivTooterInto2) {
-//            ActionUrlUtil.process(fragment, item.actionUrl, item.text)
+            ActionUrlUtil.process(context as Activity, item.actionUrl, item.text)
         }
 
     }

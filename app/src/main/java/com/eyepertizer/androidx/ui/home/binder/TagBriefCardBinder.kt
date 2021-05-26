@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.ItemViewBinder
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.*
+import com.eyepertizer.androidx.ui.login.LoginActivity
 
 class TagBriefCardBinder :
     ItemViewBinder<TagBriefCardModel, TagBriefCardBinder.ViewHolder>() {
@@ -20,7 +21,7 @@ class TagBriefCardBinder :
         holder.tvTitle.text = item.title
         if (item.follow) holder.tvFollow.visible() else holder.tvFollow.gone()
         holder.tvFollow.setOnClickListener {
-//            LoginActivity.start(fragment.activity)
+            LoginActivity.start(it.context)
         }
         holder.itemView.setOnClickListener {
             "${item.title},${R.string.currently_not_supported.getString()}".showToast()

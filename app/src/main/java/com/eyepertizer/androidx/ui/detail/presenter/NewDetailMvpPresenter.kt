@@ -10,6 +10,8 @@ interface NewDetailMvpPresenter<V : NewDetailMvpView> : MvpPresenter<V> {
 
     fun fetchVideoDetail()
 
+    fun getVideoInfo(): VideoInfo?
+
     fun play()
 
     fun fetchVideoReplies()

@@ -34,6 +34,8 @@ class NewDetailPresenter<V : NewDetailMvpView> @Inject constructor(
         logD(TAG, "url: $url")
     }
 
+    override fun getVideoInfo(): VideoInfo? = videoInfo
+
     override fun fetchVideoDetail() {
         addSubscribe(
             getDataManager().fetchVideoDetail(this.url!!, this.videoId)

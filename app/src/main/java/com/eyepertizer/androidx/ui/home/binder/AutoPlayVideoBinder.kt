@@ -12,6 +12,8 @@ import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.load
 import com.eyepertizer.androidx.extension.setOnClickListener
+import com.eyepertizer.androidx.util.ActionUrlUtil
+import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 
@@ -24,25 +26,25 @@ class AutoPlayVideoBinder :
             holder.ivAvatar.load(item.data.icon)
             holder.tvTitle.text = item.data.title
             holder.tvDescription.text = item.data.description
-//            startAutoPlay(fragment.activity,
-//                holder.videoPlayer,
-//                position,
-//                url,
-//                imageUrl,
-//                TAG,
-//                object : GSYSampleCallBack() {
-//                    override fun onPrepared(url: String?, vararg objects: Any?) {
-//                        super.onPrepared(url, *objects)
-//                        GSYVideoManager.instance().isNeedMute = true
-//                    }
-//
-//                    override fun onClickBlank(url: String?, vararg objects: Any?) {
-//                        super.onClickBlank(url, *objects)
-////                        ActionUrlUtil.process(fragment, item.data.actionUrl)
-//                    }
-//                })
+            startAutoPlay(holder.videoPlayer.context as Activity,
+                holder.videoPlayer,
+                position,
+                url,
+                imageUrl,
+                TAG,
+                object : GSYSampleCallBack() {
+                    override fun onPrepared(url: String?, vararg objects: Any?) {
+                        super.onPrepared(url, *objects)
+                        GSYVideoManager.instance().isNeedMute = true
+                    }
+
+                    override fun onClickBlank(url: String?, vararg objects: Any?) {
+                        super.onClickBlank(url, *objects)
+                        ActionUrlUtil.process(holder.videoPlayer.context as Activity, item.data.actionUrl)
+                    }
+                })
             setOnClickListener(holder.videoPlayer.thumbImageView, holder.itemView) {
-//                ActionUrlUtil.process(fragment, item.data.detail.actionUrl)
+                ActionUrlUtil.process(context as Activity, item.data.actionUrl)
             }
         }
     }

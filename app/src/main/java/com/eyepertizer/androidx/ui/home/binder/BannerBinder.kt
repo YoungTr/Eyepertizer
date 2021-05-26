@@ -32,8 +32,4 @@ class BannerBinder :
         val ivPicture: ImageView = itemView.findViewById(R.id.ivPicture)
     }
 
-    companion object {
-        private const val TAG = "MultiTypeAdapter"
-    }
-
 }

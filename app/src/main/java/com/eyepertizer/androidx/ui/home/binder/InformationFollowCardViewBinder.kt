@@ -47,13 +47,8 @@ class InformationFollowCardViewBinder :
         val recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView)
     }
 
-    companion object {
-        private const val TAG = "MultiTypeAdapter"
-    }
-
 
     class InformationCardFollowCardAdapter(
-//        val activity: Activity,
         val actionUrl: String?,
         val dataList: List<String>,
     ) :

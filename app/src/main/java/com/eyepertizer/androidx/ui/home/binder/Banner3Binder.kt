@@ -33,8 +33,6 @@ class Banner3Binder :
                 item.data.header.title
             )
         }
-
-
     }
 
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
@@ -48,9 +46,4 @@ class Banner3Binder :
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
     }
-
-    companion object {
-        private const val TAG = "MultiTypeAdapter"
-    }
-
 }

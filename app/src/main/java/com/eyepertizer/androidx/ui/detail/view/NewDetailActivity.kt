@@ -19,8 +19,8 @@ import com.eyepertizer.androidx.ui.detail.adapter.NewDetailRelatedAdapter
 import com.eyepertizer.androidx.ui.detail.adapter.NewDetailReplyAdapter
 import com.eyepertizer.androidx.ui.detail.model.VideoInfo
 import com.eyepertizer.androidx.ui.detail.presenter.NewDetailPresenter
-import com.eyepertizer.androidx.util.GlobalUtil
-import com.eyepertizer.androidx.util.logD
+import com.eyepertizer.androidx.ui.login.LoginActivity
+import com.eyepertizer.androidx.util.*
 import com.eyepertizer.androidx.widget.NoStatusFooter
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
@@ -56,7 +56,7 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
         presenter.onAttach(this)
         initParams()
         relatedAdapter =
-            NewDetailRelatedAdapter(this, relatedItems, intent.getParcelableExtra(EXTRA_VIDEOINFO))
+            NewDetailRelatedAdapter(this, relatedItems, presenter.getVideoInfo())
         replyAdapter = NewDetailReplyAdapter(this, repliesItems)
         mergeAdapter = ConcatAdapter(relatedAdapter, replyAdapter)
         orientationUtils = OrientationUtils(this, binding.videoPlayer)
@@ -260,10 +260,6 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            logD(TAG, "orientation: ${newConfig.orientation}")
-        }
-        logD(TAG, "onConfigurationChanged: $newConfig")
         binding.videoPlayer.onConfigurationChanged(this, newConfig, orientationUtils, true, true)
     }
 
@@ -313,24 +309,48 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
     inner class ClickListener : View.OnClickListener {
         override fun onClick(v: View) {
             logD(TAG, "View click: $v")
-//            viewModel.videoInfoData?.let {
-//                when (v) {
-//                    binding.ivPullDown -> finish()
-//                    binding.ivMore -> {
-//                    }
-//                    binding.ivShare -> showDialogShare(it.webUrl.raw)
-//                    binding.ivCollection -> LoginActivity.start(this@NewDetailActivity)
-//                    binding.ivToWechatFriends -> share(it.webUrl.raw, SHARE_WECHAT)
-//                    binding.ivShareToWechatMemories -> share(it.webUrl.raw, SHARE_WECHAT_MEMORIES)
-//                    binding.ivShareToWeibo -> share(it.webUrl.forWeibo, SHARE_WEIBO)
-//                    binding.ivShareToQQ -> share(it.webUrl.raw, SHARE_QQ)
-//                    binding.ivShareToQQzone -> share(it.webUrl.raw, SHARE_QQZONE)
-//                    binding.ivAvatar, binding.etComment -> LoginActivity.start(this@NewDetailActivity)
-//                    binding.ivReply, binding.tvReplyCount -> scrollRepliesTop()
-//                    else -> {
-//                    }
-//                }
-//            }
+            presenter.getVideoInfo()?.let {
+                when (v) {
+                    binding.ivPullDown -> finish()
+                    binding.ivMore -> {
+                        R.string.currently_not_supported.showToast()
+                    }
+                    binding.ivShare -> showDialogShare(this@NewDetailActivity, it.webUrl.raw)
+                    binding.ivCollection -> LoginActivity.start(this@NewDetailActivity)
+                    binding.ivToWechatFriends -> share(
+                        this@NewDetailActivity,
+                        it.webUrl.raw,
+                        SHARE_WECHAT
+                    )
+                    binding.ivShareToWechatMemories -> share(
+                        this@NewDetailActivity,
+                        it.webUrl.raw,
+                        SHARE_WECHAT_MEMORIES
+                    )
+                    binding.ivShareToWeibo -> share(
+                        this@NewDetailActivity,
+                        it.webUrl.forWeibo,
+                        SHARE_WEIBO
+                    )
+                    binding.ivShareToQQ -> share(this@NewDetailActivity, it.webUrl.raw, SHARE_QQ)
+                    binding.ivShareToQQzone -> share(
+                        this@NewDetailActivity,
+                        it.webUrl.raw,
+                        SHARE_QQZONE
+                    )
+                    binding.ivAvatar, binding.etComment -> LoginActivity.start(this@NewDetailActivity)
+                    binding.ivReply, binding.tvReplyCount -> scrollRepliesTop()
+                    else -> {
+                    }
+                }
+            }
+        }
+    }
+
+    private fun scrollRepliesTop() {
+        val targetPostion = (relatedAdapter.itemCount - 1) + 2  //+相关推荐最后一项，+1评论标题，+1条评论
+        if (targetPostion < mergeAdapter.itemCount - 1) {
+            binding.recyclerView.smoothScrollToPosition(targetPostion)
         }
     }
 
