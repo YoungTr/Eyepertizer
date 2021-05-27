@@ -81,7 +81,7 @@ abstract class BaseFragment : Fragment(), MvpView {
 //        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
     }
 
-    private fun performDI() {
+    open fun performDI() {
         AndroidSupportInjection.inject(this)
     }
 
