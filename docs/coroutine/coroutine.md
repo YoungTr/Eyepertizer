@@ -74,7 +74,7 @@ suspend fun fetchFirstUser(): User {
 
 suspend fun fetchSecondUser(): User {
   // make network call
-  // returen user
+  // return user
 }
 ```
 
