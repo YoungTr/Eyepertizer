@@ -205,7 +205,7 @@ class DailyAdapter(private val dataList: ArrayList<Daily.Item>) :
         val oldCount = this.dataList.size
         val addCount = dataList.size
         this.dataList.addAll(dataList)
-        notifyItemRangeChanged(oldCount, addCount)
+        notifyDataSetChanged()
     }
 
     fun setData(dataList: List<Daily.Item>) {

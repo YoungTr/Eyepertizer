@@ -39,6 +39,7 @@ class DailyFragment : BaseFragment() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.itemAnimator = null
         binding.refreshLayout.setOnRefreshListener { viewModel.onRefresh() }
         binding.refreshLayout.setOnLoadMoreListener {
             logD(TAG, "load more")
@@ -56,7 +57,7 @@ class DailyFragment : BaseFragment() {
                 return@Observer
             }
             when (binding.refreshLayout.state) {
-                RefreshState.None, RefreshState.RefreshFinish -> {
+                RefreshState.None, RefreshState.Refreshing -> {
                     adapter.setData(result.data.itemList)
                 }
                 RefreshState.Loading -> {

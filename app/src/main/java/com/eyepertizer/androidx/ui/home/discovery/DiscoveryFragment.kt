@@ -40,6 +40,7 @@ class DiscoveryFragment : BaseFragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.itemAnimator = null
         binding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
