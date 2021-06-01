@@ -24,4 +24,6 @@ interface ApiHelper {
     fun getVideoReplies(url: String): Observable<VideoReplies>
 
     fun getDiscovery(@Url url: String): Observable<Discovery>
+
+    suspend fun getDaily(@Url url: String): Daily
 }

@@ -52,6 +52,10 @@ class AppDataManager @Inject constructor(
         return apiHelper.getDiscovery(url)
     }
 
+    override suspend fun getDaily(url: String): Daily {
+        return apiHelper.getDaily(url)
+    }
+
     override fun fetchVideoDetail(url: String, videoId: Long): Observable<VideoDetail> {
         return Observable.zip(
             getVideoBeanForClient(videoId),

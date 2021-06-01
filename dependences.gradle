@@ -17,7 +17,8 @@ ext {
             glideVersion       : "4.12.0",
             daggerVersion      : "2.35",
             leakcanaryVersion  : "2.7",
-            coroutines         : "1.4.3"
+            coroutines         : "1.4.3",
+            lifecycle          : "2.3.1",
     ]
 
     depends = [
@@ -27,6 +28,9 @@ ext {
 
             "coroutines-core"        : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions["coroutines"]}",
             "coroutines-android"     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions["coroutines"]}",
+            "lifecycle-viewmodel"    : "androidx.lifecycle:lifecycle-viewmodel:${versions["lifecycle"]}",
+            "lifecycle-viewmodel-ktx"    : "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions["lifecycle"]}",
+            "lifecycle-livedata"     : "androidx.lifecycle:lifecycle-livedata-ktx:${versions["lifecycle"]}",
 
             // ui
 //            "SmartRefreshLayout"           : "com.scwang.smartrefresh:SmartRefreshLayout:${versions["smartrefreshVersion"]}",

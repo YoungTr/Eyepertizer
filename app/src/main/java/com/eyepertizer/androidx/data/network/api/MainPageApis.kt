@@ -17,6 +17,7 @@
 package com.eyepertizer.androidx.data.network.api
 
 import com.eyepertizer.androidx.data.network.ServiceCreator
+import com.eyepertizer.androidx.data.network.model.Daily
 import com.eyepertizer.androidx.data.network.model.Discovery
 import com.eyepertizer.androidx.data.network.model.HomePageRecommend
 import io.reactivex.Observable
@@ -39,6 +40,12 @@ interface MainPageApis {
 
     @GET
     fun getDiscovery(@Url url: String): Observable<Discovery>
+
+    /**
+     * 首页-日报列表
+     */
+    @GET
+    suspend fun getDaily(@Url url: String): Daily
 
     companion object {
 

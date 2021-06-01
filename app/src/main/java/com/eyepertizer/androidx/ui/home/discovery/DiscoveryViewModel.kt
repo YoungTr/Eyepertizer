@@ -20,17 +20,21 @@ class DiscoveryViewModel @Inject constructor(
     private var url: String? = null
 
     private fun fetchDiscovery() {
-        addSubscribe(
-            getDataManager().getDiscovery(url!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response ->
-                    url = response.nextPageUrl ?: ""
-                    discovery.value = Resource.success(response)
-                }, { error ->
-                    discovery.value = Resource.error(error.message!!, null)
-                })
-        )
+        url?.let {
+            addSubscribe(
+                getDataManager().getDiscovery(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response ->
+                        url = response.nextPageUrl
+                        discovery.value = Resource.success(response)
+                    }, { error ->
+                        discovery.value = Resource.error(error.message!!, null)
+                    })
+            )
+        }
+
+
     }
 
     fun onRefresh() {

@@ -33,4 +33,8 @@ class AppApiHelper @Inject constructor(
     override fun getDiscovery(url: String): Observable<Discovery> {
         return mainPageApis.getDiscovery(url)
     }
+
+    override suspend fun getDaily(url: String): Daily {
+        return mainPageApis.getDaily(url)
+    }
 }

@@ -8,9 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eyepertizer.androidx.base.fragment.BaseFragment
 import com.eyepertizer.androidx.databinding.FragmentRefreshLayoutBinding
+import com.eyepertizer.androidx.extension.showToast
 import com.eyepertizer.androidx.ui.home.discovery.adapter.DiscoveryAdapter
-import com.eyepertizer.androidx.util.Status
-import com.eyepertizer.androidx.util.logD
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import javax.inject.Inject
 
@@ -38,38 +37,43 @@ class DiscoveryFragment : BaseFragment() {
     }
 
     override fun setUp() {
-        logD(TAG, "set up")
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
         binding.refreshLayout.setOnRefreshListener {
-            logD(TAG, "refresh")
             viewModel.onRefresh()
         }
         binding.refreshLayout.setOnLoadMoreListener {
-            logD(TAG, "load more")
             viewModel.loadMore()
         }
         viewModel.discovery.observe(this, Observer { result ->
             hideLoading()
-            closeHeaderOrFooter()
-            when (result.status) {
-                Status.SUCCESS -> {
-                    when (binding.refreshLayout.state) {
-                        RefreshState.None, RefreshState.RefreshReleased -> {
-                            adapter.setData(result.data!!.itemList)
-                        }
-                        RefreshState.Loading -> {
-                            adapter.addData(result.data!!.itemList)
-                        }
-                        else -> {
-
-                        }
-                    }
-                }
-                Status.ERROR -> finishLoadMoreWithNoMoreData()
-                Status.LOADING -> showLoading()
+            if (result.data == null) {
+                result.message?.showToast()
+                return@Observer
             }
+
+            if (result.data.itemList.isNullOrEmpty()) {
+                finishLoadMoreWithNoMoreData()
+                return@Observer
+            }
+            when (binding.refreshLayout.state) {
+                RefreshState.None, RefreshState.RefreshFinish -> {
+                    adapter.setData(result.data.itemList)
+                }
+                RefreshState.Loading -> {
+                    adapter.addData(result.data.itemList)
+                }
+                else -> {
+
+                }
+            }
+            if (result.data.nextPageUrl.isNullOrEmpty()) {
+                finishLoadMoreWithNoMoreData()
+            } else {
+                closeHeaderOrFooter()
+            }
+
         })
 
     }
@@ -84,11 +88,11 @@ class DiscoveryFragment : BaseFragment() {
         _binding = null
     }
 
-    fun closeHeaderOrFooter() {
+    private fun closeHeaderOrFooter() {
         binding.refreshLayout.closeHeaderOrFooter()
     }
 
-    fun finishLoadMoreWithNoMoreData() {
+    private fun finishLoadMoreWithNoMoreData() {
         binding.refreshLayout.finishLoadMoreWithNoMoreData()
     }
 
