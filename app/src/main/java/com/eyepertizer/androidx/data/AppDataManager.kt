@@ -48,6 +48,10 @@ class AppDataManager @Inject constructor(
         return apiHelper.getVideoReplies(url)
     }
 
+    override fun getDiscovery(url: String): Observable<Discovery> {
+        return apiHelper.getDiscovery(url)
+    }
+
     override fun fetchVideoDetail(url: String, videoId: Long): Observable<VideoDetail> {
         return Observable.zip(
             getVideoBeanForClient(videoId),

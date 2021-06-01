@@ -1,10 +1,8 @@
 package com.eyepertizer.androidx.data.network
 
-import com.eyepertizer.androidx.data.network.model.HomePageRecommend
-import com.eyepertizer.androidx.data.network.model.VideoBeanForClient
-import com.eyepertizer.androidx.data.network.model.VideoRelated
-import com.eyepertizer.androidx.data.network.model.VideoReplies
+import com.eyepertizer.androidx.data.network.model.*
 import io.reactivex.Observable
+import retrofit2.http.Url
 
 interface ApiHelper {
 
@@ -24,4 +22,6 @@ interface ApiHelper {
      * 视频详情-评论列表
      */
     fun getVideoReplies(url: String): Observable<VideoReplies>
+
+    fun getDiscovery(@Url url: String): Observable<Discovery>
 }

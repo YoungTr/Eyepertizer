@@ -38,7 +38,7 @@ ext {
             "refresh-header-material": "com.scwang.smart:refresh-header-material:2.0.3",
             "multitype"              : "com.drakeet.multitype:multitype:4.2.0",
             "circleimageview"        : "de.hdodenhof:circleimageview:3.1.0",
-            "BannerViewPager"        : "com.github.zhpanvip:BannerViewPager:3.5.0",
+            "BannerViewPager"        : "com.github.zhpanvip:BannerViewPager:3.1.2",
             "GSYVideoPlayer"         : "com.shuyu:GSYVideoPlayer:8.1.2",
             "recyclerview"           : "androidx.recyclerview:recyclerview:1.2.0",
 //            "VerticalTabLayout"            : "q.rorbin:VerticalTabLayout:1.2.5",

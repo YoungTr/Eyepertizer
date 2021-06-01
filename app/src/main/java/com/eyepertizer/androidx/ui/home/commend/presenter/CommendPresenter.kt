@@ -2,7 +2,7 @@ package com.eyepertizer.androidx.ui.home.commend.presenter
 
 import com.eyepertizer.androidx.base.presenter.BaseMvpPresenter
 import com.eyepertizer.androidx.data.AppDataManager
-import com.eyepertizer.androidx.data.network.api.MainPageService
+import com.eyepertizer.androidx.data.network.api.MainPageApis
 import com.eyepertizer.androidx.data.network.model.HomePageRecommend
 import com.eyepertizer.androidx.ui.home.commend.view.CommendMvpView
 import com.eyepertizer.androidx.util.logD
@@ -23,7 +23,7 @@ class CommendPresenter<V : CommendMvpView> @Inject constructor(
     private var url: String? = null
 
     override fun getHomePageRecommend() {
-        url = MainPageService.HOMEPAGE_RECOMMEND_URL
+        url = MainPageApis.HOMEPAGE_RECOMMEND_URL
         addSubscribe(
             getDataManager().getHomePageRecommend(url!!)
                 .subscribeOn(Schedulers.io())

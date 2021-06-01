@@ -43,7 +43,9 @@ import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.UNKNOWN
 import com.eyepertizer.androidx.constants.Const.ItemViewType.Companion.VIDEO_SMALL_CARD
 import com.eyepertizer.androidx.data.network.model.*
 import com.eyepertizer.androidx.extension.inflate
+import com.eyepertizer.androidx.ui.home.discovery.adapter.DiscoveryAdapter
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
+import com.zhpan.bannerview.BannerViewPager
 
 /**
  * 项目通用ViewHolder，集中统一管理。
@@ -91,9 +93,9 @@ class TextCardViewFooter3ViewHolder(view: View) : RecyclerView.ViewHolder(view) 
     val ivTooterInto3 = view.findViewById<ImageView>(R.id.ivTooterInto3)
 }
 
-//class HorizontalScrollCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//    val bannerViewPager: BannerViewPager<Discovery.ItemX, DiscoveryAdapter.HorizontalScrollCardAdapter.ViewHolder> = view.findViewById(R.id.bannerViewPager)
-//}
+class HorizontalScrollCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val bannerViewPager: BannerViewPager<Discovery.ItemX, DiscoveryAdapter.HorizontalScrollCardAdapter.ViewHolder> = view.findViewById(R.id.bannerViewPager)
+}
 
 class SpecialSquareCardCollectionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
@@ -227,11 +229,11 @@ object RecyclerViewHelp {
                 )
             )
 
-//            HORIZONTAL_SCROLL_CARD -> HorizontalScrollCardViewHolder(
-//                R.layout.item_horizontal_scroll_card_type.inflate(
-//                    parent
-//                )
-//            )
+            HORIZONTAL_SCROLL_CARD -> HorizontalScrollCardViewHolder(
+                R.layout.item_horizontal_scroll_card_type.inflate(
+                    parent
+                )
+            )
 
             SPECIAL_SQUARE_CARD_COLLECTION -> SpecialSquareCardCollectionViewHolder(
                 R.layout.item_special_square_card_collection_type.inflate(

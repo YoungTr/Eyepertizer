@@ -4,6 +4,7 @@ import com.eyepertizer.androidx.ui.home.HomePageFragment
 import com.eyepertizer.androidx.ui.home.commend.view.CommendFragment
 import com.eyepertizer.androidx.ui.home.daily.DailyFragment
 import com.eyepertizer.androidx.ui.home.discovery.DiscoveryFragment
+import com.eyepertizer.androidx.ui.home.discovery.DiscoveryFragmentProvider
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -17,7 +18,7 @@ abstract class FragmentBindModule {
     @ContributesAndroidInjector
     abstract fun homePageFragmentInjector(): HomePageFragment
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [DiscoveryFragmentProvider::class])
     abstract fun discoveryFragmentInjector(): DiscoveryFragment
 
     @ContributesAndroidInjector
