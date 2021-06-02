@@ -1,10 +1,12 @@
 package com.eyepertizer.androidx.ui.home.discovery
 
 import androidx.lifecycle.MutableLiveData
+import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.base.viewmodel.BaseViewModel
 import com.eyepertizer.androidx.data.IDataManager
 import com.eyepertizer.androidx.data.network.api.MainPageApis
 import com.eyepertizer.androidx.data.network.model.Discovery
+import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.util.Resource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -13,7 +15,7 @@ import javax.inject.Inject
 
 class DiscoveryViewModel @Inject constructor(
     dataManager: IDataManager,
-    compositeDisposable: CompositeDisposable
+    compositeDisposable: CompositeDisposable,
 ) :
     BaseViewModel(dataManager, compositeDisposable) {
     val discovery = MutableLiveData<Resource<Discovery>>()
@@ -29,7 +31,8 @@ class DiscoveryViewModel @Inject constructor(
                         url = response.nextPageUrl
                         discovery.value = Resource.success(response)
                     }, { error ->
-                        discovery.value = Resource.error(error.message!!, null)
+                        discovery.value = Resource.error(error.message
+                            ?: R.string.data_request_failed.getString(), null)
                     })
             )
         }
