@@ -1,5 +1,16 @@
 # Eyepertizer
 
+## 0 简介
+
+**基于 Kotlin 语言仿写「开眼 Eyepertizer」的一个短视频 Android 客户端项目，主要对一些新的技术、主流框架学习加深印象。**
+
+### 效果图
+
+| <img src="./pics/82.jpeg" alt="app_02.png" style="zoom:33%;" /> | <img src="./pics/80.jpeg" alt="app_03.png" style="zoom:33%;" /> | <img src="./pics/68.jpeg" alt="app_04.png" style="zoom:33%;" /> |
+| ------------------------------------------------------------ | :----------------------------------------------------------: | ------------------------------------------------------------ |
+| <img src="./pics/71.jpeg" alt="71.jpeg" style="zoom:33%;" /> | <img src="./pics/73.jpeg" alt="73.jpeg" style="zoom:33%;" /> | <img src="./pics/74.jpeg" alt="74.jpeg" style="zoom:33%;" /> |
+| <img src="./pics/75.jpeg" alt="75.jpeg" style="zoom:33%;" /> | <img src="./pics/76.jpeg" alt="76.jpeg" style="zoom:33%;" /> | <img src="./pics/77.jpeg" alt="77.jpeg" style="zoom:33%;" /> |
+
 ## 1、MVP
 
 ### MVP 将应用程序分为三个基本组成部分：
@@ -587,7 +598,8 @@ launch {
 
 - [ ] [Jetpack DataStore Preferences](https://blog.mindorks.com/jetpack-datastore-preferences)
 
-## THANK TO
+## THANKS
 
 https://github.com/MindorksOpenSource
+https://github.com/VIPyinzhiwei/Eyepetizer
 
