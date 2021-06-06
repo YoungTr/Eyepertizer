@@ -600,6 +600,6 @@ launch {
 
 ## THANKS
 
-https://github.com/MindorksOpenSource
+https://github.com/MindorksOpenSource  
 https://github.com/VIPyinzhiwei/Eyepetizer
 
