@@ -2,7 +2,7 @@
 
 ## 0 简介
 
-**基于 Kotlin 语言仿写「开眼 Eyepertizer」的一个短视频 Android 客户端项目，主要对一些新的技术、主流框架学习加深印象。**
+**仿照[Eyepetizer](https://github.com/VIPyinzhiwei/Eyepetizer)，基于 Kotlin 语言仿写「开眼 Eyepertizer」的一个短视频 Android 客户端项目，主要对一些新的技术、主流框架学习加深印象。**
 
 ### 效果图
 
