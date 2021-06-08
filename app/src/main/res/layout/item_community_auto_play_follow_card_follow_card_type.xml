@@ -103,7 +103,7 @@
         app:typeface="fzlLTypeface"
         tools:text="根据微软披露的最新数据，每月有 1.5 亿用户在使用免密登录。相比之下，去年 Ignite 2019 大会上公布的数据还只是 1 亿人左右。短短六个月时间，这一数字就增长了近 5000 万 ... " />
 
-    <com.eyepertizer.androidx.widget.TypefaceTextView
+    <com.eyepertizer.androidx.widget.AutoPlayerVideoPlayer
         android:id="@+id/videoPlayer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/coverSize"

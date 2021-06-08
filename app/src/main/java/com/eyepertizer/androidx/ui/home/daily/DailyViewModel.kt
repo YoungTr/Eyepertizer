@@ -9,7 +9,6 @@ import com.eyepertizer.androidx.data.network.api.MainPageApis
 import com.eyepertizer.androidx.data.network.model.Daily
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.util.Resource
-import com.eyepertizer.androidx.util.logD
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,8 +28,6 @@ class DailyViewModel @Inject constructor(dataManager: IDataManager) :
                 url?.let {
                     val dailyFromApi = getDataManager().getDaily(it)
                     url = dailyFromApi.nextPageUrl
-                    logD(TAG, "url: $url")
-                    logD(TAG, dailyFromApi.itemList.size.toString())
                     daily.postValue(Resource.success(dailyFromApi))
                 }
             } catch (e: Exception) {

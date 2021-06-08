@@ -8,7 +8,9 @@ import com.eyepertizer.androidx.databinding.ActivityMainBinding
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.showToast
+import com.eyepertizer.androidx.ui.community.CommunityFragment
 import com.eyepertizer.androidx.ui.home.HomePageFragment
+import com.eyepertizer.androidx.ui.login.LoginActivity
 import com.eyepertizer.androidx.ui.main.presenter.MainPresenter
 import com.eyepertizer.androidx.util.GlobalUtil
 import com.eyepertizer.androidx.util.logD
@@ -33,6 +35,7 @@ class MainActivity : BaseActivity(), MainMvpView {
         get() = _binding!!
 
     private var homePageFragment: HomePageFragment? = null
+    private var communityFragment: CommunityFragment? = null
 
 
     override fun bindView(): View {
@@ -65,7 +68,7 @@ class MainActivity : BaseActivity(), MainMvpView {
                 }
                 binding.navigationBar.ivRelease -> {
                     logD(TAG, "Go to login")
-//                    LoginActivity.start(this@MainActivity)
+                    LoginActivity.start(this@MainActivity)
                 }
                 binding.navigationBar.btnMine -> {
                     notificationUiRefresh(TAB_INDEX_MINE)
@@ -109,7 +112,12 @@ class MainActivity : BaseActivity(), MainMvpView {
                 }
                 TAB_INDEX_COMMUNITY,
                 -> {
-
+                    if (communityFragment == null) {
+                        communityFragment = CommunityFragment.newInstance()
+                        add(R.id.homeActivityFragContainer, communityFragment!!)
+                    } else {
+                        show(communityFragment!!)
+                    }
                 }
                 TAB_INDEX_NOTIFICATION,
                 -> {
@@ -134,6 +142,7 @@ class MainActivity : BaseActivity(), MainMvpView {
     private fun hideAllFragments(transaction: FragmentTransaction) {
         transaction.run {
             if (homePageFragment != null) hide(homePageFragment!!)
+            if (communityFragment != null) hide(communityFragment!!)
         }
     }
 

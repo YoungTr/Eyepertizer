@@ -17,9 +17,7 @@
 package com.eyepertizer.androidx.data.network.api
 
 import com.eyepertizer.androidx.data.network.ServiceCreator
-import com.eyepertizer.androidx.data.network.model.Daily
-import com.eyepertizer.androidx.data.network.model.Discovery
-import com.eyepertizer.androidx.data.network.model.HomePageRecommend
+import com.eyepertizer.androidx.data.network.model.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Url
@@ -46,6 +44,19 @@ interface MainPageApis {
      */
     @GET
     suspend fun getDaily(@Url url: String): Daily
+
+    /**
+     * 社区-推荐列表
+     */
+    @GET
+    suspend fun getCommunityRecommend(@Url url: String): CommunityRecommend
+
+    /**
+     * 社区-关注列表
+     */
+    @GET
+    suspend fun getFollow(@Url url: String): Follow
+
 
     companion object {
 

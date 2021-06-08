@@ -37,4 +37,12 @@ class AppApiHelper @Inject constructor(
     override suspend fun getDaily(url: String): Daily {
         return mainPageApis.getDaily(url)
     }
+
+    override suspend fun getCommunityRecommend(url: String): CommunityRecommend {
+        return mainPageApis.getCommunityRecommend(url)
+    }
+
+    override suspend fun getFollow(url: String): Follow {
+        return mainPageApis.getFollow(url)
+    }
 }

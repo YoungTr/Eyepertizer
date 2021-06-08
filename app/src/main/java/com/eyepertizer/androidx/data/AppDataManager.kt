@@ -56,6 +56,14 @@ class AppDataManager @Inject constructor(
         return apiHelper.getDaily(url)
     }
 
+    override suspend fun getCommunityRecommend(url: String): CommunityRecommend {
+        return apiHelper.getCommunityRecommend(url)
+    }
+
+    override suspend fun getFollow(url: String): Follow {
+        return apiHelper.getFollow(url)
+    }
+
     override fun fetchVideoDetail(url: String, videoId: Long): Observable<VideoDetail> {
         return Observable.zip(
             getVideoBeanForClient(videoId),

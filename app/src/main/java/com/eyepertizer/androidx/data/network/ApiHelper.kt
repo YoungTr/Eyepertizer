@@ -2,7 +2,6 @@ package com.eyepertizer.androidx.data.network
 
 import com.eyepertizer.androidx.data.network.model.*
 import io.reactivex.Observable
-import retrofit2.http.Url
 
 interface ApiHelper {
 
@@ -23,7 +22,12 @@ interface ApiHelper {
      */
     fun getVideoReplies(url: String): Observable<VideoReplies>
 
-    fun getDiscovery(@Url url: String): Observable<Discovery>
+    fun getDiscovery(url: String): Observable<Discovery>
 
-    suspend fun getDaily(@Url url: String): Daily
+    suspend fun getDaily(url: String): Daily
+
+    suspend fun getCommunityRecommend(url: String): CommunityRecommend
+
+    suspend fun getFollow(url: String): Follow
+
 }
