@@ -45,6 +45,7 @@ ext {
             "BannerViewPager"        : "com.github.zhpanvip:BannerViewPager:3.1.2",
             "GSYVideoPlayer"         : "com.shuyu:GSYVideoPlayer:8.1.2",
             "recyclerview"           : "androidx.recyclerview:recyclerview:1.2.0",
+            "PhotoView"              : "com.github.chrisbanes:PhotoView:2.3.0",
 
             // net
             "gson"                   : "com.google.code.gson:gson:2.8.6",

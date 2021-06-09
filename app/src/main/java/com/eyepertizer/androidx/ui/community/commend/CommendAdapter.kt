@@ -33,6 +33,7 @@ import com.eyepertizer.androidx.data.network.model.CommunityRecommend
 import com.eyepertizer.androidx.extension.*
 import com.eyepertizer.androidx.ui.common.EmptyViewHolder
 import com.eyepertizer.androidx.ui.home.daily.DailyAdapter
+import com.eyepertizer.androidx.ui.ugc.UgcDetailActivity
 import com.eyepertizer.androidx.util.ActionUrlUtil
 import com.eyepertizer.androidx.util.GlobalUtil
 import com.eyepertizer.androidx.util.logW
@@ -175,7 +176,7 @@ class CommendAdapter(
                         holder.itemView.setOnClickListener {
                             val items =
                                 dataList.filter { it.type == STR_COMMUNITY_COLUMNS_CARD && it.data.dataType == STR_FOLLOW_CARD_DATA_TYPE }
-//                            UgcDetailActivity.start(fragment.activity, items, item)
+                            UgcDetailActivity.start(fragment.getBaseActivity()!!, items, item)
                         }
                     }
                     STR_UGC_PICTURE_TYPE -> {
@@ -183,7 +184,7 @@ class CommendAdapter(
                         holder.itemView.setOnClickListener {
                             val items =
                                 dataList.filter { it.type == STR_COMMUNITY_COLUMNS_CARD && it.data.dataType == STR_FOLLOW_CARD_DATA_TYPE }
-//                            UgcDetailActivity.start(fragment.activity, items, item)
+                            UgcDetailActivity.start(fragment.getBaseActivity()!!, items, item)
                         }
                     }
                     else -> {
