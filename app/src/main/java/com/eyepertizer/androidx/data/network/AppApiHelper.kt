@@ -45,4 +45,8 @@ class AppApiHelper @Inject constructor(
     override suspend fun getFollow(url: String): Follow {
         return mainPageApis.getFollow(url)
     }
+
+    override suspend fun getPushMessage(url: String): PushMessage {
+        return mainPageApis.getPushMessage(url)
+    }
 }

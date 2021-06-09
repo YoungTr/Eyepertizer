@@ -12,6 +12,7 @@ import com.eyepertizer.androidx.ui.community.CommunityFragment
 import com.eyepertizer.androidx.ui.home.HomePageFragment
 import com.eyepertizer.androidx.ui.login.LoginActivity
 import com.eyepertizer.androidx.ui.main.presenter.MainPresenter
+import com.eyepertizer.androidx.ui.notification.NotificationFragment
 import com.eyepertizer.androidx.util.GlobalUtil
 import com.eyepertizer.androidx.util.logD
 import javax.inject.Inject
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity(), MainMvpView {
 
     private var homePageFragment: HomePageFragment? = null
     private var communityFragment: CommunityFragment? = null
+    private var notificationFragment: NotificationFragment? = null
 
 
     override fun bindView(): View {
@@ -81,20 +83,6 @@ class MainActivity : BaseActivity(), MainMvpView {
 
     private fun notificationUiRefresh(selectionIndex: Int) {
         logD(TAG, "selectionIndex: $selectionIndex")
-//        when (selectionIndex) {
-//            0 -> {
-//                if (binding.navigationBar.ivHomePage.isSelected) EventBus.getDefault().post(RefreshEvent(HomePageFragment::class.java))
-//            }
-//            1 -> {
-//                if (binding.navigationBar.ivCommunity.isSelected) EventBus.getDefault().post(RefreshEvent(CommunityFragment::class.java))
-//            }
-//            2 -> {
-//                if (binding.navigationBar.ivNotification.isSelected) EventBus.getDefault().post(RefreshEvent(NotificationFragment::class.java))
-//            }
-//            3 -> {
-//                if (binding.navigationBar.ivMine.isSelected) EventBus.getDefault().post(RefreshEvent(MineFragment::class.java))
-//            }
-//        }
     }
 
     private fun setTabSelection(index: Int) {
@@ -121,7 +109,12 @@ class MainActivity : BaseActivity(), MainMvpView {
                 }
                 TAB_INDEX_NOTIFICATION,
                 -> {
-
+                    if (notificationFragment == null) {
+                        notificationFragment = NotificationFragment.newInstance()
+                        add(R.id.homeActivityFragContainer, notificationFragment!!)
+                    } else {
+                        show(notificationFragment!!)
+                    }
                 }
                 TAB_INDEX_MINE,
                 -> {
@@ -143,6 +136,7 @@ class MainActivity : BaseActivity(), MainMvpView {
         transaction.run {
             if (homePageFragment != null) hide(homePageFragment!!)
             if (communityFragment != null) hide(communityFragment!!)
+            if (notificationFragment != null) hide(notificationFragment!!)
         }
     }
 

@@ -30,4 +30,6 @@ interface ApiHelper {
 
     suspend fun getFollow(url: String): Follow
 
+    suspend fun getPushMessage(url: String): PushMessage
+
 }

@@ -57,6 +57,12 @@ interface MainPageApis {
     @GET
     suspend fun getFollow(@Url url: String): Follow
 
+    /**
+     * 通知-推送列表
+     */
+    @GET
+    suspend fun getPushMessage(@Url url: String): PushMessage
+
 
     companion object {
 

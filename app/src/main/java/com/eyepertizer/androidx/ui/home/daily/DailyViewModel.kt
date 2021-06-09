@@ -37,12 +37,12 @@ class DailyViewModel @Inject constructor(dataManager: IDataManager) :
         }
     }
 
-    fun onRefresh() {
+   override fun onRefresh() {
         url = MainPageApis.DAILY_URL
         fetchDaily()
     }
 
-    fun loadMore() {
+    override fun onLoadMore() {
         fetchDaily()
     }
 

@@ -12,4 +12,9 @@ abstract class BaseViewCoroutinesModel(
     override fun onCleared() {
         super.onCleared()
     }
+
+    abstract fun onRefresh()
+
+
+    abstract fun onLoadMore()
 }

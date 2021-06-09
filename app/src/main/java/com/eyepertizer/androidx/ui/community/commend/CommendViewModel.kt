@@ -19,12 +19,12 @@ class CommendViewModel @Inject constructor(dataManager: IDataManager) :
 
     private var url: String? = null
 
-    fun onRefresh() {
+    override fun onRefresh() {
         url = MainPageApis.COMMUNITY_RECOMMEND_URL
         fetchCommend()
     }
 
-    fun onLoadMore() {
+    override fun onLoadMore() {
         fetchCommend()
     }
 

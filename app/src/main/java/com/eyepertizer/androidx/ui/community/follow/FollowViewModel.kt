@@ -18,12 +18,12 @@ class FollowViewModel @Inject constructor(dataManager: IDataManager) :
     val liveData: MutableLiveData<Resource<Follow>> = MutableLiveData()
     private var url: String? = null
 
-    fun onRefresh() {
+    override fun onRefresh() {
         url = MainPageApis.FOLLOW_URL
         fetchCommend()
     }
 
-    fun onLoadMore() {
+    override fun onLoadMore() {
         fetchCommend()
     }
 

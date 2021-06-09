@@ -10,6 +10,11 @@ import com.eyepertizer.androidx.ui.home.daily.DailyFragment
 import com.eyepertizer.androidx.ui.home.daily.DailyFragmentProvider
 import com.eyepertizer.androidx.ui.home.discovery.DiscoveryFragment
 import com.eyepertizer.androidx.ui.home.discovery.DiscoveryFragmentProvider
+import com.eyepertizer.androidx.ui.notification.NotificationFragment
+import com.eyepertizer.androidx.ui.notification.inbox.InboxFragment
+import com.eyepertizer.androidx.ui.notification.interaction.InteractionFragment
+import com.eyepertizer.androidx.ui.notification.push.PushFragment
+import com.eyepertizer.androidx.ui.notification.push.PushFragmentProvider
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -41,4 +46,15 @@ abstract class FragmentBindModule {
     @ContributesAndroidInjector(modules = [FollowFragmentProvider::class])
     abstract fun followFragmentInjector(): FollowFragment
 
+    @ContributesAndroidInjector
+    abstract fun notificationFragmentInjector(): NotificationFragment
+
+    @ContributesAndroidInjector(modules = [PushFragmentProvider::class])
+    abstract fun pushFragmentInjector(): PushFragment
+
+    @ContributesAndroidInjector
+    abstract fun interactionFragmentInjector(): InteractionFragment
+
+    @ContributesAndroidInjector
+    abstract fun inboxFragmentInjector(): InboxFragment
 }
