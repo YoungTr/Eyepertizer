@@ -12,6 +12,7 @@ import com.eyepertizer.androidx.ui.community.CommunityFragment
 import com.eyepertizer.androidx.ui.home.HomePageFragment
 import com.eyepertizer.androidx.ui.login.LoginActivity
 import com.eyepertizer.androidx.ui.main.presenter.MainPresenter
+import com.eyepertizer.androidx.ui.mine.MineFragment
 import com.eyepertizer.androidx.ui.notification.NotificationFragment
 import com.eyepertizer.androidx.util.GlobalUtil
 import com.eyepertizer.androidx.util.logD
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity(), MainMvpView {
     private var homePageFragment: HomePageFragment? = null
     private var communityFragment: CommunityFragment? = null
     private var notificationFragment: NotificationFragment? = null
+    private var mineFragment: MineFragment? = null
 
 
     override fun bindView(): View {
@@ -118,7 +120,12 @@ class MainActivity : BaseActivity(), MainMvpView {
                 }
                 TAB_INDEX_MINE,
                 -> {
-
+                    if (mineFragment == null) {
+                        mineFragment = MineFragment.newInstance()
+                        add(R.id.homeActivityFragContainer, mineFragment!!)
+                    } else {
+                        show(mineFragment!!)
+                    }
                 }
 
             }
@@ -137,6 +144,7 @@ class MainActivity : BaseActivity(), MainMvpView {
             if (homePageFragment != null) hide(homePageFragment!!)
             if (communityFragment != null) hide(communityFragment!!)
             if (notificationFragment != null) hide(notificationFragment!!)
+            if (mineFragment != null) hide(mineFragment!!)
         }
     }
 
