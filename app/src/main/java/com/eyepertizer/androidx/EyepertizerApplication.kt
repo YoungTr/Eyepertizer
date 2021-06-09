@@ -23,7 +23,7 @@ import javax.inject.Inject
 class EyepertizerApplication : Application(), HasAndroidInjector {
 
     init {
-        SmartRefreshLayout.setDefaultRefreshInitializer { context, layout ->
+        SmartRefreshLayout.setDefaultRefreshInitializer { _, layout ->
             layout.setEnableLoadMore(true)
             layout.setEnableLoadMoreWhenContentNotFull(true)
         }

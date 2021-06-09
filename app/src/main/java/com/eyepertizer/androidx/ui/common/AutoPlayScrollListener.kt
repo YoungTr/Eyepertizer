@@ -37,6 +37,7 @@ import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer
  * @author vipyinzhiwei
  * @since 2020/5/26
  */
+@Suppress("DEPRECATION")
 class AutoPlayScrollListener(
     private val itemPlayId: Int,
     private val rangeTop: Int,
