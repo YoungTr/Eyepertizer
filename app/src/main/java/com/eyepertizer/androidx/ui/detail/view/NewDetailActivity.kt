@@ -136,7 +136,7 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
             imageView.load(it.cover.detail)
             thumbImageView = imageView
             thumbImageView.setOnClickListener {
-//                switchTitleBarVisible()
+                switchTitleBarVisible()
             }
             //是否开启自动旋转
             isRotateViewAuto = false
@@ -348,9 +348,9 @@ class NewDetailActivity : BaseActivity(), NewDetailMvpView {
     }
 
     private fun scrollRepliesTop() {
-        val targetPostion = (relatedAdapter.itemCount - 1) + 2  //+相关推荐最后一项，+1评论标题，+1条评论
-        if (targetPostion < mergeAdapter.itemCount - 1) {
-            binding.recyclerView.smoothScrollToPosition(targetPostion)
+        val targetPosition = (relatedAdapter.itemCount - 1) + 2  //+相关推荐最后一项，+1评论标题，+1条评论
+        if (targetPosition < mergeAdapter.itemCount - 1) {
+            binding.recyclerView.smoothScrollToPosition(targetPosition)
         }
     }
 

@@ -22,7 +22,7 @@ class UgcDetailActivity : BaseActivity() {
 
     private lateinit var adapter: UgcDetailAdapter
 
-    override fun bindView(): View? {
+    override fun bindView(): View {
         _binding = ActivityUgcDetailBinding.inflate(layoutInflater)
         return binding.root
     }
