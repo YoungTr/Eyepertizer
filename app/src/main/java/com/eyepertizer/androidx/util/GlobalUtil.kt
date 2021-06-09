@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
+@Suppress("SpellCheckingInspection", "DEPRECATION", "unused")
 object GlobalUtil {
 
     private var TAG = "GlobalUtil"
@@ -38,8 +39,10 @@ object GlobalUtil {
      * @return 当前应用程序的版本名。
      */
     val appVersionName: String
-        get() = EyepertizerApplication.context.packageManager.getPackageInfo(appPackage,
-            0).versionName
+        get() = EyepertizerApplication.context.packageManager.getPackageInfo(
+            appPackage,
+            0
+        ).versionName
 
     /**
      * 获取当前应用程序的版本号。
@@ -47,11 +50,15 @@ object GlobalUtil {
      */
     val appVersionCode: Long
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            EyepertizerApplication.context.packageManager.getPackageInfo(appPackage,
-                0).longVersionCode
+            EyepertizerApplication.context.packageManager.getPackageInfo(
+                appPackage,
+                0
+            ).longVersionCode
         } else {
-            EyepertizerApplication.context.packageManager.getPackageInfo(appPackage,
-                0).versionCode.toLong()
+            EyepertizerApplication.context.packageManager.getPackageInfo(
+                appPackage,
+                0
+            ).versionCode.toLong()
         }
 
     /**
@@ -109,8 +116,10 @@ object GlobalUtil {
             if ("google" != appChannel || "samsung" != appChannel) {
                 try {
                     deviceId =
-                        Settings.Secure.getString(EyepertizerApplication.context.contentResolver,
-                            Settings.Secure.ANDROID_ID)
+                        Settings.Secure.getString(
+                            EyepertizerApplication.context.contentResolver,
+                            Settings.Secure.ANDROID_ID
+                        )
                 } catch (e: Exception) {
                     logW(TAG, "get android_id with error", e)
                 }
@@ -183,7 +192,8 @@ object GlobalUtil {
         try {
             applicationInfo = EyepertizerApplication.context.packageManager.getApplicationInfo(
                 appPackage,
-                PackageManager.GET_META_DATA)
+                PackageManager.GET_META_DATA
+            )
         } catch (e: PackageManager.NameNotFoundException) {
             logW(TAG, e.message, e)
         }

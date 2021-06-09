@@ -45,11 +45,12 @@ import com.tencent.sonic.sdk.*
  * @author vipyinzhiwei
  * @since  2020/5/22
  */
+@Suppress("DEPRECATION")
 class WebViewActivity : BaseActivity() {
 
-    var _binding: ActivityWebViewBinding? = null
+    private var _binding: ActivityWebViewBinding? = null
 
-    val binding: ActivityWebViewBinding
+    private val binding: ActivityWebViewBinding
         get() = _binding!!
 
     private var title: String = ""
@@ -74,7 +75,7 @@ class WebViewActivity : BaseActivity() {
         setContentView(binding.root)
     }
 
-    override fun bindView(): View? {
+    override fun bindView(): View {
         initParams()
         preloadInitVasSonic()
         _binding = ActivityWebViewBinding.inflate(layoutInflater)

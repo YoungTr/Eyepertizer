@@ -31,6 +31,7 @@ import java.io.InputStream
 /**
  * the sonic host application must implement SonicRuntime to do right things.
  */
+@Suppress("DEPRECATION")
 class SonicRuntimeImpl(context: Context?) : SonicRuntime(context) {
     /**
      * 获取用户UA信息

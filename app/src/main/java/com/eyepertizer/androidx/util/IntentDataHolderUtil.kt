@@ -24,6 +24,7 @@ import java.lang.ref.WeakReference
  * @author vipyinzhiwei
  * @since  2020/5/25
  */
+@Suppress("UNCHECKED_CAST")
 object IntentDataHolderUtil {
 
     private val dataList = hashMapOf<String, WeakReference<Any>>()

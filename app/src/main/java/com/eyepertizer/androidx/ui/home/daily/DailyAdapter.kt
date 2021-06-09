@@ -202,8 +202,6 @@ class DailyAdapter(private val dataList: ArrayList<Daily.Item>) :
     }
 
     fun addData(dataList: List<Daily.Item>) {
-        val oldCount = this.dataList.size
-        val addCount = dataList.size
         this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }

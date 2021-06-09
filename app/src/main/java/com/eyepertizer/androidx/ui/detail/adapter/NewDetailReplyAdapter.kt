@@ -40,6 +40,7 @@ import com.eyepertizer.androidx.util.GlobalUtil
  * @author vipyinzhiwei
  * @since  2020/5/14
  */
+@Suppress("UNUSED_VALUE", "LiftReturnOrAssignment", "HasPlatformType")
 class NewDetailReplyAdapter(
     val activity: NewDetailActivity,
     val dataList: List<VideoReplies.Item>

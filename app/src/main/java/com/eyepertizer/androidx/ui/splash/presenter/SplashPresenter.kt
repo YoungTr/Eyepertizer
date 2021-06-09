@@ -41,7 +41,7 @@ class SplashPresenter<V : SplashMvpView> @Inject constructor(
                 R.string.ok.getString(),
                 R.string.cancel.getString()
             )
-        }.request { allGranted, grantedList, deniedList ->
+        }.request { _, _, _ ->
             getMvpView()?.setUpView()
             openMainActivity()
             getDataManager().setFirstEntryApp(false)

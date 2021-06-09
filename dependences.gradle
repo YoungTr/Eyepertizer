@@ -19,6 +19,7 @@ ext {
             leakcanaryVersion  : "2.7",
             coroutines         : "1.4.3",
             lifecycle          : "2.3.1",
+            room_version       : "2.3.0",
     ]
 
     depends = [
@@ -61,8 +62,9 @@ ext {
 //            "retrofit-url-manager"         : "me.jessyan:retrofit-url-manager:1.4.0",
 //
 //            // dao
-//            "greendao"                     : "org.greenrobot:greendao:3.5.3",
-//
+            "room-runtime"           : "androidx.room:room-runtime:${versions["room_version"]}",
+            "room-ktx"               : "androidx.room:room-ktx:${versions["room_version"]}",
+
 //            // rx
             "rxjava"                 : "io.reactivex.rxjava2:rxjava:2.2.21",
             "rxandroid"              : "io.reactivex.rxjava2:rxandroid:2.1.1",
@@ -99,6 +101,7 @@ ext {
             "glide_compiler"          : "com.github.bumptech.glide:compiler:${versions["glideVersion"]}",
             "dagger-compiler"         : "com.google.dagger:dagger-compiler:${versions["daggerVersion"]}",
             "dagger-android-processor": "com.google.dagger:dagger-android-processor:${versions["daggerVersion"]}",
+            "room-compiler"           : "androidx.room:room-compiler:${versions["room_version"]}",
     ]
 //
 //    apiFileDependencies = [

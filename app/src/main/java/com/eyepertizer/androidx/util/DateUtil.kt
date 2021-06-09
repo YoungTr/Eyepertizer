@@ -60,10 +60,10 @@ object DateUtil {
                     return pastMinutes.toString() + GlobalUtil.getString(R.string.minutes_ago)
                 }*/
                 timePast < DAY -> {
-                    var pastHours = timePast / HOUR
-                    if (pastHours <= 0) {
-                        pastHours = 1
-                    }
+//                    var pastHours = timePast / HOUR
+//                    if (pastHours <= 0) {
+//                        pastHours = 1
+//                    }
                     /*return pastHours.toString() + GlobalUtil.getString(R.string.hours_ago)*/
                     return getDateAndHourMinuteTime(dateMillis)
                 }

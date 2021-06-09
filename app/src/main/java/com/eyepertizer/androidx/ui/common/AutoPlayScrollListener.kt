@@ -144,17 +144,17 @@ class AutoPlayScrollListener(
         }
         AlertDialog.Builder(context).apply {
             setMessage(context.resources.getString(R.string.tips_not_wifi))
-            setPositiveButton(context.resources.getString(R.string.tips_not_wifi_confirm)) { dialog, which ->
+            setPositiveButton(context.resources.getString(R.string.tips_not_wifi_confirm)) { dialog, _ ->
                 dialog.dismiss()
                 gsyBaseVideoPlayer.startPlayLogic()
                 isNeedShowWifiDialog = false
             }
-            setPositiveButton(context.resources.getString(R.string.tips_not_wifi_confirm)) { dialog, which ->
+            setPositiveButton(context.resources.getString(R.string.tips_not_wifi_confirm)) { dialog, _ ->
                 dialog.dismiss()
                 gsyBaseVideoPlayer.startPlayLogic()
                 isNeedShowWifiDialog = false
             }
-            setNegativeButton(context.resources.getString(R.string.tips_not_wifi_cancel)) { dialog, which ->
+            setNegativeButton(context.resources.getString(R.string.tips_not_wifi_cancel)) { dialog, _ ->
                 dialog.dismiss()
                 isNeedShowWifiDialog = true
             }
