@@ -24,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.showToast
+import com.eyepertizer.androidx.ui.search.SearchFragment
 import com.flyco.tablayout.CommonTabLayout
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
@@ -76,7 +77,7 @@ abstract class BaseViewPagerFragment : BaseFragment() {
             if (this == ivCalendar) {
                 R.string.currently_not_supported.showToast()
             } else if (this == ivSearch) {
-//                SearchFragment.switchFragment(activity)
+                SearchFragment.switchFragment(getBaseActivity()!!)
             }
         }
         initViewPager()

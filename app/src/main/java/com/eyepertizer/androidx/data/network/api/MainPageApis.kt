@@ -63,6 +63,12 @@ interface MainPageApis {
     @GET
     suspend fun getPushMessage(@Url url: String): PushMessage
 
+    /**
+     * 搜索-热搜关键词
+     */
+    @GET("api/v3/queries/hot")
+    suspend fun getHotSearch(): List<String>
+
 
     companion object {
 

@@ -49,4 +49,8 @@ class AppApiHelper @Inject constructor(
     override suspend fun getPushMessage(url: String): PushMessage {
         return mainPageApis.getPushMessage(url)
     }
+
+    override suspend fun getHotSearch(): List<String> {
+        return mainPageApis.getHotSearch()
+    }
 }

@@ -32,4 +32,9 @@ interface ApiHelper {
 
     suspend fun getPushMessage(url: String): PushMessage
 
+    /**
+     * 搜索-热搜关键词
+     */
+    suspend fun getHotSearch(): List<String>
+
 }

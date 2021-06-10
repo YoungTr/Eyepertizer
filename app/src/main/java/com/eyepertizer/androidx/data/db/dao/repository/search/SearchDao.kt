@@ -1,19 +1,21 @@
-package com.eyepertizer.androidx.data.db.dao
+package com.eyepertizer.androidx.data.db.dao.repository.search
 
 import androidx.room.*
-import com.eyepertizer.androidx.data.db.model.SearchHistory
 
 @Dao
 interface SearchDao {
 
     @Query("SELECT * FROM search_history")
-    fun getAll(): List<SearchHistory>
+    suspend fun getAll(): List<SearchHistory>
 
     @Query("SELECT * FROM search_history WHERE id IN (:searchIds)")
-    fun loadAllByIds(searchIds: IntArray): List<SearchHistory>
+    suspend fun loadAllByIds(searchIds: IntArray): List<SearchHistory>
 
     @Insert
     suspend fun insertAll(vararg searches: SearchHistory)
+
+    @Insert
+    suspend fun insert(searches: SearchHistory)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(search: SearchHistory)
@@ -22,5 +24,8 @@ interface SearchDao {
     suspend fun delete(search: SearchHistory)
 
     @Delete
-    suspend fun deleteAll(vararg searches: SearchHistory)
+    suspend fun deleteSearchHistories(vararg searches: SearchHistory)
+
+    @Query("DELETE FROM search_history")
+    suspend fun deleteAll()
 }

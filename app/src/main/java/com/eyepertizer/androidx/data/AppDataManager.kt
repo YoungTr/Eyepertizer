@@ -68,6 +68,10 @@ class AppDataManager @Inject constructor(
         return apiHelper.getPushMessage(url)
     }
 
+    override suspend fun getHotSearch(): List<String> {
+        return apiHelper.getHotSearch()
+    }
+
     override fun fetchVideoDetail(url: String, videoId: Long): Observable<VideoDetail> {
         return Observable.zip(
             getVideoBeanForClient(videoId),

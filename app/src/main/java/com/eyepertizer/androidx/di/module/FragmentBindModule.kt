@@ -15,6 +15,8 @@ import com.eyepertizer.androidx.ui.notification.inbox.InboxFragment
 import com.eyepertizer.androidx.ui.notification.interaction.InteractionFragment
 import com.eyepertizer.androidx.ui.notification.push.PushFragment
 import com.eyepertizer.androidx.ui.notification.push.PushFragmentProvider
+import com.eyepertizer.androidx.ui.search.SearchFragment
+import com.eyepertizer.androidx.ui.search.SearchFragmentProvider
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -57,4 +59,7 @@ abstract class FragmentBindModule {
 
     @ContributesAndroidInjector
     abstract fun inboxFragmentInjector(): InboxFragment
+
+    @ContributesAndroidInjector(modules = [SearchFragmentProvider::class])
+    abstract fun searchFragmentInjector(): SearchFragment
 }
