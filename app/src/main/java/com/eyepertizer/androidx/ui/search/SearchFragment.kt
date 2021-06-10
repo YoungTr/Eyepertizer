@@ -39,7 +39,7 @@ class SearchFragment : BaseFragment() {
     override fun bindView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -116,6 +116,7 @@ class SearchFragment : BaseFragment() {
                     R.string.input_keywords_tips.showToast()
                     return false
                 }
+                viewModel.insert(binding.etQuery.text.toString())
                 R.string.currently_not_supported.showToast()
                 return true
             }

@@ -12,6 +12,11 @@ class SearchRepository @Inject constructor(private val searchDao: SearchDao) : S
         searchDao.insertAll(*searchHistory)
     }
 
+    override suspend fun insertSearchHistory(value: String) {
+        val search = SearchHistory(value = value, time = System.currentTimeMillis())
+        insertSearchHistories(search)
+    }
+
     override suspend fun deleteAll() {
         searchDao.deleteAll()
     }

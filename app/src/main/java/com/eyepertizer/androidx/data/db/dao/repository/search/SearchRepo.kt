@@ -6,6 +6,8 @@ interface SearchRepo {
 
     suspend fun insertSearchHistories(vararg searchHistory: SearchHistory)
 
+    suspend fun insertSearchHistory(value: String)
+
     suspend fun deleteAll()
 
 }

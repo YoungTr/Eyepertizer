@@ -64,6 +64,8 @@ ext {
 //            // dao
             "room-runtime"           : "androidx.room:room-runtime:${versions["room_version"]}",
             "room-ktx"               : "androidx.room:room-ktx:${versions["room_version"]}",
+            "stetho"                 : "com.facebook.stetho:stetho:1.6.0",
+            "stetho-okhttp3"         : "com.facebook.stetho:stetho-okhttp3:1.6.0",
 
 //            // rx
             "rxjava"                 : "io.reactivex.rxjava2:rxjava:2.2.21",

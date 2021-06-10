@@ -9,6 +9,7 @@ import com.eyepertizer.androidx.di.component.DaggerAppComponent
 import com.eyepertizer.androidx.di.module.AppModule
 import com.eyepertizer.androidx.util.GlobalUtil
 import com.eyepertizer.androidx.widget.NoStatusFooter
+import com.facebook.stetho.Stetho
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import dagger.android.AndroidInjector
@@ -61,6 +62,7 @@ class EyepertizerApplication : Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
         context = this
+        Stetho.initializeWithDefaults(this);
         val component = DaggerAppComponent.builder().appModule(AppModule(this)).build()
         component.inject(this)
         appComponent = component
