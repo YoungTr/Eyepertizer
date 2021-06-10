@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eyepertizer.androidx.BuildConfig
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.constants.Const
+import com.eyepertizer.androidx.data.db.dao.repository.search.SearchHistory
+import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.extension.gone
 import com.eyepertizer.androidx.extension.inflate
 import com.eyepertizer.androidx.extension.showToast
@@ -37,15 +39,18 @@ import com.eyepertizer.androidx.util.GlobalUtil
 class HotSearchAdapter(val fragment: SearchFragment, var dataList: MutableList<String>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun getItemCount() = dataList.size
+    private val histories: List<SearchHistory> = mutableListOf()
+
+    override fun getItemCount() = dataList.size + 2
 
     override fun getItemViewType(position: Int) = when (position) {
         0 -> Const.ItemViewType.CUSTOM_HEADER
+        (dataList.size + 1) -> HOT_SEARCH_HISTORY
         else -> HOT_SEARCH_TYPE
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
-        Const.ItemViewType.CUSTOM_HEADER -> HeaderViewHolder(
+        Const.ItemViewType.CUSTOM_HEADER, HOT_SEARCH_HISTORY -> HeaderViewHolder(
             R.layout.item_search_header.inflate(
                 parent
             )
@@ -56,10 +61,12 @@ class HotSearchAdapter(val fragment: SearchFragment, var dataList: MutableList<S
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is HeaderViewHolder -> {
-                holder.tvTitle.text = GlobalUtil.getString(R.string.hot_keywords)
+                val text =
+                    if (position == 0) R.string.hot_keywords.getString() else R.string.search_history.getString()
+                holder.tvTitle.text = text
             }
             is HotSearchViewHolder -> {
-                val item = dataList[position]
+                val item = dataList[position - 1]
                 holder.tvKeywords.text = item
                 holder.itemView.setOnClickListener {
                     "${item},${GlobalUtil.getString(R.string.currently_not_supported)}".showToast()
@@ -92,5 +99,6 @@ class HotSearchAdapter(val fragment: SearchFragment, var dataList: MutableList<S
     companion object {
         const val TAG = "HotSearchAdapter"
         const val HOT_SEARCH_TYPE = Const.ItemViewType.MAX
+        const val HOT_SEARCH_HISTORY = 1000
     }
 }

@@ -115,6 +115,7 @@
 
     <!-- 搜索 -->
     <string name="hot_keywords">热搜关键词</string>
+    <string name="search_history">热搜历史</string>
     <string name="input_keywords_tips">请输入搜索关键字</string>
     <string name="search_own">搜索视频、作者、用户及标签</string>
 
