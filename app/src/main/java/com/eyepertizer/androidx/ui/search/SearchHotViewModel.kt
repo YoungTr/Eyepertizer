@@ -1,8 +1,10 @@
 package com.eyepertizer.androidx.ui.search
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.eyepertizer.androidx.base.viewmodel.BaseRefreshViewModel
 import com.eyepertizer.androidx.data.IDataManager
+import com.eyepertizer.androidx.data.db.dao.repository.search.SearchHistory
 import com.eyepertizer.androidx.data.db.dao.repository.search.SearchRepo
 import com.eyepertizer.androidx.data.network.api.MainPageApis
 import com.eyepertizer.androidx.util.logD
@@ -16,18 +18,22 @@ class SearchHotViewModel @Inject constructor(
 
     BaseRefreshViewModel<List<String>>(dataManager) {
 
+    val historyLiveData = MutableLiveData<List<SearchHistory>>()
+
     override fun getURL(): String {
         return MainPageApis.PUSHMESSAGE_URL
     }
 
-
-    override suspend fun fetchData(_url: String): List<String>? {
-
+    fun loadHistories() {
         viewModelScope.launch {
             val loadSearchHistories = searchRepoHelper.loadSearchHistories()
-            logD("SearchViewModel", loadSearchHistories.joinToString())
+            logD(TAG, loadSearchHistories.joinToString())
+            historyLiveData.postValue(loadSearchHistories)
         }
+    }
 
+
+    override suspend fun fetchData(_url: String): List<String>? {
         return getDataManager().getHotSearch()
     }
 
@@ -37,9 +43,17 @@ class SearchHotViewModel @Inject constructor(
 
     fun insert(value: String) {
         viewModelScope.launch {
-            searchRepoHelper.insertSearchHistory(value)
+            val insertSearchHistory = searchRepoHelper.insertSearchHistory(value)
+            if (insertSearchHistory != null) {
+                historyLiveData.postValue(listOf(insertSearchHistory))
+            } else {
+                logD(TAG, "$value exit")
+            }
         }
     }
 
+    companion object {
+        const val TAG = "SearchHotViewModel"
+    }
 
 }

@@ -67,10 +67,14 @@ class SearchFragment : BaseFragment() {
             binding.etQuery.showSoftKeyboard()
             adapter.setData(result.data as MutableList<String>)
         })
+        viewModel.historyLiveData.observe(this, Observer { histories ->
+            adapter.addHistories(histories)
+        })
     }
 
     override fun lazyInit() {
         viewModel.onRefresh()
+        viewModel.loadHistories()
     }
 
     override fun onDestroyView() {

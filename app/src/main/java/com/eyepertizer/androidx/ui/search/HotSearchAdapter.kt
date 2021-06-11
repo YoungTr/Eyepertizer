@@ -39,9 +39,9 @@ import com.eyepertizer.androidx.util.GlobalUtil
 class HotSearchAdapter(val fragment: SearchFragment, var dataList: MutableList<String>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val histories: List<SearchHistory> = mutableListOf()
+    private val histories: MutableList<SearchHistory> = mutableListOf()
 
-    override fun getItemCount() = dataList.size + 2
+    override fun getItemCount() = dataList.size + histories.size + 2
 
     override fun getItemViewType(position: Int) = when (position) {
         0 -> Const.ItemViewType.CUSTOM_HEADER
@@ -66,10 +66,16 @@ class HotSearchAdapter(val fragment: SearchFragment, var dataList: MutableList<S
                 holder.tvTitle.text = text
             }
             is HotSearchViewHolder -> {
-                val item = dataList[position - 1]
-                holder.tvKeywords.text = item
+                if (position <= dataList.size) {
+                    val item = dataList[position - 1]
+                    holder.tvKeywords.text = item
+                } else {
+                    val gap = dataList.size + 2
+                    val item = histories[position - gap]
+                    holder.tvKeywords.text = item.value
+                }
                 holder.itemView.setOnClickListener {
-                    "${item},${GlobalUtil.getString(R.string.currently_not_supported)}".showToast()
+                    "${holder.tvKeywords.text}${GlobalUtil.getString(R.string.currently_not_supported)}".showToast()
                 }
             }
             else -> {
@@ -87,6 +93,12 @@ class HotSearchAdapter(val fragment: SearchFragment, var dataList: MutableList<S
         }
     }
 
+    fun addHistories(histories: List<SearchHistory>) {
+        if (!histories.isNullOrEmpty()) {
+            this.histories.addAll(histories)
+            notifyDataSetChanged()
+        }
+    }
 
     inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)

@@ -6,10 +6,13 @@ import androidx.room.*
 interface SearchDao {
 
     @Query("SELECT * FROM search_history")
-    suspend fun getAll(): List<SearchHistory>
+    suspend fun loadAll(): List<SearchHistory>
 
     @Query("SELECT * FROM search_history WHERE id IN (:searchIds)")
     suspend fun loadAllByIds(searchIds: IntArray): List<SearchHistory>
+
+    @Query("SELECT * FROM search_history WHERE value = (:value)")
+    suspend fun getSearchHistory(value: String): SearchHistory?
 
     @Insert
     suspend fun insertAll(vararg searches: SearchHistory)
