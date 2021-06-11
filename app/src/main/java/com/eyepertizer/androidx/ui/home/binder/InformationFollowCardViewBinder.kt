@@ -28,10 +28,7 @@ class InformationFollowCardViewBinder :
             holder.recyclerView.addItemDecoration(InformationCardFollowCardItemDecoration())
         }
         holder.recyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
-        holder.recyclerView.adapter = InformationCardFollowCardAdapter(/*fragment.activity,*/
-            item.actionUrl,
-            item.titleList
-        )
+        holder.recyclerView.adapter = InformationCardFollowCardAdapter(item.actionUrl, item.titleList)
         holder.itemView.setOnClickListener {
             ActionUrlUtil.process(it.context as Activity, item.actionUrl)
         }
