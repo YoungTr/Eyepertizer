@@ -1,6 +1,7 @@
 package com.eyepertizer.androidx.data.db.dao.repository.search
 
 import androidx.room.*
+import com.eyepertizer.androidx.data.db.dao.repository.search.model.SearchHistory
 
 @Dao
 interface SearchDao {

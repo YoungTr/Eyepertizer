@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.eyepertizer.androidx.base.viewmodel.BaseRefreshViewModel
 import com.eyepertizer.androidx.data.IDataManager
-import com.eyepertizer.androidx.data.db.dao.repository.search.SearchHistory
+import com.eyepertizer.androidx.data.db.dao.repository.search.model.SearchHistory
 import com.eyepertizer.androidx.data.db.dao.repository.search.SearchRepo
 import com.eyepertizer.androidx.data.network.api.MainPageApis
 import com.eyepertizer.androidx.util.logD

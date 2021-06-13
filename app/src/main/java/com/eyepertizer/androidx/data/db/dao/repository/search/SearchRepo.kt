@@ -1,5 +1,7 @@
 package com.eyepertizer.androidx.data.db.dao.repository.search
 
+import com.eyepertizer.androidx.data.db.dao.repository.search.model.SearchHistory
+
 interface SearchRepo {
 
     suspend fun loadSearchHistories(): List<SearchHistory>

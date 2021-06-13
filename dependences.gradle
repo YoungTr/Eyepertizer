@@ -59,13 +59,12 @@ ext {
             "glide"                  : "com.github.bumptech.glide:glide:${versions["glideVersion"]}",
             "glide-transformations"  : "jp.wasabeef:glide-transformations:4.3.0",
             "okhttp3-integration"    : "com.github.bumptech.glide:okhttp3-integration:${versions["glideVersion"]}",
-//            "retrofit-url-manager"         : "me.jessyan:retrofit-url-manager:1.4.0",
-//
-//            // dao
+
+            // dao
             "room-runtime"           : "androidx.room:room-runtime:${versions["room_version"]}",
             "room-ktx"               : "androidx.room:room-ktx:${versions["room_version"]}",
 
-//            // rx
+            // rx
             "rxjava"                 : "io.reactivex.rxjava2:rxjava:2.2.21",
             "rxandroid"              : "io.reactivex.rxjava2:rxandroid:2.1.1",
             "permissionx"            : "com.permissionx.guolindev:permissionx:1.4.0",
@@ -80,21 +79,7 @@ ext {
 
             // other
             "sonic"                  : "com.tencent.sonic:sdk:3.1.0",
-//            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50",
-//            "crashreport_upgrade"          : "com.tencent.bugly:crashreport_upgrade:latest.release",
-//            "logger"                       : "com.orhanobut:logger:2.1.1",
-//            "ByeBurger"                    : "com.github.githubwing:ByeBurger:1.2.3",
-//            "PersistentCookieJar"          : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
-//            "XUpdate"                      : "com.github.xuexiangjys:XUpdate:1.0.6",
-//
-//            // performance
-//            "epic"                         : "me.weishu:epic:0.6.0",
-//            "aspectjrt"                    : "org.aspectj:aspectjrt:1.8.14",
-//            "x2c-lib"                      : "com.zhangyue.we:x2c-lib:1.0.6",
-//            "soloader"                     : "com.facebook.soloader:soloader:0.8.0",
-//            "stetho"                       : "com.facebook.stetho:stetho:1.6.0",
-//            "stetho-okhttp3"               : "com.facebook.stetho:stetho-okhttp3:1.6.0"
-
+            "free-proguard"          : "com.blankj:free-proguard:1.0.2",
     ]
 
     kapts = [
@@ -103,88 +88,6 @@ ext {
             "dagger-android-processor": "com.google.dagger:dagger-android-processor:${versions["daggerVersion"]}",
             "room-compiler"           : "androidx.room:room-compiler:${versions["room_version"]}",
     ]
-//
-//    apiFileDependencies = [
-//            "launchstarter": "libs/launchstarter-release-1.0.0.aar",
-//            "yearclass"    : "libs/yearclass-release-1.0.0.aar"
-//
-//    ]
-//
-//    debugImplementationDependencies = [
-//            "MethodTraceMan": "com.github.zhengcx:MethodTraceMan:1.0.7"
-//    ]
-//
-//    releaseImplementationDependencies = [
-//            "MethodTraceMan": "com.github.zhengcx:MethodTraceMan:1.0.5-noop"
-//    ]
-//
-//    androidTestImplementationDependencies = [
-//            "espresso-contrib"      : "com.android.support.test.espresso:espresso-contrib:3.0.2",
-//            "espresso-intents"      : "com.android.support.test.espresso:espresso-intents:3.0.2",
-//            "espresso-accessibility": "com.android.support.test.espresso:espresso-accessibility:3.0.2",
-//            "espresso-web"          : "com.android.support.test.espresso:espresso-web:3.0.2",
-//            "idling-concurrent"     : "com.android.support.test.espresso.idling:idling-concurrent:3.0.2",
-//            "runner"                : "com.android.support.test:runner:1.0.2"
-//    ]
-//
-//
-//    testImplementationDependencies = [
-//            "asm"                           : "org.ow2.asm:asm:7.1",
-//            "asm-commons"                   : "org.ow2.asm:asm-commons:7.1",
-//            // unit test , 为了整合mockito和PowerMockito，mockito暂时最高只支持2.8.9
-//            "junit"                         : "junit:junit:4.12",
-//            "mockito"                       : "org.mockito:mockito-core:2.8.9",
-//            "powermock-module-junit4"       : "org.powermock:powermock-module-junit4:1.7.4",
-//            "powermock-module-junit4-rule"  : "org.powermock:powermock-module-junit4-rule:1.7.4",
-//            "powermock-api-mockito2"        : "org.powermock:powermock-api-mockito2:1.7.4",
-//            "powermock-classloading-xstream": "org.powermock:powermock-classloading-xstream:1.7.4",
-//            "robolectric"                   : "org.robolectric:robolectric:3.8",
-//            "shadows-support-v4"            : "org.robolectric:shadows-support-v4:3.4-rc2",
-//            "shadows-multidex"              : "org.robolectric:shadows-multidex:3.+"
-//    ]
-//
-//    debugApiDependencies = [
-//            "blockcanary-android": "com.github.markzhai:blockcanary-android:1.5.0"
-//    ]
-//
-//    releaseApiDependencies = [
-//            "blockcanary-no-op": "com.github.markzhai:blockcanary-no-op:1.5.0"
-//    ]
-//
-//    compileOnlyDependencies = [
-//            "lancet-base": "me.ele:lancet-base:1.0.5"
-//    ]
-//
-//    implementationExcludes = [
-//            "com.android.support.test.espresso:espresso-idling-resource:3.0.2": [
-//                    'com.android.support': 'support-annotations'
-//            ]
-//    ]
-//
-//    debugImplementationExcludes = [
-//            "com.squareup.leakcanary:leakcanary-android:${version["leakcanaryVersion"]}": [
-//                    'com.android.support': 'support-annotations'
-//            ]
-//    ]
-//
-//    releaseImplementationExcludes = [
-//            "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanaryVersion"]}": [
-//                    'com.android.support': 'support-annotations'
-//            ]
-//    ]
-//
-//    testImplementationExcludes = [
-//            "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanaryVersion"]}": [
-//                    'com.android.support': 'support-annotations'
-//            ]
-//    ]
-//
-//    androidTestImplementationExcludes = [
-//            "com.android.support.test.espresso:espresso-core:3.0.2": [
-//                    'com.android.support': 'support-annotations'
-//            ]
-//    ]
-
 
 }
 

@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eyepertizer.androidx.BuildConfig
 import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.constants.Const
-import com.eyepertizer.androidx.data.db.dao.repository.search.SearchHistory
+import com.eyepertizer.androidx.data.db.dao.repository.search.model.SearchHistory
 import com.eyepertizer.androidx.extension.getString
 import com.eyepertizer.androidx.extension.gone
 import com.eyepertizer.androidx.extension.inflate
