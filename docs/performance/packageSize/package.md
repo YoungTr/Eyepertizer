@@ -20,7 +20,7 @@
 
 ![dex](./pics/dex.png)
 
-
+[一篇文章带你搞懂DEX文件的结构](https://blog.csdn.net/sinat_18268881/article/details/55832757)
 
 ### 3、Android 打包流程
 
