@@ -22,9 +22,13 @@
 
 [一篇文章带你搞懂DEX文件的结构](https://blog.csdn.net/sinat_18268881/article/details/55832757)
 
+[Android逆向笔记 —— DEX 文件格式解析](https://juejin.cn/post/6844903847647772686)
+
+[谈谈对Dex文件的认识](https://blog.csdn.net/li0978/article/details/114981769)
+
 ### 3、Android 打包流程
 
-1. 打包资源文件，生成 R.java 文件。`aapt` 工具，生成 resources.arsc
+1. 打包资源文件，生成 R.java 文件。`aapt` 工具(The Android Asset Packaing Tool)，生成 resources.arsc
 2. 处理 aidl 文件，生成对应的 Java 文件。
 3. 编译工程源代码，生成对应的 class 文件。调用 `javac` 工具编译工程 src 目录下所有的 java 源文件。
 4. 转换所有的 class 文件，生成 classes.dex 文件。`dx` 工具，主要工作是将 Java 字节码转为为 Dalvik 字节码、压缩常量池、消除冗余信息等。
