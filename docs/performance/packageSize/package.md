@@ -42,6 +42,8 @@
 
 [10分钟了解Android项目构建流程](https://juejin.cn/post/6844903555795517453)
 
+[Android APK文件结构 完整打包编译的流程 APK安装过程 详解](https://blog.csdn.net/aha_jasper/article/details/104944929)
+
 ### 4、D8 & R8
 
 - [ ] [jake wharton blog](https://jakewharton.com/blog/)
