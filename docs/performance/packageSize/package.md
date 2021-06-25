@@ -20,11 +20,19 @@
 
 ![dex](./pics/dex.png)
 
+[LEB128格式的说明](http://gttiankai.github.io/2016/06/30/leb128%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F/)
+
+[Dalvik 可执行文件格式](https://source.android.com/devices/tech/dalvik/dex-format.html)
+
 [一篇文章带你搞懂DEX文件的结构](https://blog.csdn.net/sinat_18268881/article/details/55832757)
 
 [Android逆向笔记 —— DEX 文件格式解析](https://juejin.cn/post/6844903847647772686)
 
 [谈谈对Dex文件的认识](https://blog.csdn.net/li0978/article/details/114981769)
+
+[Android 心得](https://blog.csdn.net/qiyu93422/category_3275641.html)
+
+[图解Dex文件结构及解析要点](https://blog.csdn.net/beyond702/article/details/52460721)
 
 ### 3、Android 打包流程
 
@@ -58,6 +66,7 @@
 
 ### 5、Dex 分包优化
 
+- [ ] [Android字节码优化工具redex初探](https://mp.weixin.qq.com/s/Og2TkGrZR490h9-KO23lmw)
 - [ ] [Redex](https://fbredex.com/docs/installation)
 - [ ] [Optimizing Android bytecode with ReDex](https://engineering.fb.com/2015/10/01/android/optimizing-android-bytecode-with-redex/)
 - [ ] [整体架构](http://yourbay.me/all-about-tech/2020/05/12/redex-1-arch/)

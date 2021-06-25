@@ -1,10 +1,10 @@
 ext {
 
     androids = [
-            compileSdkVersion: 30,
-            buildToolsVersion: "30.0.3",
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
             minSdkVersion    : 21,
-            targetSdkVersion : 30,
+            targetSdkVersion : 28,
             versionCode      : 3,
             versionName      : "1.1.0",
     ]
@@ -79,7 +79,7 @@ ext {
 
             // other
             "sonic"                  : "com.tencent.sonic:sdk:3.1.0",
-            "free-proguard"          : "com.blankj:free-proguard:1.0.2",
+//            "free-proguard"          : "com.blankj:free-proguard:1.0.2",
     ]
 
     kapts = [

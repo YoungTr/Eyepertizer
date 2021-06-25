@@ -1,0 +1,1 @@
+redex --sign -s keystore/eyepertizer-key.keystore -a eyepertizer -p eyepertizer -c redex-test/stripdebuginfo.config -P app/proguard-rules.pro  -o redex-test/strip_output.apk release/eyepertizer_1.1.0_release.apk -J ir_type_checker.run_on_input_ignore_access=true -J ir_type_checker.run_on_input=false

@@ -1,0 +1,18 @@
+'-keep @Landroid/support/annotation/Keep; * ' from app/proguard-rules.pro:168
+'-keep @interface com.squareup.okhttp.** {  *;  *(); }' from app/proguard-rules.pro:237
+'-keep android.webkit.JavascriptInterface {  *;  *(); }' from app/proguard-rules.pro:161
+'-keep com.squareup.okhttp.* {  *;  *(); }' from app/proguard-rules.pro:236
+'-keep public * extends android.app.backup.BackupAgentHelper ' from app/proguard-rules.pro:73
+'-keep public * extends android.preference.Preference ' from app/proguard-rules.pro:74
+'-keep public * extends android.support.annotation.** ' from app/proguard-rules.pro:91
+'-keep public * extends android.support.v7.** ' from app/proguard-rules.pro:90
+'-keep public com.android.vending.licensing.ILicensingService ' from app/proguard-rules.pro:76
+'-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** { public  *; [L**; $VALUES; public  *(); }' from app/proguard-rules.pro:193
+'-keep public java.nio.* {  *;  *(); }' from app/proguard-rules.pro:251
+'-keep public org.codehaus.* {  *;  *(); }' from app/proguard-rules.pro:250
+'-keep,allowobfuscation @interface android.support.annotation.Keep ' from app/proguard-rules.pro:167
+'-keepclassmembers * { @Landroid/support/annotation/Keep;  *; @Landroid/support/annotation/Keep;  *(); }' from app/proguard-rules.pro:169
+'-keepclassmembers fqcn.of.javascript.interface.for.webview { public  *; public  *(); }' from app/proguard-rules.pro:148
+'-keepclassmembers rx.internal.util.unsafe.*ArrayQueue*Field* { J consumerIndex; J producerIndex; }' from app/proguard-rules.pro:263
+'-keepclassmembers rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef { Lrx/internal/util/atomic/LinkedQueueNode; consumerNode; }' from app/proguard-rules.pro:270
+'-keepclassmembers rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef { Lrx/internal/util/atomic/LinkedQueueNode; producerNode; }' from app/proguard-rules.pro:267
