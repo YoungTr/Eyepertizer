@@ -1,5 +1,6 @@
 # Android 包体积优化
 
+## 一、APK 分析
 ### 1、APK 组成
 
 ![](./pics/app.jpg)
@@ -53,6 +54,14 @@
 [Android APK文件结构 完整打包编译的流程 APK安装过程 详解](https://blog.csdn.net/aha_jasper/article/details/104944929)
 
 [内存对齐的规则以及作用](http://www.cppblog.com/snailcong/archive/2009/03/16/76705.html)
+
+## 二、代码瘦身方案
+
+**Debug 包体积情况**：APK size：17.1 MB，Download Size：16 M，classes.dex：4.3 MB，res：1.9 MB，resources.arsc：1 MB
+
+![debug size](./pics/debug_size.png)
+
+
 
 ### 4、D8 & R8
 
