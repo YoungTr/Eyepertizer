@@ -1,0 +1,82 @@
+apply plugin: 'bytex.const_inline'
+const_inline {
+    enable true
+    enableInDebug true
+    logLevel "INFO"
+    autoFilterReflectionField = true  //使用插件内置的反射检查过滤掉可能的反射常量，建议为true
+    //supposesReflectionWithString = false //使用插件内置字符串匹配可能反射常量，建议为false
+    skipWithRuntimeAnnotation true //过滤掉带有运行时注解的常量，推荐true
+    skipWithAnnotations = [
+            //过滤掉被注解注释过的常量，包含class
+            "android/support/annotation/Keep",
+    ]
+    whiteList = [
+            //跳过优化的名单
+            "com/meizu/cloud/*",
+    ]
+}
+
+apply plugin: 'bytex.field_assign_opt'
+field_assign_opt {
+    enable true
+    enableInDebug false
+    logLevel "INFO"
+    removeLineNumber true // 同时移除赋值对应的行号信息(如果有的话),默认true。
+    whiteList = [
+            //白名单，ClassName.FieldName 。不支持模式匹配
+            //"android.support.constraint.solver.ArrayRow.isSimpleDefinition"
+    ]
+}
+
+apply plugin: 'bytex.method_call_opt'
+method_call_opt {
+    enable true //建议开发模式关闭
+    enableInDebug false
+    logLevel "DEBUG"
+    //是否在log中显示删除方法调用指令后的方法指令，一般调试时使用
+    showAfterOptInsLog false
+    //需要删除的方法配置
+    methodList = [
+            //下面的每一项配置必须严格按照数据配置，一个地方不对这一项不生效。
+            //class#method#desc
+            "android/util/Log#v#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#v#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#d#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#d#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#i#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#i#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#w#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#w#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#e#(Ljava/lang/String;Ljava/lang/String;)I",
+            "android/util/Log#e#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I",
+            "android/util/Log#println#(ILjava/lang/String;Ljava/lang/String;)I",
+
+            "java/lang/Throwable#printStackTrace#()V",
+            "com/google/devtools/build/android/desugar/runtime/ThrowableExtension#printStackTrace#(Ljava/lang/Throwable;)V"
+
+            //还有自己项目中封装的Logger方法
+    ]
+    onlyCheckList = [
+            //"com/ss/*",
+            //"com/bytedance/*"
+    ]
+
+    whiteList = [
+            "com/facebook/stetho*",
+    ]
+}
+
+//apply plugin: 'bytex.getter_setter_inline'
+//getter_setter_inline {
+//    enable true
+//    enableInDebug false
+//    logLevel "DEBUG"
+//    // 跳过Proguard的Keep规则，强制内联这些包名下的类的getter/setter方法
+//    shouldInline = [
+//            "com/ss/android/ugc/bytex/example/getter_setter/"
+//    ]
+//    // 除了可以通过Proguard的keep规则来避免一些方法被内联外，还可以自定义一些注解，标注到这些方法上
+//    keepWithAnnotations = [
+//            "com/ss/android/ugc/bytex/example/CalledByNative"
+//    ]
+//}
