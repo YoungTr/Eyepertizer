@@ -63,7 +63,7 @@
 
 
 
-### 4、D8 & R8
+### 1、D8 & R8
 
 [Android CPU, Compilers, D8 & R8](https://juejin.cn/post/6844903936227278861)
 
@@ -73,11 +73,23 @@
 
 - [ ] [jake wharton blog](https://jakewharton.com/blog/)
 
-### 5、Dex 分包优化
+### 2、Dex 分包优化
 
 - [ ] [Android字节码优化工具redex初探](https://mp.weixin.qq.com/s/Og2TkGrZR490h9-KO23lmw)
 - [ ] [Redex](https://fbredex.com/docs/installation)
 - [ ] [Optimizing Android bytecode with ReDex](https://engineering.fb.com/2015/10/01/android/optimizing-android-bytecode-with-redex/)
 - [ ] [整体架构](http://yourbay.me/all-about-tech/2020/05/12/redex-1-arch/)
 - [ ] [Dex解析](http://yourbay.me/all-about-tech/2020/05/13/redex-2-parse-dex/)
+
+### 3、ByteX
+
+#### 1. Java access
+
+* access_inline
+* const_inline
+* field_assign_opt
+* method_call_opt
+* getter_setter_inline_plugin
+
+
 
