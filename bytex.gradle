@@ -52,9 +52,14 @@ method_call_opt {
             "android/util/Log#println#(ILjava/lang/String;Ljava/lang/String;)I",
 
             "java/lang/Throwable#printStackTrace#()V",
-            "com/google/devtools/build/android/desugar/runtime/ThrowableExtension#printStackTrace#(Ljava/lang/Throwable;)V"
+            "com/google/devtools/build/android/desugar/runtime/ThrowableExtension#printStackTrace#(Ljava/lang/Throwable;)V",
 
             //还有自己项目中封装的Logger方法
+            "com/eyepertizer/androidx/util/LogKt#logV#(Ljava/lang/String;Ljava/lang/String;)V",
+            "com/eyepertizer/androidx/util/LogKt#logD#(Ljava/lang/String;Ljava/lang/String;)V",
+            "com/eyepertizer/androidx/util/LogKt#logI#(Ljava/lang/String;Ljava/lang/String;)V",
+            "com/eyepertizer/androidx/util/LogKt#logW#(Ljava/lang/String;Ljava/lang/String;)V",
+            "com/eyepertizer/androidx/util/LogKt#logE#(Ljava/lang/String;Ljava/lang/String;)V"
     ]
     onlyCheckList = [
             //"com/ss/*",
