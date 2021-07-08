@@ -91,5 +91,12 @@
 * method_call_opt
 * getter_setter_inline_plugin
 
+#### 4、优化效果
+![](./pics/release_code.png)
+
+**Release 代码优化包体积情况**：APK size：11.2 MB，Download Size：10.1 M，classes.dex：2.8 MB，res：1.7 MB，resources.arsc：1 MB，体积减少 **34.5%**。
+
+### 三、资源瘦身方案
+
 
 
