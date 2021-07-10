@@ -20,6 +20,7 @@ buildscript {
         classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${bytex_version}"
         classpath "com.bytedance.android.byteX:field-assign-opt-plugin:${bytex_version}"
         classpath "com.bytedance.android.byteX:method-call-opt-plugin:${bytex_version}"
+        classpath "com.bytedance.android.byteX:shrink-r-plugin:${bytex_version}"
         classpath 'com.smallsoho.mobcase:McImage:1.5.1'
 
         // NOTE: Do not place your application dependencies here; they belong
