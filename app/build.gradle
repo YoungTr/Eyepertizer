@@ -71,6 +71,14 @@ android {
             outputFileName = "${appName}_${versionName}_${variant.buildType.name}.apk"
         }
     }
+
+    aaptOptions {
+        // 在Android的构建流程中，AAPT会使用内置的
+        // 压缩算法来优化res/drawable/目录下的PNG图片，
+        // 但这可能会导致本来已经优化过的图片体积变大，
+        // 因此需要禁止AAPT来优化PNG图片
+        cruncherEnabled = false
+    }
 }
 
 dependencies {
