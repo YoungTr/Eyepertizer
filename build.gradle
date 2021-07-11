@@ -1,11 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: "dependences.gradle"
 buildscript {
     ext.kotlin_version = "1.4.32"
-    ext.bytex_version = "0.2.8"
+    apply from: "dependences.gradle"
     repositories {
         google()
         jcenter()
+        maven {
+            url uri('./gradle_plugins')
+        }
         maven { url 'https://www.jitpack.io' }
         maven {
             url "https://artifact.bytedance.com/repository/byteX/"
@@ -15,13 +17,13 @@ buildscript {
         classpath "com.android.tools.build:gradle:4.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.21'
-        classpath "com.bytedance.android.byteX:base-plugin:${bytex_version}"
-        classpath "com.bytedance.android.byteX:const-inline-plugin:${bytex_version}"
-        classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${bytex_version}"
-        classpath "com.bytedance.android.byteX:field-assign-opt-plugin:${bytex_version}"
-        classpath "com.bytedance.android.byteX:method-call-opt-plugin:${bytex_version}"
-        classpath "com.bytedance.android.byteX:shrink-r-plugin:${bytex_version}"
-        classpath 'com.smallsoho.mobcase:McImage:1.5.1'
+        classpath "com.bytedance.android.byteX:base-plugin:${versions.bytex_version}"
+        classpath "com.bytedance.android.byteX:const-inline-plugin:${versions.bytex_version}"
+        classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${versions.bytex_version}"
+        classpath "com.bytedance.android.byteX:field-assign-opt-plugin:${versions.bytex_version}"
+        classpath "com.bytedance.android.byteX:method-call-opt-plugin:${versions.bytex_version}"
+        classpath "com.bytedance.android.byteX:shrink-r-plugin:${versions.bytex_version}"
+        classpath "com.smallsoho.mobcase:McImage:${versions.mcimage_version}"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -32,6 +34,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url uri('./gradle_plugins')
+        }
         maven { url 'https://www.jitpack.io' }
         maven {
             url "https://artifact.bytedance.com/repository/byteX/"
