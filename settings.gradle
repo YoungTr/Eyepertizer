@@ -2,4 +2,3 @@ include ':mvvm'
 include ':app'
 rootProject.name = "Eyepertizer"
 include ':coroutines'
-include ':McImage'
