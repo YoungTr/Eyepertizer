@@ -1,7 +1,7 @@
 package com.smallsoho.mcplugin.image.webp
 
-import com.smallsoho.mcplugin.image.Const
 import com.smallsoho.mcplugin.image.Config
+import com.smallsoho.mcplugin.image.Const
 import com.smallsoho.mcplugin.image.utils.*
 import org.gradle.api.Project
 import java.io.File
@@ -20,6 +20,7 @@ class WebpUtils {
             if (ImageUtil.isImage(imgFile)) {
                 val webpFile = File("${imgFile.path.substring(0, imgFile.path.lastIndexOf("."))}.webp")
                 Tools.cmd("cwebp", "${imgFile.path} -o ${webpFile.path} -m 6 -quiet")
+                LogUtil.log("$TAG cover ${imgFile.name} to ${webpFile.name}")
                 if (webpFile.length() < imgFile.length()) {
                     LogUtil.log(TAG, imgFile.path, imgFile.length().toString(), webpFile.length().toString())
                     if (imgFile.exists()) {

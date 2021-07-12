@@ -51,7 +51,7 @@
 
 [10分钟了解Android项目构建流程](https://juejin.cn/post/6844903555795517453)
 
-[Android APK文件结构 完整打包编译的流程 APK安装过程 详解](https://blog.csdn.net/aha_jasper/article/details/104944929)
+[Android APK文件结构 完整打包编译的流程 APK安装过程 详解](https://blog.csdn.net/aha_jasper/article/details/104944929)
 
 [内存对齐的规则以及作用](http://www.cppblog.com/snailcong/archive/2009/03/16/76705.html)
 
@@ -101,4 +101,41 @@
 ### 图片压缩
 
 ![](./pics/McImage.png)
+
+#### 使用 cwebp 将图片转换为 webp 格式
+
+语法：
+
+```
+cwebp [options] -q quality input.png -o output.webp
+```
+
+[cwebp](https://developers.google.com/speed/webp/docs/cwebp)
+
+```
+cwebp -q 50 -lossless picture.png -o picture_lossless.webp
+cwebp -q 70 picture_with_alpha.png -o picture_with_alpha.webp
+cwebp -sns 70 -f 50 -size 60000 picture.png -o picture.webp
+cwebp -o picture.webp -- ---picture.png
+```
+
+| 图片 | 原始大小 | 压缩大小 | 压缩率 |
+| ---- | -------- | -------- | ---- |
+| sun.png<img src="./cwebp/sun.png" style="zoom:20%;" /> | 523917 | 10512 | 97.90% |
+| circle.png<img src="./cwebp/circle.png" style="zoom:20%;" /> | 326188 | 111828 | 65.64% |
+
+#### 使用 guetzli、pngquant 压缩图片
+
+```
+guetzli [--quality Q] [--verbose] original.png output.jpg
+guetzli [--quality Q] [--verbose] original.jpg output.jpg
+
+pngquant --skip-if-larger --speed 1 --nofs --strip --force --output output.png -- origin.png
+```
+
+| 图片 | 原始大小 | quetzli | pngquant |
+| ---- | -------- | -------- | ---- |
+| sun.png<img src="./cwebp/sun.png" style="zoom:20%;" /> | 523917 | * | 184909 |
+| circle.png<img src="./cwebp/circle.png" style="zoom:20%;" /> | 326188 | * | 85971 |
+| circle.jpg<img src="./cwebp/circle.jpg" style="zoom:20%;" /> | 265267 | 81595 | * |
 

@@ -23,7 +23,7 @@ allprojects {
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    implementation 'com.android.tools.build:gradle:3.5.0'
+    implementation 'com.android.tools.build:gradle:4.1.1'
 }
 
 sourceCompatibility = "1.8"
