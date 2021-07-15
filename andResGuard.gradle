@@ -12,6 +12,7 @@ andResGuard {
     // 打开这个开关会合并所有哈希值相同的资源，但请不要过度依赖这个功能去除去冗余资源
     mergeDuplicatedRes = true
     whiteList = [
+            "R.id.*",
             // for your icon
             "R.drawable.icon",
             "R.drawable.ic_launcher.png",

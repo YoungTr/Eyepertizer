@@ -276,4 +276,4 @@
 -keep public class **.*model*.** {*;}
 
 #把执行后的类重新放在某一个目录下，后跟一个目录名
--repackageclasses 'com.eyepertizer.androidx'
+-repackageclasses 'com.eyepertizer.androidx.proguards'
