@@ -32,6 +32,8 @@ android {
         ndk {
             abiFilters "arm64-v8a"
         }
+
+        resConfigs "en", "zh-rCN"
     }
 
     buildTypes {
@@ -91,7 +93,10 @@ dependencies {
 
     kapts.each { k, v -> kapt v }
 
+    implementation 'com.dianping.android.sdk:logan:1.2.4'
+
+
 }
 
-apply from: '../andResGuard.gradle'
 apply from: '../bytex.gradle'
+apply from: '../andResGuard.gradle'

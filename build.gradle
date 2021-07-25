@@ -5,6 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenLocal()
         maven {
             url uri("$upload_dir")
         }
@@ -19,7 +20,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.21'
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:2.2.21'
         classpath "com.bytedance.android.byteX:base-plugin:${versions.bytex_version}"
         classpath "com.bytedance.android.byteX:const-inline-plugin:${versions.bytex_version}"
         classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${versions.bytex_version}"
@@ -37,6 +38,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenLocal()
         maven {
             url uri("$upload_dir")
         }
