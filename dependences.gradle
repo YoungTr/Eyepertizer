@@ -93,6 +93,11 @@ ext {
             "room-compiler"           : "androidx.room:room-compiler:${versions["room_version"]}",
     ]
 
+    debugImplementationDependencies = [
+//            "MethodTraceMan": "com.github.zhengcx:MethodTraceMan:1.0.7",
+            "leakCanary"    : "com.squareup.leakcanary:leakcanary-android:2.7"
+    ]
+
 }
 
 

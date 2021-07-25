@@ -105,6 +105,7 @@ class WebViewActivity : BaseActivity() {
     override fun onDestroy() {
         binding.webView.destroy()
         sonicSession?.destroy()
+        sonicSessionClient?.destroy()
         sonicSession = null
         _binding = null
         super.onDestroy()

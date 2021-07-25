@@ -90,6 +90,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     depends.each { k, v -> implementation v }
+    debugImplementationDependencies.each { k, v -> debugImplementation v }
 
     kapts.each { k, v -> kapt v }
 
