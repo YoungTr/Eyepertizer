@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">mvvm</string>
+    <string name="app_name1">mvvm</string>
+    <string name="app_name2">mvvm</string>
+    <string name="app_name3">mvvm</string>
+    <string name="app_name4">mvvm</string>
+    <string name="app_name5">mvvm</string>
 </resources>

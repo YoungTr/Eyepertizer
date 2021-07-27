@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eyepertizer.mvvm.R
 import com.eyepertizer.mvvm.data.api.ApiHelper
 import com.eyepertizer.mvvm.data.api.ApiServiceImpl
 import com.eyepertizer.mvvm.data.model.User
@@ -33,6 +34,12 @@ class MainActivity : AppCompatActivity() {
         setupUI()
         setupViewModel()
         setupObserver()
+        println(getString(R.string.app_name))
+        println(getString(R.string.app_name1))
+        println(getString(R.string.app_name2))
+        println(getString(R.string.app_name3))
+        println(getString(R.string.app_name4))
+        println(getString(R.string.app_name5))
     }
 
     private fun setupUI() {
