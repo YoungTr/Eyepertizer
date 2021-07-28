@@ -2,6 +2,10 @@ ext {
 
     upload_dir = project.rootProject.file('gradle_plugins').path
 
+    publish_config = [
+            run_type: 1,
+    ]
+
     androids = [
             compileSdkVersion: 28,
             buildToolsVersion: "28.0.3",
@@ -23,7 +27,8 @@ ext {
             lifecycle          : "2.3.1",
             room_version       : "2.3.0",
             bytex_version      : "0.3.8",
-            mcimage_version    : "2.5.1"
+            mcimage_version    : "2.5.1",
+            dokitPluginVersion : "3.4.2.1"
     ]
 
     depends = [

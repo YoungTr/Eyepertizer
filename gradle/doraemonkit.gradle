@@ -1,0 +1,9 @@
+apply plugin: 'com.didi.dokit'
+// 引用no-op的库
+dependencies {
+    debugImplementation "io.github.didi.dokit:dokitx:${versions["dokitPluginVersion"]}"
+    debugImplementation "io.github.didi.dokit:dokitx-ft:${versions["dokitPluginVersion"]}"
+    debugImplementation "io.github.didi.dokit:dokitx-mc:${versions["dokitPluginVersion"]}"
+    debugImplementation "io.github.didi.dokit:dokitx-weex:${versions["dokitPluginVersion"]}"
+    releaseImplementation "io.github.didi.dokit:dokitx-no-op:${versions["dokitPluginVersion"]}"
+}

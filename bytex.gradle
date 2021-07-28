@@ -1,4 +1,4 @@
-def enable_bytex = true
+def enable_bytex = false
 
 //apply plugin: 'bytex.const_inline'
 //const_inline {

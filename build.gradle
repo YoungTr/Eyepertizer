@@ -28,6 +28,8 @@ buildscript {
         classpath "com.bytedance.android.byteX:method-call-opt-plugin:${versions.bytex_version}"
         classpath "com.bytedance.android.byteX:shrink-r-plugin:${versions.bytex_version}"
         classpath "com.smallsoho.mobcase:McImage:${versions.mcimage_version}"
+        classpath "io.github.didi.dokit:dokitx-plugin:${versions["dokitPluginVersion"]}"
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

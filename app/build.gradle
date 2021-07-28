@@ -5,6 +5,8 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+apply from: '../gradle/doraemonkit.gradle'
+
 android {
     compileSdkVersion androids.compileSdkVersion
     buildToolsVersion androids.buildToolsVersion
