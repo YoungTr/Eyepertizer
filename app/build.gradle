@@ -5,7 +5,7 @@ plugins {
     id 'kotlin-parcelize'
 }
 
-apply from: '../gradle/doraemonkit.gradle'
+// apply from: '../gradle/doraemonkit.gradle'
 
 android {
     compileSdkVersion androids.compileSdkVersion
@@ -95,9 +95,6 @@ dependencies {
     debugImplementationDependencies.each { k, v -> debugImplementation v }
 
     kapts.each { k, v -> kapt v }
-
-    implementation 'com.dianping.android.sdk:logan:1.2.4'
-
 
 }
 

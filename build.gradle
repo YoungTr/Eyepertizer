@@ -22,13 +22,13 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:2.2.21'
         classpath "com.bytedance.android.byteX:base-plugin:${versions.bytex_version}"
-        classpath "com.bytedance.android.byteX:const-inline-plugin:${versions.bytex_version}"
-        classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${versions.bytex_version}"
-        classpath "com.bytedance.android.byteX:field-assign-opt-plugin:${versions.bytex_version}"
-        classpath "com.bytedance.android.byteX:method-call-opt-plugin:${versions.bytex_version}"
+        // classpath "com.bytedance.android.byteX:const-inline-plugin:${versions.bytex_version}"
+        // classpath "com.bytedance.android.byteX:getter-setter-inline-plugin:${versions.bytex_version}"
+        // classpath "com.bytedance.android.byteX:field-assign-opt-plugin:${versions.bytex_version}"
+        // classpath "com.bytedance.android.byteX:method-call-opt-plugin:${versions.bytex_version}"
         classpath "com.bytedance.android.byteX:shrink-r-plugin:${versions.bytex_version}"
         classpath "com.smallsoho.mobcase:McImage:${versions.mcimage_version}"
-        classpath "io.github.didi.dokit:dokitx-plugin:${versions["dokitPluginVersion"]}"
+        // classpath "io.github.didi.dokit:dokitx-plugin:${versions["dokitPluginVersion"]}"
 
 
         // NOTE: Do not place your application dependencies here; they belong
