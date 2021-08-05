@@ -25,6 +25,8 @@ import com.eyepertizer.androidx.R
 import com.eyepertizer.androidx.extension.setOnClickListener
 import com.eyepertizer.androidx.extension.showToast
 import com.eyepertizer.androidx.ui.search.SearchFragment
+import com.eyepertizer.androidx.util.logE
+import com.eyepertizer.androidx.util.logV
 import com.flyco.tablayout.CommonTabLayout
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
@@ -75,6 +77,18 @@ abstract class BaseViewPagerFragment : BaseFragment() {
         ivSearch = getRootView()?.findViewById(R.id.ivSearch)
         setOnClickListener(ivCalendar, ivSearch) {
             if (this == ivCalendar) {
+                Thread {
+                    triggerGc()
+                    triggerGc()
+                    triggerGc()
+                }.start()
+//                ivCalendar?.postDelayed({
+//                    KOOM.getInstance().manualTrigger()
+//                    KOOM.getInstance().setProgressListener { process ->
+//                        process.name.showToast()
+//                        logD(TAG, "process:" + process.name)
+//                    }
+//                }, 3000)
                 R.string.currently_not_supported.showToast()
             } else if (this == ivSearch) {
                 SearchFragment.switchFragment(getBaseActivity()!!)
@@ -131,5 +145,17 @@ abstract class BaseViewPagerFragment : BaseFragment() {
         override fun getItemCount() = fragments.size
 
         override fun createFragment(position: Int) = fragments[position]
+    }
+
+    open fun triggerGc() {
+        logV(TAG, "triggering gc...")
+        Runtime.getRuntime().gc()
+        try {
+            Thread.sleep(100)
+        } catch (e: InterruptedException) {
+            logE(TAG, e.message, e)
+        }
+        Runtime.getRuntime().runFinalization()
+        logV(TAG, "gc was triggered.")
     }
 }

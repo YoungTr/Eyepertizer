@@ -83,13 +83,23 @@ android {
         // 因此需要禁止AAPT来优化PNG图片
         cruncherEnabled = false
     }
+
+    packagingOptions {
+        exclude("/META-INF/*")
+        exclude("/org/bouncycastle/**")
+        exclude("/kotlin/**")
+        exclude("/kotlinx/**")
+        exclude("/okhttp3/**")
+        exclude("/*.txt")
+        exclude("/*.bin")
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+    }
 }
 
 dependencies {
-
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     depends.each { k, v -> implementation v }
     debugImplementationDependencies.each { k, v -> debugImplementation v }
