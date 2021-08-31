@@ -1,6 +1,6 @@
 ext {
 
-    upload_dir = project.rootProject.file('gradle_plugins').path
+    upload_dir = "/Users/youngtr/.m2/repository/"
 
     androids = [
             compileSdkVersion: 28,

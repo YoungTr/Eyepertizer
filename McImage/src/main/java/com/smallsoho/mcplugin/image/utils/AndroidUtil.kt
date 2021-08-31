@@ -7,7 +7,7 @@ class AndroidUtil {
 
     companion object {
         fun getMinSdkVersion(project: Project): Int {
-            return (project.property("android") as BaseExtension).defaultConfig.minSdkVersion.apiLevel
+            return (project.property("android") as BaseExtension).defaultConfig.minSdkVersion!!.apiLevel
         }
     }
 

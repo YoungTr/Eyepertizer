@@ -6,12 +6,6 @@ buildscript {
         google()
         jcenter()
         mavenLocal()
-        maven {
-            url uri("$upload_dir")
-        }
-        maven {
-            url uri('/Users/yougtr/AndroidStudioProjects/GITHUB/ByteX/gradle_plugins')
-        }
         maven { url 'https://www.jitpack.io' }
         maven {
             url "https://artifact.bytedance.com/repository/byteX/"
@@ -41,12 +35,6 @@ allprojects {
         google()
         jcenter()
         mavenLocal()
-        maven {
-            url uri("$upload_dir")
-        }
-        maven {
-            url uri('/Users/yougtr/AndroidStudioProjects/GITHUB/ByteX/gradle_plugins')
-        }
         maven { url 'https://www.jitpack.io' }
         maven {
             url "https://artifact.bytedance.com/repository/byteX/"
