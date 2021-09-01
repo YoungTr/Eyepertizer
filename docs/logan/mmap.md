@@ -301,3 +301,92 @@ Logan.f();
     }
 ```
 
+*LoganThread#doSendLog2Net(SendAction action)*
+
+```java
+    private void doSendLog2Net(SendAction action) {
+        if (Logan.sDebug) {
+            Log.d(TAG, "Logan send start");
+        }
+        if (TextUtils.isEmpty(mPath) || action == null || !action.isValid()) {
+            return;
+        }
+        boolean success = prepareLogFile(action);
+        if (!success) {
+            if (Logan.sDebug) {
+                Log.d(TAG, "Logan prepare log file failed, can't find log file");
+            }
+            return;
+        }
+        action.sendLogRunnable.setSendAction(action);
+        action.sendLogRunnable.setCallBackListener(
+                new SendLogRunnable.OnSendLogCallBackListener() {
+                    @Override
+                    public void onCallBack(int statusCode) {
+                        synchronized (sendSync) {
+                            mSendLogStatusCode = statusCode;
+                            if (statusCode == SendLogRunnable.FINISH) {
+                                mCacheLogQueue.addAll(mCacheSendQueue);
+                                mCacheSendQueue.clear();
+                                notifyRun();
+                            }
+                        }
+                    }
+                });
+        mSendLogStatusCode = SendLogRunnable.SENDING;
+        if (mSingleThreadExecutor == null) {
+            mSingleThreadExecutor = Executors.newSingleThreadExecutor(new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable r) {
+                    // Just rename Thread
+                    Thread t = new Thread(Thread.currentThread().getThreadGroup(), r,
+                            "logan-thread-send-log", 0);
+                    if (t.isDaemon()) {
+                        t.setDaemon(false);
+                    }
+                    if (t.getPriority() != Thread.NORM_PRIORITY) {
+                        t.setPriority(Thread.NORM_PRIORITY);
+                    }
+                    return t;
+                }
+            });
+        }
+        mSingleThreadExecutor.execute(action.sendLogRunnable);
+    }
+```
+
+* 如果当前正在发送数据，则将任务添加到 `mCacheSendQueue` 等待下一下执行发送任务。
+* 发送完成之后，会将 `mCacheSendQueue` 中的任务添加到 `mCacheLogQueue` ，等待下一次执行。
+
+*LoganThread#prepareLogFile(SendAction action)*
+
+```java
+    /**
+     * 发送日志前的预处理操作
+     */
+    private boolean prepareLogFile(SendAction action) {
+        if (Logan.sDebug) {
+            Log.d(TAG, "prepare log file");
+        }
+        if (isFile(action.date)) { //是否有日期文件
+            String src = mPath + File.separator + action.date;
+            // 如果上传的当天的日志，则生成一个副本
+            if (action.date.equals(String.valueOf(Util.getCurrentTime()))) {
+                doFlushLog2File();
+                String des = mPath + File.separator + action.date + ".copy";
+                if (copyFile(src, des)) {
+                    action.uploadPath = des;
+                    return true;
+                }
+            } else {
+                action.uploadPath = src;
+                return true;
+            }
+        } else {
+            action.uploadPath = "";
+        }
+        return false;
+    }
+```
+
+* 如果上传的当天的日志，则生成一个名为 `data.copy` 的副本，将这个副本上传，上传完成之后会将该文件删除。
