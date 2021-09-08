@@ -1,6 +1,6 @@
 ext {
 
-    upload_dir = "/Users/youngtr/.m2/repository/"
+    upload_dir = new File(System.getProperty('user.home'), '.m2/repository').absolutePath
 
     androids = [
             compileSdkVersion: 28,
@@ -86,8 +86,7 @@ ext {
             "sonic"                  : "com.tencent.sonic:sdk:3.1.0",
 
             // performance
-            "koom"                   : "com.kwai.koom:java-oom:2.0.0",
-//            "koom-no-op"             : "com.kwai.koom:java-oom-no-op:2.0.0"
+            "logan"                  : "com.dianping.android.sdk:logan:2.0.0"
     ]
 
     kapts = [
@@ -98,10 +97,12 @@ ext {
     ]
 
     debugImplementationDependencies = [
-//            "leakCanary": "com.squareup.leakcanary:leakcanary-android:2.7",
+            // "leakCanary": "com.squareup.leakcanary:leakcanary-android:2.7",
+            "koom-no-op": "com.kwai.koom:java-oom:2.0.0"
     ]
 
     releaseImplementationDependencies = [
+            "koom": "com.kwai.koom:java-oom-no-op:2.0.0",
     ]
 }
 

@@ -1,5 +1,24 @@
 # Logan
 
+### 简介
+
+**1、整体结构**
+
+![logan_struct](./pics/logan_struct.png)
+
+1. 当有日志(data)需要写入时，将data做系列处理：格式化(附加线程、时间等有用信息)、压缩、DES加密，最后追加到 mmap 中。
+2. mmap 能提高写日志效率，防止丢失，mmap 中，如果日志达到了 5 K，就构成一个压缩单元，如果有后续的日志，就开始一个新的压缩单元。
+3. 当 mmap 中的日志超过容量(初始指定为10M)的1/3就写入日志文件中。
+
+**2、存储结构**
+
+![logFile_format](./pics/logFile_format.png)
+
+![logan_header](./pics/logan_header.jpg)
+
+1. 日志头以 0x0D标志位表示header开始，紧接两个字节表示头内容的长度，接着是头内容、最后用 0x0E 标志位表示 header 结束。
+2. 日志体由长度(total_len，三字节、小端模式存储)、协议组成。协议由协议起始标志位(1字节，值为0x01)、内容、协议结束标志位(1字节、值为0x00)。内容由内容长度(4字节，大端模式存储)、各个log组成。
+
 ### Java 部分
 
 **1、初始化**
@@ -394,4 +413,251 @@ Logan.f();
 ### Native 部分
 
 **1、初始化**
+
+*clogan_core#clogan_init*
+
+```c
+/**
+ * Logan初始化
+ * @param cachedirs 缓存路径
+ * @param pathdirs  目录路径
+ * @param max_file  日志文件最大值
+ */
+int
+clogan_init(const char *cache_dirs, const char *path_dirs, int max_file, const char *encrypt_key16,
+            const char *encrypt_iv16) {
+    int back = CLOGAN_INIT_FAIL_HEADER;
+    if (is_init_ok ||
+        NULL == cache_dirs || strnlen(cache_dirs, 11) == 0 ||
+        NULL == path_dirs || strnlen(path_dirs, 11) == 0 ||
+        NULL == encrypt_key16 || NULL == encrypt_iv16) {
+        back = CLOGAN_INIT_FAIL_HEADER;
+        return back;
+    }
+
+    if (max_file > 0) {
+        max_file_len = max_file;
+    } else {
+        max_file_len = LOGAN_LOGFILE_MAXLENGTH;
+    }
+
+    if (NULL != _dir_path) { // 初始化时 , _dir_path和_mmap_file_path是非空值,先释放,再NULL
+        free(_dir_path);
+        _dir_path = NULL;
+    }
+    if (NULL != _mmap_file_path) {
+        free(_mmap_file_path);
+        _mmap_file_path = NULL;
+    }
+
+    aes_init_key_iv(encrypt_key16, encrypt_iv16);
+
+    size_t path1 = strlen(cache_dirs);
+    size_t path2 = strlen(LOGAN_CACHE_DIR);
+    size_t path3 = strlen(LOGAN_CACHE_FILE);
+    size_t path4 = strlen(LOGAN_DIVIDE_SYMBOL);
+
+    int isAddDivede = 0;
+    char d = *(cache_dirs + path1 - 1);
+    if (d != '/') {
+        isAddDivede = 1;
+    }
+
+    size_t total = path1 + (isAddDivede ? path4 : 0) + path2 + path4 + path3 + 1;
+    char *cache_path = malloc(total);
+    if (NULL != cache_path) {
+        _mmap_file_path = cache_path; //保持mmap文件路径,如果初始化失败,注意释放_mmap_file_path
+    } else {
+        is_init_ok = 0;
+        printf_clogan("clogan_init > malloc memory fail for mmap_file_path \n");
+        back = CLOGAN_INIT_FAIL_NOMALLOC;
+        return back;
+    }
+
+    memset(cache_path, 0, total);
+    strcpy(cache_path, cache_dirs);
+    if (isAddDivede)
+        strcat(cache_path, LOGAN_DIVIDE_SYMBOL);
+
+    strcat(cache_path, LOGAN_CACHE_DIR);
+    strcat(cache_path, LOGAN_DIVIDE_SYMBOL);
+
+    makedir_clogan(cache_path); //创建保存mmap文件的目录
+
+    strcat(cache_path, LOGAN_CACHE_FILE);
+
+    printf_clogan(cache_path);
+
+    size_t dirLength = strlen(path_dirs);
+
+    isAddDivede = 0;
+    d = *(path_dirs + dirLength - 1);
+    if (d != '/') {
+        isAddDivede = 1;
+    }
+    total = dirLength + (isAddDivede ? path4 : 0) + 1;
+
+    char *dirs = (char *) malloc(total); //缓存文件目录
+
+    if (NULL != dirs) {
+        _dir_path = dirs; //日志写入的文件目录
+    } else {
+        is_init_ok = 0;
+        printf_clogan("clogan_init > malloc memory fail for _dir_path \n");
+        back = CLOGAN_INIT_FAIL_NOMALLOC;
+        return back;
+    }
+    memset(dirs, 0, total);
+    memcpy(dirs, path_dirs, dirLength);
+    if (isAddDivede)
+        strcat(dirs, LOGAN_DIVIDE_SYMBOL);
+    makedir_clogan(_dir_path); //创建缓存目录,如果初始化失败,注意释放_dir_path
+
+    int flag = LOGAN_MMAP_FAIL;
+    printf_clogan("_logan_buffer: ", _logan_buffer);
+    printf_clogan("_cache_buffer_buffer: ", _cache_buffer_buffer);
+    if (NULL == _logan_buffer) {
+        if (NULL == _cache_buffer_buffer) {
+            flag = open_mmap_file_clogan(cache_path, &_logan_buffer, &_cache_buffer_buffer);
+        } else {
+            flag = LOGAN_MMAP_MEMORY;
+        }
+    } else {
+        flag = LOGAN_MMAP_MMAP;
+    }
+
+    if (flag == LOGAN_MMAP_MMAP) {
+        buffer_length = LOGAN_MMAP_LENGTH;
+        buffer_type = LOGAN_MMAP_MMAP;
+        is_init_ok = 1;
+        back = CLOGAN_INIT_SUCCESS_MMAP;
+    } else if (flag == LOGAN_MMAP_MEMORY) {
+        buffer_length = LOGAN_MEMORY_LENGTH;
+        buffer_type = LOGAN_MMAP_MEMORY;
+        is_init_ok = 1;
+        back = CLOGAN_INIT_SUCCESS_MEMORY;
+    } else if (flag == LOGAN_MMAP_FAIL) {
+        is_init_ok = 0;
+        back = CLOGAN_INIT_FAIL_NOCACHE;
+    }
+
+    if (is_init_ok) {
+        if (NULL == logan_model) {
+            logan_model = malloc(sizeof(cLogan_model));
+            if (NULL != logan_model) { //堆非空判断 , 如果为null , 就失败
+                memset(logan_model, 0, sizeof(cLogan_model));
+            } else {
+                is_init_ok = 0;
+                printf_clogan("clogan_init > malloc memory fail for logan_model\n");
+                back = CLOGAN_INIT_FAIL_NOMALLOC;
+                return back;
+            }
+        }
+        if (flag == LOGAN_MMAP_MMAP) //MMAP的缓存模式,从缓存的MMAP中读取数据
+            read_mmap_data_clogan(_dir_path);
+        printf_clogan("clogan_init > logan init success\n");
+    } else {
+        printf_clogan("clogan_open > logan init fail\n");
+        // 初始化失败，删除所有路径
+        if (NULL != _dir_path) {
+            free(_dir_path);
+            _dir_path = NULL;
+        }
+        if (NULL != _mmap_file_path) {
+            free(_mmap_file_path);
+            _mmap_file_path = NULL;
+        }
+    }
+    return back;
+}
+```
+
+1. 几个全局变量
+   * max_file_len： 日志文件最大长度，默认 10 M
+   * _dir_path：日志文件路径
+   * _mmap_file_path：mmap 文件路径
+   * _logan_buffer：mmap buffer
+   * _cache_buffer_buffer：内存buffer
+   * logan_model：struct，主要保存数据长度、文件路径、压缩类型、剩余空间、剩余空间长度、缓存指针、最后写入位置指针、总数指针、协议内容长度指针、内容大小等信息。
+   * Buffer_type：缓存区块的类型，MMAP 或者 MEMORY
+2. 根据传入的 path_dirs 和 path_dirs 创建对应的目录
+3. 调用 `open_mmap_file_clogan` 初始化 mmap，如果 mmap 打开失败，则使用内存缓存。
+4. 如果文件目录创建成功，mmap 或内存缓存也初始化成功，则创建 `cLogan_model` 这个结构体。
+5. 如果是 mmap 缓存模式，则调用 `read_mmap_data_clogan` 从缓存的 MMAP 中读取数据。
+
+*clogan_core#read_mmap_data_clogan*
+
+```c
+void read_mmap_data_clogan(const char *path_dirs) {
+    if (buffer_type == LOGAN_MMAP_MMAP) {
+        printf_clogan("read_mmap_data_clogan");
+        unsigned char *temp = _logan_buffer;
+        unsigned char *temp2 = NULL;
+        char i = *temp;
+        printf_clogan("%c", i);
+        if (LOGAN_MMAP_HEADER_PROTOCOL == i) {
+            temp++;
+            char len_array[] = {'\0', '\0', '\0', '\0'};
+            len_array[0] = *temp;
+            printf_clogan("%d\n", *temp);
+            temp++;
+            len_array[1] = *temp;
+
+
+            adjust_byteorder_clogan(len_array);
+            int *len_p = (int *) len_array;
+            temp++;
+            temp2 = temp;
+            int len = *len_p;
+
+            printf_clogan("read_mmapdata_clogan > path's json length : %d\n", len);
+
+            if (len > 0 && len < 1024) {
+                printf_clogan("header data");
+                temp += len;
+                i = *temp;
+                if (LOGAN_MMAP_TAIL_PROTOCOL == i) {
+                    char dir_json[len];
+                    memset(dir_json, 0, len);
+                    memcpy(dir_json, temp2, len);
+                    printf_clogan("dir_json: ");
+                    printf_clogan(dir_json);
+                    cJSON *cjson = cJSON_Parse(dir_json);
+
+                    if (NULL != cjson) {
+                        cJSON *dir_str = cJSON_GetObjectItem(cjson,
+                                                             LOGAN_VERSION_KEY);  //删除json根元素释放
+                        cJSON *path_str = cJSON_GetObjectItem(cjson, LOGAN_PATH_KEY);
+                        if ((NULL != dir_str && cJSON_Number == dir_str->type &&
+                             CLOGAN_VERSION_NUMBER == dir_str->valuedouble) &&
+                            (NULL != path_str && path_str->type == cJSON_String &&
+                             !is_string_empty_clogan(path_str->valuestring))) {
+
+                            printf_clogan(
+                                    "read_mmapdata_clogan > dir , path and version : %s || %s || %lf\n",
+                                    path_dirs, path_str->valuestring, dir_str->valuedouble);
+
+                            size_t dir_len = strlen(path_dirs);
+                            size_t path_len = strlen(path_str->valuestring);
+                            size_t length = dir_len + path_len + 1;
+                            char file_path[length];
+                            memset(file_path, 0, length);
+                            memcpy(file_path, path_dirs, dir_len);
+                            strcat(file_path, path_str->valuestring);
+                            temp++;
+                            write_mmap_data_clogan(file_path, temp);
+                        }
+                        cJSON_Delete(cjson);
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+1. 如果 `buffer_type == LOGAN_MMAP_MMAP` ，则读取 mmap 文件中当前Logan的版本和日志文件名。
+2. 调用 `write_mmap_data_clogan` 方法，给 `cLogan_model` 设置 `total_point` 指针，文件路径指针，`mmap total_len` 
+3. 调用 `init_file_clogan` 读取文件大小，设置 `file_stream_type` open
+4. 调用 `clogan_flush` ，刷新数据。
 

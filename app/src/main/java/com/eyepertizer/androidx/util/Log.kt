@@ -17,6 +17,7 @@
 package com.eyepertizer.androidx.util
 
 import android.util.Log
+import com.dianping.logan.Logan
 import com.eyepertizer.androidx.BuildConfig
 
 /**
@@ -38,18 +39,21 @@ fun logV(tag: String, msg: String?) {
     if (level <= VERBOSE) {
         Log.v(TAG + tag, msg.toString())
     }
+    Logan.w(msg, 1)
 }
 
 fun logD(tag: String, msg: String?) {
     if (level <= DEBUG) {
         Log.d(TAG + tag, msg.toString())
     }
+    Logan.w(msg, 2)
 }
 
 fun logI(tag: String, msg: String?) {
     if (level <= INFO) {
         Log.i(TAG + tag, msg.toString())
     }
+    Logan.w(msg, 3)
 }
 
 fun logW(tag: String, msg: String?, tr: Throwable? = null) {
@@ -60,11 +64,13 @@ fun logW(tag: String, msg: String?, tr: Throwable? = null) {
             Log.w(TAG + tag, msg.toString(), tr)
         }
     }
+    Logan.w(msg, 4)
 }
 
 fun logE(tag: String, msg: String?, tr: Throwable) {
     if (level <= ERROR) {
         Log.e(TAG + tag, msg.toString(), tr)
     }
+    Logan.w(msg, 5)
 }
 

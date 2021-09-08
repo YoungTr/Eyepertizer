@@ -103,6 +103,7 @@ dependencies {
 
     depends.each { k, v -> implementation v }
     debugImplementationDependencies.each { k, v -> debugImplementation v }
+    releaseImplementationDependencies.each { k, v -> releaseImplementation v }
 
     kapts.each { k, v -> kapt v }
 
