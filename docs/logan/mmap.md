@@ -657,7 +657,98 @@ void read_mmap_data_clogan(const char *path_dirs) {
 ```
 
 1. 如果 `buffer_type == LOGAN_MMAP_MMAP` ，则读取 mmap 文件中当前Logan的版本和日志文件名。
-2. 调用 `write_mmap_data_clogan` 方法，给 `cLogan_model` 设置 `total_point` 指针，文件路径指针，`mmap total_len` 
-3. 调用 `init_file_clogan` 读取文件大小，设置 `file_stream_type` open
+2. 调用 `write_mmap_data_clogan` 方法，给 `cLogan_model` 设置 `total_point` 指针，日志文件路径指针，`mmap content total_len` 
+3. 调用 `init_file_clogan` 读取日志文件大小，设置日志文件的  FILE 指针。
 4. 调用 `clogan_flush` ，刷新数据。
+
+*clogan_core#write_mmap_data_clogan*
+
+```c
+void write_mmap_data_clogan(char *path, unsigned char *temp) {
+    logan_model->total_point = temp;
+    logan_model->file_path = path;
+    char len_array[] = {'\0', '\0', '\0', '\0'};
+    len_array[0] = *temp;
+    temp++;
+    len_array[1] = *temp;
+    temp++;
+    len_array[2] = *temp;
+
+    adjust_byteorder_clogan(len_array);//调整字节序,默认为低字节序,在读取的地方处理
+
+    int *total_len = (int *) len_array;
+
+    int t = *total_len;
+    printf_clogan("write_mmapdata_clogan > buffer total length %d\n", t);
+    if (t > LOGAN_WRITEPROTOCOL_HEAER_LENGTH && t < LOGAN_MMAP_LENGTH) {
+      // 设置 total_len  
+      logan_model->total_len = t;
+        if (NULL != logan_model) {
+            if (init_file_clogan(logan_model)) {
+                logan_model->is_ok = 1;
+                logan_model->zlib_type = LOGAN_ZLIB_NONE;
+                clogan_flush();
+                fclose(logan_model->file);
+                logan_model->file_stream_type = LOGAN_FILE_CLOSE;
+
+            }
+        }
+    } else {
+        logan_model->file_stream_type = LOGAN_FILE_NONE;
+    }
+    logan_model->total_len = 0;
+    logan_model->file_path = NULL;
+}
+```
+
+*clogan_core#write_flush_clogan()*
+
+```c
+void write_flush_clogan() {
+    if (logan_model->zlib_type == LOGAN_ZLIB_ING) {
+        clogan_zlib_end_compress(logan_model);
+        update_length_clogan(logan_model);
+    }
+    if (logan_model->total_len > LOGAN_WRITEPROTOCOL_HEAER_LENGTH) {
+        unsigned char *point = logan_model->total_point;
+        point += LOGAN_MMAP_TOTALLEN;
+        write_dest_clogan(point, sizeof(char), logan_model->total_len, logan_model);
+        printf_clogan("write_flush_clogan > logan total len : %d \n", logan_model->total_len);
+        clear_clogan(logan_model);
+    }
+}
+```
+
+*clogan_core#write_dest_clogan*
+
+```c
+//文件写入磁盘、更新文件大小
+void write_dest_clogan(void *point, size_t size, size_t length, cLogan_model *loganModel) {
+    if (!is_file_exist_clogan(loganModel->file_path)) { //如果文件被删除,再创建一个文件
+        if (logan_model->file_stream_type == LOGAN_FILE_OPEN) {
+            fclose(logan_model->file);
+            logan_model->file_stream_type = LOGAN_FILE_CLOSE;
+        }
+        if (NULL != _dir_path) {
+            if (!is_file_exist_clogan(_dir_path)) {
+                makedir_clogan(_dir_path);
+            }
+            init_file_clogan(logan_model);
+            printf_clogan("clogan_write > create log file , restore open file stream \n");
+        }
+    }
+    if (CLOGAN_EMPTY_FILE == loganModel->file_len) { //如果是空文件插入一行CLogan的头文件
+        insert_header_file_clogan(loganModel);
+    }
+    fwrite(point, sizeof(char), logan_model->total_len, logan_model->file);//写入到文件中
+    fflush(logan_model->file);
+    loganModel->file_len += loganModel->total_len; //修改文件大小
+}
+```
+
+1. 如果日志文件是空文件插入一行CLogan的头内容
+
+![logan_log_header](./pics/logan_log_header.jpg)
+
+**2、写入数据**
 
