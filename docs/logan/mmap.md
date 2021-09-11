@@ -25,7 +25,7 @@
 
 ```java
 LoganConfig config = new LoganConfig.Builder()
-                .setCachePath(getApplicationContext().getFilesDir().getAbsolutePath())
+                .setCachePath(getApplicationContext().getFilesDi r().getAbsolutePath())
                 .setPath(getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + File.separator + FILE_NAME)
                 .setEncryptKey16("0123456789012345".getBytes())
                 .setEncryptIV16("0123456789012345".getBytes())
@@ -752,3 +752,141 @@ void write_dest_clogan(void *point, size_t size, size_t length, cLogan_model *lo
 
 **2、写入数据**
 
+*clogan_core#clogan_write*
+
+```c
+/**
+ @brief 写入数据 按照顺序和类型传值(强调、强调、强调)
+ @param flag 日志类型 (int)
+ @param log 日志内容 (char*)
+ @param local_time 日志发生的本地时间，形如1502100065601 (long long)
+ @param thread_name 线程名称 (char*)
+ @param thread_id 线程id (long long) 为了兼容JAVA
+ @param ismain 是否为主线程，0为是主线程，1位非主线程 (int)
+ */
+int
+clogan_write(int flag, char *log, long long local_time, char *thread_name, long long thread_id,
+             int is_main) {
+    int back = CLOGAN_WRITE_FAIL_HEADER;
+    if (!is_init_ok || NULL == logan_model || !is_open_ok) {
+        back = CLOGAN_WRITE_FAIL_HEADER;
+        return back;
+    }
+
+    if (logan_model->file_len > max_file_len) {
+        printf_clogan("clogan_write > beyond max file , cant write log\n");
+        back = CLOAGN_WRITE_FAIL_MAXFILE;
+        return back;
+    }
+
+    //判断MMAP文件是否存在,如果被删除,用内存缓存
+    if (buffer_type == LOGAN_MMAP_MMAP && !is_file_exist_clogan(_mmap_file_path)) {
+        if (NULL != _cache_buffer_buffer) {
+            buffer_type = LOGAN_MMAP_MEMORY;
+            buffer_length = LOGAN_MEMORY_LENGTH;
+
+            printf_clogan("clogan_write > change to memory buffer");
+
+            _logan_buffer = _cache_buffer_buffer;
+            logan_model->total_point = _logan_buffer;
+            logan_model->total_len = 0;
+            logan_model->content_len = 0;
+            logan_model->remain_data_len = 0;
+
+            if (logan_model->zlib_type == LOGAN_ZLIB_INIT) {
+                clogan_zlib_delete_stream(logan_model); //关闭已开的流
+            }
+
+            logan_model->last_point = logan_model->total_point + LOGAN_MMAP_TOTALLEN;
+            restore_last_position_clogan(logan_model);
+            init_zlib_clogan(logan_model);
+            init_encrypt_key_clogan(logan_model);
+            logan_model->is_ok = 1;
+        } else {
+            buffer_type = LOGAN_MMAP_FAIL;
+            is_init_ok = 0;
+            is_open_ok = 0;
+            _logan_buffer = NULL;
+        }
+    }
+
+    Construct_Data_cLogan *data = construct_json_data_clogan(log, flag, local_time, thread_name,
+                                                             thread_id, is_main);
+    if (NULL != data) {
+        clogan_write_section(data->data, data->data_len);
+        construct_data_delete_clogan(data);
+        back = CLOGAN_WRITE_SUCCESS;
+    } else {
+        back = CLOGAN_WRITE_FAIL_MALLOC;
+    }
+    return back;
+}
+```
+
+*clogan_core#clogan_write_section*
+
+```c
+//如果数据流非常大,切割数据,分片写入
+void clogan_write_section(char *data, int length) {
+    int size = LOGAN_WRITE_SECTION;
+    int times = length / size;
+    int remain_len = length % size;
+    char *temp = data;
+    int i = 0;
+    for (i = 0; i < times; i++) {
+        clogan_write2(temp, size);
+        temp += size;
+    }
+    if (remain_len) {
+        clogan_write2(temp, remain_len);
+    }
+}
+```
+
+1. 如果需要写入的日志长度大于 20 k，则会切割数据，分片写入
+
+*clogan_core#clogan_write2*
+
+```c
+void clogan_write2(char *data, int length) {
+    if (NULL != logan_model && logan_model->is_ok) {
+        clogan_zlib_compress(logan_model, data, length);
+        update_length_clogan(logan_model); //有数据操作,要更新数据长度到缓存中
+        int is_gzip_end = 0;
+
+        if (!logan_model->file_len ||
+            logan_model->content_len >= LOGAN_MAX_GZIP_UTIL) { //是否一个压缩单元结束
+            clogan_zlib_end_compress(logan_model);
+            is_gzip_end = 1;
+            update_length_clogan(logan_model);
+        }
+
+        int isWrite = 0;
+        if (!logan_model->file_len && is_gzip_end) { //如果是个空文件、第一条日志写入
+            isWrite = 1;
+            printf_clogan("clogan_write2 > write type empty file \n");
+        } else if (buffer_type == LOGAN_MMAP_MEMORY && is_gzip_end) { //直接写入文件
+            isWrite = 1;
+            printf_clogan("clogan_write2 > write type memory \n");
+        } else if (buffer_type == LOGAN_MMAP_MMAP &&
+                   logan_model->total_len >=
+                   buffer_length / LOGAN_WRITEPROTOCOL_DEVIDE_VALUE) { //如果是MMAP 且 文件长度已经超过三分之一
+            isWrite = 1;
+            printf_clogan("clogan_write2 > write type MMAP \n");
+        }
+        if (isWrite) { //写入
+            write_flush_clogan();
+        } else if (is_gzip_end) { //如果是mmap类型,不回写IO,初始化下一步
+            logan_model->content_len = 0;
+            logan_model->remain_data_len = 0;
+            init_zlib_clogan(logan_model);
+            restore_last_position_clogan(logan_model);
+            init_encrypt_key_clogan(logan_model);
+        }
+    }
+}
+```
+
+1. 数据会压缩并加密然后追加到到mmap
+2. 如果当前数据长度大于5k，当前的压缩单元结束
+3. 如果mmap的长度大于mmap的 1/3，则会将mmap刷新到日志文件中。
