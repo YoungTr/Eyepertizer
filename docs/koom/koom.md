@@ -334,6 +334,7 @@ MonitorManager 会添加一个 `HeapMonitor`
 1. `buildFiles` 构建 hprof 和 report 文件，格式为当前日期 `yyyy-MM-dd_HH-mm-ss`
 2. 添加 dump 的 reason 和 device running info，写入 report 文件中
 3. `heapDumper.dump` 开始执行 dump 操作
+4. dump 成功，`heapDumpListener.onHeapDumped(reason)` 通知解析 hprof 文件
 
 *ForkJvmHeapDumper#dump(String path)*
 
@@ -383,7 +384,130 @@ MonitorManager 会添加一个 `HeapMonitor`
   }
 ```
 
+* Android 11 以上调用 `dumpHprofDataNative(path)` dump hprof
+
+* fork 子进程的方式 dump hprof（后续解析）
+
+  > 该进程为父进程时，返回子进程的 pid
+  >
+  > 该进程为子进程时，返回 0
+  >
+  > fork 执行失败，返回 -1
+
+#### 4、解析 hprof
+
+*HeapAnalysisTrigger#startTrack()*
+
+```java
+  @Override
+  public void startTrack() {
+    KTriggerStrategy strategy = strategy();
+    if (strategy == KTriggerStrategy.RIGHT_NOW) {
+      trigger(TriggerReason.analysisReason(TriggerReason.AnalysisReason.RIGHT_NOW));
+    }
+  }
+```
+
+*HeapAnalysisTrigger#trigger(TriggerReason triggerReason)*
+
+```java
+  @Override
+  public void trigger(TriggerReason triggerReason) {
+    //do trigger when foreground
+    if (!isForeground) {
+      KLog.i(TAG, "reTrigger when foreground");
+      this.reTriggerReason = triggerReason;
+      return;
+    }
+
+    KLog.i(TAG, "trigger reason:" + triggerReason.analysisReason);
+
+    if (triggered) {
+      KLog.i(TAG, "Only once trigger!");
+      return;
+    }
+    triggered = true;
+
+    HeapAnalyzeReporter.addAnalysisReason(triggerReason.analysisReason);
+
+    if (triggerReason.analysisReason == TriggerReason.AnalysisReason.REANALYSIS) {
+      HeapAnalyzeReporter.recordReanalysis();
+    }
+
+    //test reanalysis
+    //if (triggerReason.analysisReason != TriggerReason.AnalysisReason.REANALYSIS) return;
+
+    if (heapAnalysisListener != null) {
+      heapAnalysisListener.onHeapAnalysisTrigger();
+    }
+
+    try {
+      doAnalysis(KGlobalConfig.getApplication());
+    } catch (Exception e) {
+      KLog.e(TAG, "doAnalysis failed");
+      e.printStackTrace();
+      if (heapAnalysisListener != null) {
+        heapAnalysisListener.onHeapAnalyzeFailed();
+      }
+    }
+  }
+
+```
+
+* 如果应用进入后台，则返回
+* 如果正在执行解析操作，则返回
+* 调用 `doAnalysis(KGlobalConfig.getApplication())` 开启一个 service 解析
+
+*HeapAnalyzeService#runAnalysis*
+
+```java
+  public static void runAnalysis(Application application,
+      HeapAnalysisListener heapAnalysisListener) {
+    KLog.i(TAG, "runAnalysis startService");
+    Intent intent = new Intent(application, HeapAnalyzeService.class);
+    IPCReceiver ipcReceiver = buildAnalysisReceiver(heapAnalysisListener);
+    intent.putExtra(KConstants.ServiceIntent.RECEIVER, ipcReceiver);
+    KHeapFile heapFile = KHeapFile.getKHeapFile();
+    intent.putExtra(KConstants.ServiceIntent.HEAP_FILE, heapFile);
+    application.startService(intent);
+  }
+```
+
+*HeapAnalysisTrigger#doAnalyze()*
+
+```java
+  /**
+   * run in the heap_analysis process
+   */
+  private boolean doAnalyze() {
+    return heapAnalyzer.analyze();
+  }
+```
+
+*KHeapAnalyzer#analyze()*
+
+```java
+  public boolean analyze() {
+    KLog.i(TAG, "analyze");
+    Pair<List<ApplicationLeak>, List<LibraryLeak>> leaks = leaksFinder.find();
+    if (leaks == null) {
+      return false;
+    }
+
+    //Add gc path to report file.
+    HeapAnalyzeReporter.addGCPath(leaks, leaksFinder.leakReasonTable);
+
+    //Add done flag to report file.
+    HeapAnalyzeReporter.done();
+    return true;
+  }
+```
+
+* 开始解析并添加解析结果和解析完成标记记录到 report 文件中
+
 ### 参考
 
+[fork的原理及实现](https://zhuanlan.zhihu.com/p/36872365)
 
+[fork()----父子进程共享](https://yuhao0102.github.io/2019/05/05/fork----%E7%88%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB/)
 
