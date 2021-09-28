@@ -505,9 +505,39 @@ MonitorManager 会添加一个 `HeapMonitor`
 
 * 开始解析并添加解析结果和解析完成标记记录到 report 文件中
 
+
+
+### 项目实战
+
+#### 1、设备基础信息
+
+> 屏幕分辨率：480 * 480
+>
+> 屏幕密度：160 dpi
+>
+> Android 系统：8.1.0
+>
+> CPU 信息：4 核，ARMv8 Processor rev 2 (v8l)
+>
+> 内心信息（`adb shell cat /proc/meminfo `）：
+>
+> * MemTotal（所有可用 RAM 内存大小）:        2010904 kB（2GB）
+>
+>    磁盘大小（`adb shell cat /proc/partitions`）：7634944 kb （7GB）
+
+#### 2、Runtime
+
+![runtime](./pics/runtime.png)
+
+
+
 ### 参考
 
 [fork的原理及实现](https://zhuanlan.zhihu.com/p/36872365)
 
 [fork()----父子进程共享](https://yuhao0102.github.io/2019/05/05/fork----%E7%88%B6%E5%AD%90%E8%BF%9B%E7%A8%8B%E5%85%B1%E4%BA%AB/)
+
+[关于java：什么是Runtime.getRuntime()。totalMemory()和freeMemory()？](https://www.codenong.com/3571203/)
+
+[谈谈Runtime类中的freeMemory,totalMemory,maxMemory几个方法](https://blog.csdn.net/wgw335363240/article/details/8878644)
 
